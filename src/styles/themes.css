@@ -1,0 +1,45 @@
+@layer theme {
+  @theme {
+    --color-text-extra-accent: #ffffff;
+    --color-text-accent: #fafafa;
+    --color-text: #f0f0f0;
+    --color-text-muted: #d9d9d9;
+    --color-text-extra-muted: #c2c2c2;
+
+    --color-primary-extra-accent: #d0b3ff;
+    --color-primary-accent: #b380ff;
+    --color-primary: #9966ff;
+    --color-primary-muted: #734dbf;
+    --color-primary-extra-muted: #4d337f;
+
+    --color-surface-extra-accent: #1a1a1a;
+    --color-surface-accent: #141414;
+    --color-surface: #101010;
+    --color-surface-muted: #0d0d0d;
+    --color-surface-extra-muted: #0a0a0a;
+
+    --color-success-extra-accent: #66ffb2;
+    --color-success-accent: #55e6a0;
+    --color-success: #44cc8f;
+    --color-success-muted: #339973;
+    --color-success-extra-muted: #267358;
+
+    --color-warning-extra-accent: #ffd280;
+    --color-warning-accent: #ffbd66;
+    --color-warning: #ffa94d;
+    --color-warning-muted: #cc853d;
+    --color-warning-extra-muted: #99632e;
+
+    --color-danger-extra-accent: #ff9999;
+    --color-danger-accent: #ff7373;
+    --color-danger: #ff5555;
+    --color-danger-muted: #cc4444;
+    --color-danger-extra-muted: #993333;
+
+    --color-info-extra-accent: #99ddff;
+    --color-info-accent: #66c2ff;
+    --color-info: #4da6ff;
+    --color-info-muted: #3d80cc;
+    --color-info-extra-muted: #2e5c99;
+  }
+}

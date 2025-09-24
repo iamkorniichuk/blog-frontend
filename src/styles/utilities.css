@@ -1,0 +1,30 @@
+@layer utilities {
+  .success {
+    --color-extra-accent: var(--color-success-extra-accent);
+    --color-accent: var(--color-success-accent);
+    --color: var(--color-success);
+    --color-muted: var(--color-success-muted);
+    --color-extra-muted: var(--color-success-extra-muted);
+  }
+  .warning {
+    --color-extra-accent: var(--color-warning-extra-accent);
+    --color-accent: var(--color-warning-accent);
+    --color: var(--color-warning);
+    --color-muted: var(--color-warning-muted);
+    --color-extra-muted: var(--color-warning-extra-muted);
+  }
+  .danger {
+    --color-extra-accent: var(--color-danger-extra-accent);
+    --color-accent: var(--color-danger-accent);
+    --color: var(--color-danger);
+    --color-muted: var(--color-danger-muted);
+    --color-extra-muted: var(--color-danger-extra-muted);
+  }
+  .info {
+    --color-extra-accent: var(--color-info-extra-accent);
+    --color-accent: var(--color-info-accent);
+    --color: var(--color-info);
+    --color-muted: var(--color-info-muted);
+    --color-extra-muted: var(--color-info-extra-muted);
+  }
+}

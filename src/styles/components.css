@@ -1,0 +1,46 @@
+@layer components {
+  .btn {
+    @apply relative overflow-hidden px-6 py-2 rounded-xl;
+    @apply flex flex-row gap-2 items-center justify-center;
+    @apply truncate;
+    @apply hover:cursor-pointer active:cursor-pointer;
+    @apply disabled:hover:cursor-auto disabled:active:cursor-auto;
+
+    svg {
+      @apply stroke-current;
+    }
+
+    img,
+    svg {
+      @apply h-[1em] w-auto inline-block align-middle;
+    }
+  }
+
+  .btn-primary {
+    @apply font-medium border-1;
+    @apply border-[color:var(--color-extra-accent,var(--color-primary-extra-accent))];
+    @apply bg-[color:var(--color-muted,var(--color-primary-muted))];
+
+    @apply hover:bg-[color:var(--color,var(--color-primary))];
+    @apply hover:text-text-accent;
+    @apply active:bg-[color:var(--color-accent,var(--color-primary-accent))];
+    @apply active:text-text-extra-accent;
+
+    @apply disabled:border-[color:var(--color-extra-muted,var(--color-primary-extra-muted))];
+    @apply disabled:bg-[color:var(--color-extra-muted,var(--color-primary-extra-muted))];
+    @apply disabled:text-text-muted;
+  }
+
+  .btn-secondary {
+    @apply font-normal bg-surface;
+    @apply text-[color:var(--color,var(--color-text))];
+
+    @apply hover:bg-surface-accent;
+    @apply active:bg-surface-extra-accent;
+    @apply hover:text-[color:var(--color-accent,var(--color-text-accent))];
+    @apply active:text-[color:var(--color-extra-accent,var(--color-text-extra-accent))];
+
+    @apply disabled:text-[color:var(--color-muted,var(--color-text-muted))];
+    @apply disabled:hover:bg-surface disabled:active:bg-surface;
+  }
+}
