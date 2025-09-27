@@ -1,4 +1,11 @@
 @layer utilities {
+  .surface {
+    --color-extra-accent: var(--color-surface-extra-accent);
+    --color-accent: var(--color-surface-accent);
+    --color: var(--color-surface);
+    --color-muted: var(--color-surface-muted);
+    --color-extra-muted: var(--color-surface-extra-muted);
+  }
   .success {
     --color-extra-accent: var(--color-success-extra-accent);
     --color-accent: var(--color-success-accent);

@@ -1,0 +1,24 @@
+@layer components {
+  .code-block {
+    @apply border border-surface-extra-accent rounded-xl overflow-hidden;
+  }
+
+  .code-header {
+    @apply flex items-center justify-between px-4 pt-0.5;
+    @apply bg-surface-accent border-b border-surface-extra-accent;
+  }
+
+  .code-pre {
+    @apply max-h-[70dvh] overflow-y-scroll overflow-x-auto;
+    @apply px-4 py-3 bg-surface-muted;
+  }
+
+  .code-inline {
+    @apply border border-surface-extra-accent rounded-xl overflow-hidden;
+    @apply items-center bg-surface-muted px-2 py-1;
+  }
+
+  code {
+    @apply font-mono leading-tight;
+  }
+}

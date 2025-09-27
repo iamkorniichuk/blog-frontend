@@ -7,27 +7,31 @@
     @apply disabled:hover:cursor-auto disabled:active:cursor-auto;
 
     svg {
-      @apply stroke-current;
+      @apply stroke-current fill-none;
     }
 
     img,
     svg {
-      @apply h-[1em] w-auto inline-block align-middle;
+      @apply h-[1em] w-full inline-block align-middle;
     }
+  }
+
+  .btn-icon {
+    @apply px-2 py-1;
   }
 
   .btn-primary {
     @apply font-medium border-1;
-    @apply border-[color:var(--color-extra-accent,var(--color-primary-extra-accent))];
-    @apply bg-[color:var(--color-muted,var(--color-primary-muted))];
+    @apply border-[color:var(--color-extra-accent,var(--color-surface-extra-accent))];
+    @apply bg-[color:var(--color-muted,var(--color-surface-muted))];
 
-    @apply hover:bg-[color:var(--color,var(--color-primary))];
+    @apply hover:bg-[color:var(--color,var(--color-surface))];
     @apply hover:text-text-accent;
-    @apply active:bg-[color:var(--color-accent,var(--color-primary-accent))];
+    @apply active:bg-[color:var(--color-accent,var(--color-surface-accent))];
     @apply active:text-text-extra-accent;
 
-    @apply disabled:border-[color:var(--color-extra-muted,var(--color-primary-extra-muted))];
-    @apply disabled:bg-[color:var(--color-extra-muted,var(--color-primary-extra-muted))];
+    @apply disabled:border-[color:var(--color-extra-muted,var(--color-surface-extra-muted))];
+    @apply disabled:bg-[color:var(--color-extra-muted,var(--color-surface-extra-muted))];
     @apply disabled:text-text-muted;
   }
 
