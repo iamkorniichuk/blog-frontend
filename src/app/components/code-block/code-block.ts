@@ -1,5 +1,15 @@
 import { isPlatformBrowser, NgTemplateOutlet } from '@angular/common';
-import { Component, inject, input, PLATFORM_ID } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  inject,
+  input,
+  PLATFORM_ID,
+  ViewChild,
+} from '@angular/core';
+
+import Prism from 'prismjs';
 
 import { CopyIconComponent } from '../icons/copy-icon';
 
@@ -7,14 +17,14 @@ export type FileType =
   | 'css'
   | 'csv'
   | 'bash'
-  | 'http'
+  | 'html'
   | 'javascript'
   | 'json'
   | 'markdown'
   | 'shell'
   | 'sql'
+  | 'typescript'
   | 'txt'
-  | 'xml'
   | 'yaml';
 
 @Component({
@@ -22,7 +32,8 @@ export type FileType =
   imports: [CopyIconComponent, NgTemplateOutlet],
   templateUrl: './code-block.html',
 })
-export class CodeBlockComponent {
+export class CodeBlockComponent implements AfterViewInit {
+  @ViewChild('codeBlock') codeBlock!: ElementRef<HTMLBaseElement>;
   private platformId = inject(PLATFORM_ID);
 
   code = input.required<string>();
@@ -33,5 +44,9 @@ export class CodeBlockComponent {
   copyCode() {
     if (!isPlatformBrowser(this.platformId)) return;
     navigator.clipboard.writeText(this.code());
+  }
+
+  ngAfterViewInit() {
+    Prism.highlightAllUnder(this.codeBlock.nativeElement);
   }
 }

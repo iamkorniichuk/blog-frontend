@@ -21,4 +21,109 @@
   code {
     @apply font-mono leading-tight;
   }
+
+  pre[class*='language-'],
+  code[class*='language-'] {
+    @apply text-text text-sm font-mono leading-5 text-left whitespace-pre;
+  }
+
+  pre[class*='language-']::selection,
+  code[class*='language-']::selection,
+  pre[class*='language-'] *::selection,
+  code[class*='language-'] *::selection {
+    @apply bg-info-extra-muted text-text;
+  }
+
+  :not(pre) > code[class*='language-'] {
+    @apply px-1 py-0.5 rounded text-danger bg-surface-accent;
+  }
+
+  .token.comment,
+  .token.prolog {
+    @apply text-success-muted;
+  }
+
+  .token.punctuation {
+    @apply text-text;
+  }
+
+  .token.property,
+  .token.boolean,
+  .token.number,
+  .token.constant,
+  .token.symbol,
+  .token.unit {
+    @apply text-success;
+  }
+
+  .token.selector,
+  .token.string,
+  .token.char,
+  .token.builtin {
+    @apply text-warning;
+  }
+
+  .token.operator,
+  .token.entity {
+    @apply text-text;
+  }
+
+  .token.keyword {
+    @apply text-primary;
+  }
+
+  .token.function {
+    @apply text-info;
+  }
+
+  .token.regex {
+    @apply text-danger;
+  }
+
+  .token.important {
+    @apply text-primary-accent;
+  }
+
+  .token.class-name,
+  .token.maybe-class-name {
+    @apply text-success-accent;
+  }
+
+  .token.attr-name {
+    @apply text-info-accent;
+  }
+
+  .token.attr-value {
+    @apply text-warning-accent;
+  }
+
+  .token.tag {
+    @apply text-primary;
+  }
+
+  .token.tag .token.punctuation {
+    @apply text-text-muted;
+  }
+
+  pre[class*='language-javascript'],
+  code[class*='language-javascript'],
+  pre[class*='language-typescript'],
+  code[class*='language-typescript'] {
+    @apply text-info;
+  }
+
+  pre[class*='language-css'],
+  code[class*='language-css'] {
+    @apply text-warning;
+  }
+
+  pre[class*='language-html'],
+  code[class*='language-html'] {
+    @apply text-text;
+  }
+
+  .line-highlight.line-highlight {
+    @apply bg-warning-extra-accent/20 shadow-inner;
+    box-shadow: inset 5px 0 0 var(--color-warning);
+  }
 }

@@ -12,7 +12,9 @@
       </div>
     }
     <div class="relative">
-      <pre class="code-pre"><code [attr.class]="'language-' + fileType()">{{ code() }}</code></pre>
+      <pre
+        class="code-pre"
+      ><code #codeBlock [attr.class]="'language-' + fileType()">{{ code() }}</code></pre>
       <button class="btn btn-primary btn-icon surface absolute top-4 right-8" (click)="copyCode()">
         <app-copy-icon />
       </button>
@@ -22,6 +24,6 @@
 
 <ng-template #inline>
   <span class="code-inline">
-    <code [attr.class]="'language-' + fileType()">{{ code() }}</code>
+    <code #codeBlock [attr.class]="'language-' + fileType()">{{ code() }}</code>
   </span>
 </ng-template>
