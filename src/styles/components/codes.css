@@ -18,19 +18,16 @@
     @apply items-center bg-surface-muted px-2 py-1;
   }
 
+  pre,
   code {
-    @apply font-mono leading-tight;
+    @apply text-text text-sm font-mono leading-tight text-left whitespace-pre;
+    font-family: 'Space Mono', monospace;
   }
 
-  pre[class*='language-'],
-  code[class*='language-'] {
-    @apply text-text text-sm font-mono leading-5 text-left whitespace-pre;
-  }
-
-  pre[class*='language-']::selection,
-  code[class*='language-']::selection,
-  pre[class*='language-'] *::selection,
-  code[class*='language-'] *::selection {
+  pre::selection,
+  code::selection,
+  pre *::selection,
+  code *::selection {
     @apply bg-info-extra-muted text-text;
   }
 
