@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 
 import Prism from 'prismjs';
+import 'prismjs/components/prism-typescript';
 
 import { CopyIconComponent } from '../icons/copy-icon';
 
@@ -31,6 +32,7 @@ export type FileType =
   selector: 'app-code-block',
   imports: [CopyIconComponent, NgTemplateOutlet],
   templateUrl: './code-block.html',
+  host: { ngSkipHydration: '' },
 })
 export class CodeBlockComponent implements AfterViewInit {
   @ViewChild('codeBlock') codeBlock!: ElementRef<HTMLBaseElement>;
@@ -47,6 +49,7 @@ export class CodeBlockComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
+    if (!isPlatformBrowser(this.platformId)) return;
     Prism.highlightAllUnder(this.codeBlock.nativeElement);
   }
 }
