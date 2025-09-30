@@ -1,12 +1,12 @@
 import { isPlatformBrowser, NgTemplateOutlet } from '@angular/common';
 import {
-  AfterViewInit,
   Component,
   ElementRef,
   inject,
   input,
   PLATFORM_ID,
   ViewChild,
+  afterEveryRender,
 } from '@angular/core';
 
 import Prism from 'prismjs';
@@ -32,9 +32,9 @@ export type FileType =
   selector: 'app-code-block',
   imports: [CopyIconComponent, NgTemplateOutlet],
   templateUrl: './code-block.html',
-  host: { ngSkipHydration: '' },
+  host: { ngSkipHydration: 'true' },
 })
-export class CodeBlockComponent implements AfterViewInit {
+export class CodeBlockComponent {
   @ViewChild('codeBlock') codeBlock!: ElementRef<HTMLBaseElement>;
   private platformId = inject(PLATFORM_ID);
 
@@ -43,13 +43,16 @@ export class CodeBlockComponent implements AfterViewInit {
   fileType = input<FileType>('txt');
   isMultiline = input<boolean>(true);
 
+  constructor() {
+    afterEveryRender({
+      mixedReadWrite: () => {
+        Prism.highlightElement(this.codeBlock.nativeElement);
+      },
+    });
+  }
+
   copyCode() {
     if (!isPlatformBrowser(this.platformId)) return;
     navigator.clipboard.writeText(this.code());
-  }
-
-  ngAfterViewInit() {
-    if (!isPlatformBrowser(this.platformId)) return;
-    Prism.highlightAllUnder(this.codeBlock.nativeElement);
   }
 }
