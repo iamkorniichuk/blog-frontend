@@ -39,7 +39,7 @@
   }
 
   h1 {
-    @apply font-semibold text-4xl;
+    @apply font-semibold text-4xl mb-2;
   }
 
   h2 {
