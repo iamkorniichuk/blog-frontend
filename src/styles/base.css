@@ -35,6 +35,7 @@
   h5,
   h6 {
     font-family: 'Sora', sans-serif;
+    @apply leading-none;
   }
 
   h1 {

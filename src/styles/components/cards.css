@@ -1,0 +1,13 @@
+@layer components {
+  .card {
+    @apply bg-surface rounded-xl size-fit p-4 m-4;
+    @apply shadow-surface-extra-muted shadow-lg;
+    @apply border-1 border-surface-accent;
+  }
+
+  .content {
+    @apply bg-surface py-8 px-10 size-max;
+    @apply shadow-surface-extra-muted shadow-lg;
+    @apply border-1 border-surface-accent;
+  }
+}

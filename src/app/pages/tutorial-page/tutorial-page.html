@@ -1,0 +1,16 @@
+<div class="flex flex-col md:flex-row md:justify-center w-full h-screen overflow-x-hidden">
+  <div class="basis-0 md:basis-2/3 w-full min-w-0 max-w-4xl content">
+    <article>
+      <h1>{{ tutorial().title }}</h1>
+      <hr class="border-t-1 border-text-extra-muted/20 w-1/2 place-self-center mt-4 mb-6" />
+      <app-markdown [data]="tutorial().content"></app-markdown>
+    </article>
+  </div>
+
+  <div class="basis-0 md:basis-1/3 min-w-2xs max-w-xl">
+    <div class="card">
+      <h2>Solution:</h2>
+      <app-markdown [data]="tutorial().solution"></app-markdown>
+    </div>
+  </div>
+</div>

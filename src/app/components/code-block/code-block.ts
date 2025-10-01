@@ -38,6 +38,7 @@ export class CodeBlockComponent {
   @ViewChild('codeBlock') codeBlock!: ElementRef<HTMLBaseElement>;
   private platformId = inject(PLATFORM_ID);
 
+  class = input<string>();
   code = input.required<string>();
   fileName = input<string>();
   fileType = input<FileType>('txt');

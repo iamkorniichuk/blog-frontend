@@ -5,7 +5,7 @@
 }
 
 <ng-template #multiline>
-  <div class="code-block">
+  <div [class]="class()" class="code-block">
     @if (fileName()) {
       <div class="code-header">
         <span>{{ fileName() }}</span>
@@ -23,7 +23,7 @@
 </ng-template>
 
 <ng-template #inline>
-  <span class="code-inline">
+  <span [class]="class()" class="code-inline">
     <code #codeBlock [attr.class]="'language-' + fileType()">{{ code() }}</code>
   </span>
 </ng-template>

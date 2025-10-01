@@ -1,0 +1,50 @@
+@if (ast) {
+  <ng-container>
+    @for (node of ast.children; track $index) {
+      <ng-container
+        [ngTemplateOutlet]="renderNode(node)"
+        [ngTemplateOutletContext]="{ $implicit: node }"
+      />
+    }
+  </ng-container>
+}
+
+<ng-template #paragraph let-node>
+  <p>
+    @for (child of node.children; track $index) {
+      <ng-container
+        [ngTemplateOutlet]="renderNode(child)"
+        [ngTemplateOutletContext]="{ $implicit: child }"
+      />
+    }
+  </p>
+</ng-template>
+
+<ng-template #heading let-node>
+  @for (child of node.children; track $index) {
+    <app-heading class="mt-6 mb-2" [level]="node.depth" [text]="child.value" />
+  }
+</ng-template>
+
+<ng-template #text let-node>
+  {{ node.value }}
+</ng-template>
+
+<ng-template #code let-node>
+  <app-code-block
+    class="my-1"
+    [code]="node.value"
+    [fileType]="node.lang"
+    [fileName]="node.meta"
+    [isMultiline]="true"
+  />
+</ng-template>
+
+<ng-template #inlineCode let-node>
+  <app-code-block
+    [code]="node.value"
+    [fileType]="node.lang"
+    [fileName]="node.meta"
+    [isMultiline]="false"
+  />
+</ng-template>
