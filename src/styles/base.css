@@ -26,6 +26,7 @@
   :root {
     @apply bg-surface text-text;
     font-family: 'IBM Plex Sans', sans-serif;
+    --navbar-height: 3rem;
   }
 
   h1,

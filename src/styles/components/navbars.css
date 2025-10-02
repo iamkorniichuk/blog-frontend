@@ -1,0 +1,5 @@
+@layer components {
+  nav {
+    @apply fixed top-0 z-50 w-full h-(--navbar-height) bg-surface border-1 border-surface-extra-accent;
+  }
+}
