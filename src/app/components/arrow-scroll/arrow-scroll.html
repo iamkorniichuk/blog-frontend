@@ -1,0 +1,25 @@
+<div class="relative">
+  <div
+    #strip
+    class="transition-transform duration-300 ease-out"
+    [style.transform]="'translateX(-' + offset() + 'px)'"
+  >
+    <ng-content />
+  </div>
+  @if (isScrollable('l')) {
+    <span
+      class="pointer-events-none absolute left-0 top-0 h-full w-8 bg-gradient-to-l from-transparent via-surface to-surface"
+    ></span>
+    <button (click)="scroll('l')" class="btn btn-icon px-0 absolute inset-y-0 left-0">
+      <app-arrow-icon class="rotate-90" />
+    </button>
+  }
+  @if (isScrollable('r')) {
+    <span
+      class="pointer-events-none absolute right-0 top-0 h-full w-8 bg-gradient-to-r from-transparent via-surface to-surface"
+    ></span>
+    <button (click)="scroll('r')" class="btn btn-icon px-0 absolute inset-y-0 right-0">
+      <app-arrow-icon class="-rotate-90" />
+    </button>
+  }
+</div>

@@ -1,26 +1,55 @@
+<ng-template #heading>
+  <h1>{{ tutorial().title }}</h1>
+</ng-template>
+
+<ng-template #meta>
+  <div class="flex flex-row items-center justify-between mb-2">
+    <app-arrow-scroll class="min-w-0 flex-1 overflow-hidden">
+      <div class="inline-flex gap-1 pr-4">
+        @for (tag of tutorial().tags; track $index) {
+          <span class="tag">{{ tag }}</span>
+        }
+      </div>
+    </app-arrow-scroll>
+
+    <span class="meta flex-shrink-0 ml-2">
+      {{ tutorial().createdAt | date: 'dd/MM/yy HH:MM' }}
+    </span>
+  </div>
+</ng-template>
+
+<ng-template #solution>
+  <h3>Solution:</h3>
+  <app-markdown [data]="tutorial().solution"></app-markdown>
+</ng-template>
+
+<ng-template #content>
+  <app-markdown [data]="tutorial().content"></app-markdown>
+</ng-template>
+
 @if (screenSize()) {
   @if (screenSize() === 'sm') {
     <div class="w-full h-screen overflow-x-hidden">
       <article class="w-full min-w-0 max-w-4xl content-block">
-        <h1>{{ tutorial().title }}</h1>
+        <ng-container *ngTemplateOutlet="heading"></ng-container>
+        <ng-container *ngTemplateOutlet="meta"></ng-container>
         <div class="card">
-          <h3>Solution:</h3>
-          <app-markdown [data]="tutorial().solution"></app-markdown>
+          <ng-container *ngTemplateOutlet="solution"></ng-container>
         </div>
-        <app-markdown [data]="tutorial().content"></app-markdown>
+        <ng-container *ngTemplateOutlet="content"></ng-container>
       </article>
     </div>
   } @else {
     <div class="flex flex-row justify-center w-full h-screen overflow-x-hidden">
       <article class="basis-2/3 w-full min-w-0 max-w-4xl content-block">
-        <h1>{{ tutorial().title }}</h1>
-        <app-markdown [data]="tutorial().content"></app-markdown>
+        <ng-container *ngTemplateOutlet="heading"></ng-container>
+        <ng-container *ngTemplateOutlet="meta"></ng-container>
+        <ng-container *ngTemplateOutlet="content"></ng-container>
       </article>
 
       <div class="basis-1/3 min-w-2xs max-w-xl">
         <div class="content-card">
-          <h3>Solution:</h3>
-          <app-markdown [data]="tutorial().solution"></app-markdown>
+          <ng-container *ngTemplateOutlet="solution"></ng-container>
         </div>
       </div>
     </div>

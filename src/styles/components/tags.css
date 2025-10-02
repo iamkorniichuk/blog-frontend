@@ -1,0 +1,10 @@
+@layer components {
+  .tag {
+    @apply bg-surface-muted border-1 border-surface-extra-muted rounded-2xl;
+    @apply text-text-extra-muted text-xs text-nowrap whitespace-nowrap px-2 py-1;
+  }
+
+  .meta {
+    @apply text-text-extra-muted text-sm text-nowrap whitespace-nowrap;
+  }
+}

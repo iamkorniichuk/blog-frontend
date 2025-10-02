@@ -8,6 +8,7 @@ export interface Tutorial {
   description: string;
   content: string;
   solution: string;
+  tags: string[];
   createdAt: Date;
 }
 

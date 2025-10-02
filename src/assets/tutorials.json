@@ -5,6 +5,17 @@
         "description": "Learn how to set up and start developing applications with Angular v20.",
         "content": "Angular v20 introduces powerful improvements such as signals, the `inject()` function, and better SSR support. This tutorial will guide you through the setup and the first steps.\n\n## 1. Installation\n\nFirst, make sure you have Node.js 18+ installed. Then install the Angular CLI:\n\n```bash install.sh\nnpm install -g @angular/cli@20\n```\n\nNow create a new project:\n\n```bash\nng new my-app --standalone\ncd my-app\n```\n\n## 2. First Component\n\nAngular v20 defaults to standalone components. Let’s create the `AppComponent`:\n\n```typescript app.component.ts\nimport { Component } from '@angular/core';\n\n@Component({\n  selector: 'app-root',\n  template: '<h1>Hello Angular V20</h1>'\n})\nexport class AppComponent {}\n```\n\nRun the dev server:\n\n```bash\nng serve\n```\n\n## 3. Using Signals\n\nSignals provide fine-grained reactivity without RxJS boilerplate. Define a signal and update it:\n\n```typescript counter.ts\nimport { signal } from '@angular/core';\n\nexport const counter = signal(0);\ncounter.set(counter() + 1);\n```\n\nUse it inside your component template:\n\n```html app.component.html\n<button (click)=\"counter.set(counter() + 1)\">Increment</button>\n<p>Value: {{ counter() }}</p>\n```\n\n## 4. Dependency Injection with `inject()`\n\nThe new `inject()` function replaces constructor injection in many cases:\n\n```typescript my.component.ts\nimport { Component, inject } from '@angular/core';\nimport { MyService } from './my.service';\n\n@Component({\n  selector: 'my-comp',\n  template: '{{ service.message }}'\n})\nexport class MyComponent {\n  service = inject(MyService);\n}\n```\n\n## 5. Routing for SSR\n\nAngular v20 supports SSR-ready routing. Configure routes in `app.routes.ts`:\n\n```typescript app.routes.ts\nimport { Routes } from '@angular/router';\nimport { HomeComponent } from './home.component';\n\nexport const routes: Routes = [\n  { path: '', component: HomeComponent },\n  { path: 'articles/:slug', loadComponent: () => import('./article/article.component').then(m => m.ArticleComponent) }\n];\n```\nWith these steps, you now have a fully working Angular v20 app, complete with signals, modern DI, and SSR-ready routing.",
         "solution": "Install Angular v20, generate a project with `ng new`, and create your first component. Then explore signals, `inject()`, and SSR routing as shown in the tutorial.",
+        "tags": [
+            "Angular",
+            "Typescript",
+            "Javascript",
+            "SEO",
+            "SSR",
+            "Node.js",
+            "Development",
+            "Programming Languages",
+            "Frontend"
+        ],
         "createdAt": "2025-09-26T10:00:00+02:00"
     },
     "angular-v20-signals": {
@@ -13,6 +24,11 @@
         "description": "Understand Angular v20 signals for reactive state management.",
         "content": "Signals are a new reactive primitive in Angular v20. They let you track changes and auto-update views without manual subscriptions.\n\n```ts\nimport { signal } from '@angular/core';\nconst count = signal(0);\ncount.set(count() + 1);\n```",
         "solution": "Use `signal()` for reactive state and update values with `.set()`, `.update()`, or `.mutate()`.",
+        "tags": [
+            "Angular",
+            "Typescript",
+            "Frontend"
+        ],
         "createdAt": "2025-09-25T14:30:00+02:00"
     },
     "dependency-injection-angular-v20": {
@@ -21,6 +37,11 @@
         "description": "Learn how to use the new `inject()` function for services in Angular v20.",
         "content": "Angular v20 introduces `inject()` for cleaner service injection, especially in standalone components and signals.\n\n```ts\nimport { inject } from '@angular/core';\nimport { MyService } from './my.service';\nconst service = inject(MyService);\n```",
         "solution": "Use `inject(Service)` inside components or functions to get an instance of your service.",
+        "tags": [
+            "Angular",
+            "Typescript",
+            "Frontend"
+        ],
         "createdAt": "2025-09-24T09:15:00+02:00"
     },
     "angular-v20-routing": {
@@ -29,6 +50,11 @@
         "description": "Configure routes with guards, resolvers, and language prefixes in Angular v20.",
         "content": "Learn to define routes with `canMatch`, `resolve`, and language-aware URL handling.\n\n```ts\n{ path: 'articles/:slug', component: ArticleComponent, resolve: { article: ArticleResolver } }\n```",
         "solution": "Use resolvers for prefetching critical data and guards for dynamic routing rules.",
+        "tags": [
+            "Angular",
+            "Typescript",
+            "Frontend"
+        ],
         "createdAt": "2025-09-23T11:45:00+02:00"
     },
     "ssr-angular-v20": {
@@ -37,6 +63,11 @@
         "description": "Implement SSR with Angular v20 for SEO-friendly and fast pages.",
         "content": "Angular v20 continues to support Universal for SSR. You can pre-render pages and fetch data via resolvers for SEO.\n\n```ts\nimport { provideServerRendering } from '@angular/platform-server';\n```",
         "solution": "Use Angular Universal and resolvers to pre-render pages with server-fetched data.",
+        "tags": [
+            "Angular",
+            "Typescript",
+            "Frontend"
+        ],
         "createdAt": "2025-09-22T16:20:00+02:00"
     },
     "angular-v20-forms": {
@@ -45,6 +76,11 @@
         "description": "Build reactive forms with signals and validators in Angular v20.",
         "content": "Use `FormGroup` and `FormControl` along with signals for reactive validation.\n\n```ts\nconst form = new FormGroup({ name: new FormControl('') });\n```",
         "solution": "Create reactive forms with FormGroup/FormControl and connect them to signals for reactive updates.",
+        "tags": [
+            "Angular",
+            "Typescript",
+            "Frontend"
+        ],
         "createdAt": "2025-09-21T13:10:00+02:00"
     },
     "angular-v20-httpclient": {
@@ -53,6 +89,11 @@
         "description": "Fetch data from APIs using HttpClient and handle responses in Angular v20.",
         "content": "Use HttpClient to perform GET, POST, PATCH, DELETE requests.\n\n```ts\nthis.http.get<Article[]>('/api/articles').subscribe(data => console.log(data));\n```",
         "solution": "Inject HttpClient and call HTTP methods; use observables or signals for reactive updates.",
+        "tags": [
+            "Angular",
+            "Typescript",
+            "Frontend"
+        ],
         "createdAt": "2025-09-20T15:50:00+02:00"
     },
     "angular-v20-lazy-loading": {
@@ -61,6 +102,11 @@
         "description": "Improve performance with lazy-loaded feature modules in Angular v20.",
         "content": "Define feature modules and use `loadChildren` in routes for lazy loading.\n\n```ts\n{ path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) }\n```",
         "solution": "Split your app into modules and lazy load features via `loadChildren` for faster initial load.",
+        "tags": [
+            "Angular",
+            "Typescript",
+            "Frontend"
+        ],
         "createdAt": "2025-09-19T10:40:00+02:00"
     },
     "angular-v20-testing": {
@@ -69,6 +115,11 @@
         "description": "Write unit and integration tests for Angular v20 apps using Jest or Karma.",
         "content": "Use TestBed for component testing and HttpClientTestingModule for API tests.\n\n```ts\nbeforeEach(() => {\n  TestBed.configureTestingModule({ declarations: [AppComponent] });\n});\n```",
         "solution": "Use Angular testing utilities to create isolated tests for components and services.",
+        "tags": [
+            "Angular",
+            "Typescript",
+            "Frontend"
+        ],
         "createdAt": "2025-09-18T09:00:00+02:00"
     },
     "angular-v20-deployment": {
@@ -77,6 +128,11 @@
         "description": "Learn how to build, prerender, and deploy Angular v20 applications.",
         "content": "Use `ng build --prod` and Angular Universal prerendering for SEO-friendly deployment.\n\n```bash\nng run my-app:prerender\n```",
         "solution": "Build production bundle and optionally prerender pages before deploying to a server.",
+        "tags": [
+            "Angular",
+            "Typescript",
+            "Frontend"
+        ],
         "createdAt": "2025-09-17T12:30:00+02:00"
     }
 }
