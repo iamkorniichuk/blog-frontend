@@ -1,19 +1,47 @@
 @layer components {
+  .cover {
+    @apply max-h-[30vh] w-fit block relative overflow-hidden;
+    > img {
+      @apply w-full;
+    }
+  }
+
   .content-card {
     @apply bg-surface rounded-xl size-fit p-4 m-4;
     @apply shadow-surface-extra-muted shadow-lg;
     @apply border-1 border-surface-accent;
+
+    > .cover {
+      @apply -mx-4 -mt-4 rounded-t-xl;
+      > img {
+        @apply rounded-t-xl;
+      }
+    }
   }
 
   .card {
     @apply bg-surface-accent rounded-xl size-fit p-4 my-6;
     @apply shadow-surface-extra-muted shadow-lg;
     @apply border-1 border-surface-extra-accent;
+
+    > .cover {
+      @apply -mx-4 -mt-4 rounded-t-xl;
+      > img {
+        @apply rounded-t-xl;
+      }
+    }
   }
 
   .content-block {
     @apply bg-surface py-8 px-10 size-max;
     @apply shadow-surface-extra-muted shadow-lg;
     @apply border-1 border-surface-accent;
+
+    > .cover {
+      @apply -mt-8 -mx-10 rounded-t-xl;
+      > img {
+        @apply rounded-t-xl;
+      }
+    }
   }
 }

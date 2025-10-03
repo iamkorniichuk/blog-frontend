@@ -6,6 +6,7 @@ export interface Tutorial {
   id: string;
   title: string;
   description: string;
+  cover: string;
   content: string;
   solution: string;
   tags: string[];

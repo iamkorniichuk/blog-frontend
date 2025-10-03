@@ -28,9 +28,15 @@ export class TutorialPageComponent implements OnInit {
   ngOnInit() {
     const title = this.tutorial().title;
     this.titleService.setTitle(title);
+    this.setTag('og:title', { name: 'og:title', content: title });
+    this.setTag('og:type', { name: 'og:type', content: 'article' });
 
     const description = this.tutorial().description;
     this.setTag('description', { name: 'description', content: description });
+    this.setTag('og:description', { name: 'og:description', content: description });
+
+    const cover = this.tutorial().cover;
+    this.setTag('og:image', { name: 'og:image', content: cover });
 
     const tags = this.tutorial().tags.join(', ');
     this.setTag('keywords', { name: 'keywords', content: tags });
@@ -41,7 +47,8 @@ export class TutorialPageComponent implements OnInit {
   }
 
   private setTag(name: string, meta: MetaDefinition) {
-    const metaTag = this.metaService.getTag(name);
+    const selector = `name='${name}'`;
+    const metaTag = this.metaService.getTag(selector);
     if (metaTag) metaTag.remove();
     this.metaService.addTag(meta);
   }

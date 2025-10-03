@@ -1,3 +1,12 @@
+<ng-template #cover>
+  <div class="cover">
+    <img class="object-cover" [src]="tutorial().cover" [alt]="tutorial().title" />
+    <div
+      class="pointer-events-none absolute inset-x-0 bottom-0 w-full h-8 bg-gradient-to-b from-transparent via-surface to-surface"
+    ></div>
+  </div>
+</ng-template>
+
 <ng-template #heading>
   <h1>{{ tutorial().title }}</h1>
 </ng-template>
@@ -28,6 +37,7 @@
 </ng-template>
 
 <ng-template #phonePageTemplate>
+  <ng-container *ngTemplateOutlet="cover" />
   <ng-container *ngTemplateOutlet="heading" />
   <ng-container *ngTemplateOutlet="meta" />
   <div class="card">
@@ -37,6 +47,7 @@
 </ng-template>
 
 <ng-template #desktopContentTemplate>
+  <ng-container *ngTemplateOutlet="cover" />
   <ng-container *ngTemplateOutlet="heading" />
   <ng-container *ngTemplateOutlet="meta" />
   <ng-container *ngTemplateOutlet="content" />
