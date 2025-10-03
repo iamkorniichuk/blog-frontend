@@ -4,12 +4,18 @@ import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
 
 import { Tutorial } from '../../services/tutorial-api';
 import { MarkdownComponent } from '../../components/markdown/markdown';
-import { ScreenSizeService } from '../../services/screen-size';
 import { ArrowScrollComponent } from '../../components/arrow-scroll/arrow-scroll';
+import { ContentPageComponent } from '../../components/content-page/content-page';
 
 @Component({
   selector: 'app-tutorial-page',
-  imports: [MarkdownComponent, NgTemplateOutlet, DatePipe, ArrowScrollComponent],
+  imports: [
+    MarkdownComponent,
+    NgTemplateOutlet,
+    DatePipe,
+    ArrowScrollComponent,
+    ContentPageComponent,
+  ],
   providers: [DatePipe],
   templateUrl: './tutorial-page.html',
 })
@@ -17,9 +23,7 @@ export class TutorialPageComponent implements OnInit {
   tutorial = input.required<Tutorial>();
   private titleService = inject(Title);
   private metaService = inject(Meta);
-  private screenSizeService = inject(ScreenSizeService);
   private datePipe = inject(DatePipe);
-  screenSize = this.screenSizeService.screenSize;
 
   ngOnInit() {
     const title = this.tutorial().title;

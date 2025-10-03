@@ -11,10 +11,14 @@ export interface Tutorial {
   tags: string[];
   createdAt: Date;
 }
-
 type CreateTutorialDto = Omit<Tutorial, 'id' | 'createdAt'>;
 type ReadTutorialDto = Omit<Tutorial, 'createdAt'> & { createdAt: string };
 type UpdateTutorialDto = Partial<CreateTutorialDto>;
+
+export interface PageFilter {
+  start: number;
+  end: number;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -61,14 +65,18 @@ export class TutorialApiService {
     return this.tutorials[id];
   }
 
-  async readAll(start = 0, end = 20): Promise<Tutorial[]> {
+  async readAll(page: PageFilter): Promise<Tutorial[]> {
     const values = Object.values(this.tutorials);
-    const tutorials: Tutorial[] = values.slice(start, end);
+    const tutorials: Tutorial[] = values.slice(page.start, page.end);
     return tutorials;
   }
 
   async readAllIds(): Promise<Tutorial['id'][]> {
     return Object.keys(this.tutorials);
+  }
+
+  async readLength(): Promise<number> {
+    return Object.keys(this.tutorials).length;
   }
 
   async update(id: Tutorial['id'], tutorial: UpdateTutorialDto): Promise<Tutorial> {

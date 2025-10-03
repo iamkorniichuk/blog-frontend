@@ -1,10 +1,15 @@
 import { inject } from '@angular/core';
 import { PrerenderFallback, RenderMode, ServerRoute } from '@angular/ssr';
+
 import { TutorialApiService } from './services/tutorial-api';
 
 export const serverRoutes: ServerRoute[] = [
   {
-    path: '**',
+    path: 'tutorials',
+    renderMode: RenderMode.Prerender,
+  },
+  {
+    path: 'tutorials/:id',
     renderMode: RenderMode.Prerender,
     fallback: PrerenderFallback.Server,
     async getPrerenderParams() {
