@@ -1,4 +1,8 @@
 @layer components {
+  .link {
+    @apply underline text-info-extra-accent;
+  }
+
   .tag {
     @apply bg-surface-muted border-1 border-surface-extra-muted rounded-2xl;
     @apply text-text-extra-muted text-xs text-nowrap whitespace-nowrap px-2 py-1;

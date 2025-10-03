@@ -30,6 +30,25 @@
   {{ node.value }}
 </ng-template>
 
+<ng-template #thematicBreak>
+  <hr />
+</ng-template>
+
+<ng-template #blockQuote let-node>
+  <div class="card">
+    @for (child of node.children; track $index) {
+      <ng-container
+        [ngTemplateOutlet]="renderNode(child)"
+        [ngTemplateOutletContext]="{ $implicit: child }"
+      />
+    }
+  </div>
+</ng-template>
+
+<ng-template #image let-node>
+  <img [src]="node.url" [alt]="node.alt" [title]="node.title" class="my-2 max-w-full" />
+</ng-template>
+
 <ng-template #code let-node>
   <app-code-block
     class="my-1"
@@ -47,4 +66,143 @@
     [fileName]="node.meta"
     [isMultiline]="false"
   />
+</ng-template>
+
+<ng-template #italic let-node>
+  <em>
+    @for (child of node.children; track $index) {
+      <ng-container
+        [ngTemplateOutlet]="renderNode(child)"
+        [ngTemplateOutletContext]="{ $implicit: child }"
+      />
+    }
+  </em>
+</ng-template>
+
+<ng-template #bold let-node>
+  <strong>
+    @for (child of node.children; track $index) {
+      <ng-container
+        [ngTemplateOutlet]="renderNode(child)"
+        [ngTemplateOutletContext]="{ $implicit: child }"
+      />
+    }
+  </strong>
+</ng-template>
+
+<ng-template #strikethrough let-node>
+  <del>
+    @for (child of node.children; track $index) {
+      <ng-container
+        [ngTemplateOutlet]="renderNode(child)"
+        [ngTemplateOutletContext]="{ $implicit: child }"
+      />
+    }
+  </del>
+</ng-template>
+
+<ng-template #link let-node>
+  <a
+    [href]="node.url"
+    [title]="node.title || ''"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="link"
+  >
+    @for (child of node.children; track $index) {
+      <ng-container
+        [ngTemplateOutlet]="renderNode(child)"
+        [ngTemplateOutletContext]="{ $implicit: child }"
+      />
+    }
+  </a>
+</ng-template>
+
+<ng-template #list let-node>
+  <ng-container>
+    @if (node.ordered) {
+      <ol>
+        @for (child of node.children; track $index) {
+          <ng-container
+            [ngTemplateOutlet]="renderNode(child)"
+            [ngTemplateOutletContext]="{ $implicit: child }"
+          />
+        }
+      </ol>
+    } @else {
+      <ul>
+        @for (child of node.children; track $index) {
+          <ng-container
+            [ngTemplateOutlet]="renderNode(child)"
+            [ngTemplateOutletContext]="{ $implicit: child }"
+          />
+        }
+      </ul>
+    }
+  </ng-container>
+</ng-template>
+
+<ng-template #listItem let-node>
+  <li>
+    @for (child of node.children; track $index) {
+      <ng-container
+        [ngTemplateOutlet]="renderNode(child)"
+        [ngTemplateOutletContext]="{ $implicit: child }"
+      />
+    }
+  </li>
+</ng-template>
+
+<ng-template #table let-node>
+  <table>
+    <tbody>
+      @for (row of node.children; track $index) {
+        <ng-container
+          [ngTemplateOutlet]="renderNode(row)"
+          [ngTemplateOutletContext]="{ $implicit: row, index: $index }"
+        />
+      }
+    </tbody>
+  </table>
+</ng-template>
+
+<ng-template #tableRow let-node let-index="index">
+  <tr>
+    @for (cell of node.children; track $index) {
+      <ng-container
+        [ngTemplateOutlet]="renderNode(cell)"
+        [ngTemplateOutletContext]="{ $implicit: cell, index: index }"
+      />
+    }
+  </tr>
+</ng-template>
+
+<ng-template #tableCell let-node let-index="index">
+  @if (index === 0) {
+    <th
+      [class.text-left]="node.align === 'left'"
+      [class.text-center]="node.align === 'center'"
+      [class.text-right]="node.align === 'right'"
+    >
+      @for (child of node.children; track $index) {
+        <ng-container
+          [ngTemplateOutlet]="renderNode(child)"
+          [ngTemplateOutletContext]="{ $implicit: child }"
+        />
+      }
+    </th>
+  } @else {
+    <td
+      [class.text-left]="node.align === 'left'"
+      [class.text-center]="node.align === 'center'"
+      [class.text-right]="node.align === 'right'"
+    >
+      @for (child of node.children; track $index) {
+        <ng-container
+          [ngTemplateOutlet]="renderNode(child)"
+          [ngTemplateOutletContext]="{ $implicit: child }"
+        />
+      }
+    </td>
+  }
 </ng-template>

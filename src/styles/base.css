@@ -29,6 +29,38 @@
     --navbar-height: 3rem;
   }
 
+  ol {
+    @apply list-decimal pl-6;
+  }
+
+  ul {
+    @apply list-disc pl-6;
+  }
+
+  hr {
+    @apply w-full border-t-1 border-text-muted place-self-center mt-0.5 mb-3;
+  }
+
+  table {
+    @apply table-auto border-collapse border-1 border-text-extra-muted bg-surface my-4 w-full;
+  }
+
+  tbody tr:nth-child(odd) {
+    @apply bg-surface-accent;
+  }
+
+  th {
+    @apply font-medium text-left text-text-extra-accent bg-surface-extra-accent border-r-1 border-text-extra-muted py-1 px-3;
+  }
+
+  tr {
+    @apply border-b-1 border-text-extra-muted;
+  }
+
+  td {
+    @apply px-3 py-1 border-1 border-text-extra-muted;
+  }
+
   h1,
   h2,
   h3,
