@@ -1,6 +1,6 @@
 <ng-template #tutorialsList>
   @for (obj of tutorials(); track obj.id) {
-    <a [routerLink]="'/tutorials/' + obj.id">
+    <a [routerLink]="obj.id">
       <div class="card w-full mt-0">
         <div class="cover">
           <img class="object-cover" [src]="obj.cover" [alt]="obj.title" />

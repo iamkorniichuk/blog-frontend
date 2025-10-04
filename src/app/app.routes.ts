@@ -6,11 +6,11 @@ import { TutorialListPageComponent } from './pages/tutorial-list-page/tutorial-l
 
 export const routes: Routes = [
   {
-    path: 'tutorials',
+    path: '',
     component: TutorialListPageComponent,
   },
   {
-    path: 'tutorials/:id',
+    path: ':id',
     component: TutorialPageComponent,
     resolve: { tutorial: tutorialResolver },
   },

@@ -5,11 +5,11 @@ import { TutorialApiService } from './services/tutorial-api';
 
 export const serverRoutes: ServerRoute[] = [
   {
-    path: 'tutorials',
-    renderMode: RenderMode.Prerender,
+    path: '',
+    renderMode: RenderMode.Server,
   },
   {
-    path: 'tutorials/:id',
+    path: ':id',
     renderMode: RenderMode.Prerender,
     fallback: PrerenderFallback.Server,
     async getPrerenderParams() {
