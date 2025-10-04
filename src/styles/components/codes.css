@@ -1,6 +1,7 @@
 @layer components {
   .code-block {
-    @apply border border-surface-extra-accent rounded-xl overflow-hidden max-w-full min-w-0;
+    @apply border border-surface-extra-accent rounded-xl;
+    @apply overflow-hidden min-w-0 max-w-full;
   }
 
   .code-header {
