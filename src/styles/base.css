@@ -42,7 +42,8 @@
   }
 
   table {
-    @apply table-auto border-collapse border-1 border-text-extra-muted bg-surface my-4 w-full;
+    @apply bg-surface border-collapse border-1 border-text-extra-muted;
+    @apply table-auto overflow-y-auto w-fit max-h-[70vh];
   }
 
   tbody tr:nth-child(odd) {

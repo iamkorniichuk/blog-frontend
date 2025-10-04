@@ -154,35 +154,46 @@
 </ng-template>
 
 <ng-template #table let-node>
-  <table>
-    <tbody>
-      @for (row of node.children; track $index) {
-        <ng-container
-          [ngTemplateOutlet]="renderNode(row)"
-          [ngTemplateOutletContext]="{ $implicit: row, index: $index }"
-        />
-      }
-    </tbody>
-  </table>
+  <div class="overflow-x-auto my-4">
+    <table>
+      <tbody>
+        @for (row of node.children; track $index) {
+          <ng-container
+            [ngTemplateOutlet]="renderNode(row)"
+            [ngTemplateOutletContext]="{
+              $implicit: row,
+              index: $index,
+              align: node.align,
+            }"
+          />
+        }
+      </tbody>
+    </table>
+  </div>
 </ng-template>
 
-<ng-template #tableRow let-node let-index="index">
+<ng-template #tableRow let-node let-index="index" let-align="align">
   <tr>
     @for (cell of node.children; track $index) {
       <ng-container
         [ngTemplateOutlet]="renderNode(cell)"
-        [ngTemplateOutletContext]="{ $implicit: cell, index: index }"
+        [ngTemplateOutletContext]="{
+          $implicit: cell,
+          rowIndex: index,
+          colIndex: $index,
+          align: align,
+        }"
       />
     }
   </tr>
 </ng-template>
 
-<ng-template #tableCell let-node let-index="index">
-  @if (index === 0) {
+<ng-template #tableCell let-node let-rowIndex="rowIndex" let-colIndex="colIndex" let-align="align">
+  @if (rowIndex === 0) {
     <th
-      [class.text-left]="node.align === 'left'"
-      [class.text-center]="node.align === 'center'"
-      [class.text-right]="node.align === 'right'"
+      [class.text-left]="align?.[colIndex] === 'left'"
+      [class.text-center]="align?.[colIndex] === 'center'"
+      [class.text-right]="align?.[colIndex] === 'right'"
     >
       @for (child of node.children; track $index) {
         <ng-container
@@ -193,9 +204,9 @@
     </th>
   } @else {
     <td
-      [class.text-left]="node.align === 'left'"
-      [class.text-center]="node.align === 'center'"
-      [class.text-right]="node.align === 'right'"
+      [class.text-left]="align?.[colIndex] === 'left'"
+      [class.text-center]="align?.[colIndex] === 'center'"
+      [class.text-right]="align?.[colIndex] === 'right'"
     >
       @for (child of node.children; track $index) {
         <ng-container
