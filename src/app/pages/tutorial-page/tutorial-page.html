@@ -1,9 +1,7 @@
 <ng-template #cover>
   <div class="cover">
     <img class="object-cover" [src]="tutorial().cover" [alt]="tutorial().title" />
-    <div
-      class="pointer-events-none absolute inset-x-0 bottom-0 w-full h-8 bg-gradient-to-b from-transparent via-surface to-surface"
-    ></div>
+    <app-gradient-overlay [sizePercentage]="10" color="surface" side="b" />
   </div>
 </ng-template>
 
@@ -13,7 +11,7 @@
 
 <ng-template #meta>
   <div class="flex flex-row items-center justify-between mb-2">
-    <app-arrow-scroll class="min-w-0 flex-1 overflow-hidden">
+    <app-arrow-scroll class="min-w-0 flex-1 overflow-hidden" color="surface">
       <div class="inline-flex gap-1 pr-4">
         @for (tag of tutorial().tags; track $index) {
           <span class="tag">{{ tag }}</span>

@@ -6,6 +6,7 @@ import { Tutorial } from '../../services/tutorial-api';
 import { MarkdownComponent } from '../../components/markdown/markdown';
 import { ArrowScrollComponent } from '../../components/arrow-scroll/arrow-scroll';
 import { ContentPageComponent } from '../../components/content-page/content-page';
+import { GradientOverlayComponent } from '../../components/gradient-overlay/gradient-overlay';
 
 @Component({
   selector: 'app-tutorial-page',
@@ -15,6 +16,7 @@ import { ContentPageComponent } from '../../components/content-page/content-page
     DatePipe,
     ArrowScrollComponent,
     ContentPageComponent,
+    GradientOverlayComponent,
   ],
   providers: [DatePipe],
   templateUrl: './tutorial-page.html',

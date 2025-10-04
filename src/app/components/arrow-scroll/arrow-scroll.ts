@@ -10,12 +10,13 @@ import {
 } from '@angular/core';
 
 import { ArrowIconComponent } from '../icons/arrow-icon';
+import { Color, GradientOverlayComponent } from '../gradient-overlay/gradient-overlay';
 
 export type Direction = 'l' | 'r';
 
 @Component({
   selector: 'app-arrow-scroll',
-  imports: [ArrowIconComponent],
+  imports: [ArrowIconComponent, GradientOverlayComponent],
   templateUrl: './arrow-scroll.html',
 })
 export class ArrowScrollComponent implements AfterViewInit {
@@ -23,6 +24,7 @@ export class ArrowScrollComponent implements AfterViewInit {
 
   private host = inject(ElementRef<HTMLElement>);
   step = input<number>(100);
+  color = input.required<Color>();
   offset = signal<number>(0);
   maxOffset = signal<number>(0);
 

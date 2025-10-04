@@ -4,10 +4,11 @@ import { RouterLink } from '@angular/router';
 
 import { PageFilter, Tutorial, TutorialApiService } from '../../services/tutorial-api';
 import { ContentPageComponent } from '../../components/content-page/content-page';
+import { GradientOverlayComponent } from '../../components/gradient-overlay/gradient-overlay';
 
 @Component({
   selector: 'app-tutorial-list-page',
-  imports: [ContentPageComponent, NgTemplateOutlet, DatePipe, RouterLink],
+  imports: [ContentPageComponent, NgTemplateOutlet, DatePipe, RouterLink, GradientOverlayComponent],
   templateUrl: './tutorial-list-page.html',
 })
 export class TutorialListPageComponent implements OnInit {
