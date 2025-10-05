@@ -1,13 +1,11 @@
-@if (ast) {
-  <ng-container>
-    @for (node of ast.children; track $index) {
-      <ng-container
-        [ngTemplateOutlet]="renderNode(node)"
-        [ngTemplateOutletContext]="{ $implicit: node }"
-      />
-    }
-  </ng-container>
-}
+<ng-container>
+  @for (node of ast.children; track $index) {
+    <ng-container
+      [ngTemplateOutlet]="renderNode(node)"
+      [ngTemplateOutletContext]="{ $implicit: node }"
+    />
+  }
+</ng-container>
 
 <ng-template #paragraph let-node>
   <p>

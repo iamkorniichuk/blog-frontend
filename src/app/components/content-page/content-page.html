@@ -1,23 +1,21 @@
-@if (screenSize()) {
-  @if (screenSize() === 'sm') {
-    <div class="w-full">
-      <div class="w-full min-w-0 max-w-4xl content-block">
-        <ng-container *ngTemplateOutlet="phonePageTemplate()" />
-      </div>
+@if (screenSize() === 'sm') {
+  <div class="w-full">
+    <div class="w-full min-w-0 max-w-4xl content-block">
+      <ng-container *ngTemplateOutlet="phonePageTemplate()" />
     </div>
-  } @else {
-    <div class="flex flex-row justify-center w-full">
-      <div class="basis-3/5 min-w-0 w-full max-w-4xl content-block">
-        <ng-container *ngTemplateOutlet="desktopContentTemplate()" />
-      </div>
+  </div>
+} @else {
+  <div class="flex flex-row justify-center w-full">
+    <div class="basis-3/5 min-w-0 w-full max-w-4xl content-block">
+      <ng-container *ngTemplateOutlet="desktopContentTemplate()" />
+    </div>
 
-      <div class="basis-2/5 min-w-2xs w-full max-w-xl">
-        @for (template of desktopCardTemplates(); track $index) {
-          <div class="content-card">
-            <ng-container *ngTemplateOutlet="template" />
-          </div>
-        }
-      </div>
+    <div class="basis-2/5 min-w-2xs w-full max-w-xl">
+      @for (template of desktopCardTemplates(); track $index) {
+        <div class="content-card">
+          <ng-container *ngTemplateOutlet="template" />
+        </div>
+      }
     </div>
-  }
+  </div>
 }
