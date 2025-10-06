@@ -102,13 +102,7 @@
 </ng-template>
 
 <ng-template #link let-node>
-  <a
-    [href]="node.url"
-    [title]="node.title || ''"
-    target="_blank"
-    rel="noopener noreferrer"
-    class="link"
-  >
+  <a [href]="node.url" [title]="node.title || ''" target="_blank" class="link">
     @for (child of node.children; track $index) {
       <ng-container
         [ngTemplateOutlet]="renderNode(child)"
