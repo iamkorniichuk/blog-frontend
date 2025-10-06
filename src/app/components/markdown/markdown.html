@@ -1,5 +1,5 @@
 <ng-container>
-  @for (node of ast.children; track $index) {
+  @for (node of ast().children; track $index) {
     <ng-container
       [ngTemplateOutlet]="renderNode(node)"
       [ngTemplateOutletContext]="{ $implicit: node }"
@@ -20,7 +20,7 @@
 
 <ng-template #heading let-node>
   @for (child of node.children; track $index) {
-    <app-heading class="mt-6 mb-2" [level]="node.depth" [text]="child.value" />
+    <app-heading class="mt-6 mb-2" [level]="node.depth" [text]="child.value" [id]="node.data.id" />
   }
 </ng-template>
 

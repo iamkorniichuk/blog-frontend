@@ -17,7 +17,7 @@
 
     img,
     svg {
-      @apply h-[1em] w-full inline-block align-middle;
+      @apply h-[1em] w-[1em] align-middle;
     }
   }
 

@@ -41,4 +41,15 @@
       @apply -mt-8 -mx-10;
     }
   }
+
+  .popup {
+    @apply bg-surface rounded-xl py-8 px-10;
+    @apply shadow-surface-extra-muted shadow-lg;
+    @apply border-1 border-surface-accent;
+    @apply fixed inset-0 place-self-center;
+  }
+
+  .popup-overlay {
+    @apply fixed inset-0 bg-surface-extra-muted/50;
+  }
 }

@@ -1,10 +1,6 @@
-import { Component, input, OnChanges, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
+import { Component, input, TemplateRef, ViewChild } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 
-import { unified } from 'unified';
-import remarkParse from 'remark-parse';
-import remarkRehype from 'remark-rehype';
-import remarkGfm from 'remark-gfm';
 import { RootContent, Root } from 'mdast';
 
 import { CodeBlockComponent } from '../code-block/code-block';
@@ -16,10 +12,8 @@ import { Heading } from '../elements/heading/heading';
   templateUrl: './markdown.html',
   host: { ngSkipHydration: 'true' },
 })
-export class MarkdownComponent implements OnChanges {
-  private parser = unified().use(remarkParse).use(remarkRehype).use(remarkGfm);
-  data = input.required<string>();
-  ast!: Root;
+export class MarkdownComponent {
+  ast = input.required<Root>();
 
   @ViewChild('paragraph', { static: true }) paragraph!: TemplateRef<unknown>;
   @ViewChild('heading', { static: true }) heading!: TemplateRef<unknown>;
@@ -43,12 +37,6 @@ export class MarkdownComponent implements OnChanges {
   @ViewChild('table', { static: true }) table!: TemplateRef<unknown>;
   @ViewChild('tableRow', { static: true }) tableRow!: TemplateRef<unknown>;
   @ViewChild('tableCell', { static: true }) tableCell!: TemplateRef<unknown>;
-
-  ngOnChanges(changes: SimpleChanges) {
-    if ('data' in changes) {
-      this.ast = this.parser.parse(this.data());
-    }
-  }
 
   renderNode(node: RootContent) {
     switch (node.type) {

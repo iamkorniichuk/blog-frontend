@@ -12,9 +12,7 @@
 
     <div class="basis-2/5 min-w-2xs w-full max-w-xl">
       @for (template of desktopCardTemplates(); track $index) {
-        <div class="content-card">
-          <ng-container *ngTemplateOutlet="template" />
-        </div>
+        <ng-container *ngTemplateOutlet="template" />
       }
     </div>
   </div>

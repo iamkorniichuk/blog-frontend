@@ -1,0 +1,10 @@
+<nav>
+  <h3>Table of Contents:</h3>
+  <ul>
+    @for (item of items(); track item.id) {
+      <li [style.padding-left.px]="(item.depth - 1) * 10">
+        <a class="link" [routerLink]="[]" [fragment]="item.id">{{ item.text }}</a>
+      </li>
+    }
+  </ul>
+</nav>

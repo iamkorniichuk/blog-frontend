@@ -25,13 +25,25 @@
   </div>
 </ng-template>
 
-<ng-template #solution>
-  <h3>Solution:</h3>
-  <app-markdown [data]="tutorial().solution"></app-markdown>
+@let contentAst = tutorial().content | markdownAst;
+<ng-template #content>
+  @if (contentAst) {
+    <app-markdown [ast]="contentAst" />
+  }
 </ng-template>
 
-<ng-template #content>
-  <app-markdown [data]="tutorial().content"></app-markdown>
+<ng-template #contentTable>
+  @if (contentAst) {
+    <app-toc-markdown [ast]="contentAst" />
+  }
+</ng-template>
+
+<ng-template #solution>
+  @let solutionAst = tutorial().solution | markdownAst;
+  @if (solutionAst) {
+    <h3>Solution:</h3>
+    <app-markdown [ast]="solutionAst"></app-markdown>
+  }
 </ng-template>
 
 <ng-template #phonePageTemplate>
@@ -42,6 +54,21 @@
     <ng-container *ngTemplateOutlet="solution" />
   </div>
   <ng-container *ngTemplateOutlet="content" />
+  <button
+    (click)="isPopupVisible.set(true)"
+    class="btn btn-icon btn-primary fixed right-0 bottom-8 text-4xl rounded-tr-none rounded-br-none"
+  >
+    <app-list-icon />
+  </button>
+  @if (isPopupVisible()) {
+    <div class="popup-overlay"></div>
+    <button (click)="isPopupVisible.set(false)" class="popup text-left">
+      <button (click)="isPopupVisible.set(false)" class="btn btn-icon absolute top-2 right-2">
+        <app-close-icon />
+      </button>
+      <ng-container *ngTemplateOutlet="contentTable" />
+    </button>
+  }
 </ng-template>
 
 <ng-template #desktopContentTemplate>
@@ -51,12 +78,23 @@
   <ng-container *ngTemplateOutlet="content" />
 </ng-template>
 
-<ng-template #desktopSolutionCardTemplate>
-  <ng-container *ngTemplateOutlet="solution" />
+<ng-template #desktopContentTableTemplate>
+  <div
+    class="content-card sticky left-0"
+    style="top: calc(var(--navbar-height) + calc(var(--spacing) * 4))"
+  >
+    <ng-container *ngTemplateOutlet="contentTable" />
+  </div>
+</ng-template>
+
+<ng-template #desktopSolutionTemplate>
+  <div class="content-card">
+    <ng-container *ngTemplateOutlet="solution" />
+  </div>
 </ng-template>
 
 <app-content-page
   [phonePageTemplate]="phonePageTemplate"
   [desktopContentTemplate]="desktopContentTemplate"
-  [desktopCardTemplates]="[desktopSolutionCardTemplate]"
+  [desktopCardTemplates]="[desktopSolutionTemplate, desktopContentTableTemplate]"
 />
