@@ -14,6 +14,7 @@ import { Heading } from '../elements/heading/heading';
   selector: 'app-markdown',
   imports: [NgTemplateOutlet, CodeBlockComponent, Heading],
   templateUrl: './markdown.html',
+  host: { ngSkipHydration: 'true' },
 })
 export class MarkdownComponent implements OnChanges {
   private parser = unified().use(remarkParse).use(remarkRehype).use(remarkGfm);
