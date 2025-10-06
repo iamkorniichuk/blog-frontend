@@ -1,12 +1,12 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { DatePipe, NgTemplateOutlet } from '@angular/common';
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { Meta } from '@angular/platform-browser';
+import { ActivatedRoute, RouterLink, Router } from '@angular/router';
 
 import { Tutorial, TutorialApiService } from '../../services/tutorial-api';
 import { ContentPageComponent } from '../../components/content-page/content-page';
 import { GradientOverlayComponent } from '../../components/gradient-overlay/gradient-overlay';
 import { ArrowIconComponent } from '../../components/icons/arrow-icon';
+import { MetaService } from '../../services/meta';
 
 @Component({
   selector: 'app-tutorial-list-page',
@@ -23,7 +23,8 @@ import { ArrowIconComponent } from '../../components/icons/arrow-icon';
 export class TutorialListPageComponent implements OnInit {
   private tutorialApiService = inject(TutorialApiService);
   private route = inject(ActivatedRoute);
-  private metaService = inject(Meta);
+  private router = inject(Router);
+  private metaService = inject(MetaService);
   tutorials = signal<Tutorial[]>([]);
   allTutorialsLength!: number;
   pageSize = 10;
@@ -51,13 +52,25 @@ export class TutorialListPageComponent implements OnInit {
   }
 
   private setTags(page: number) {
-    this.metaService.removeTag("rel='prev'");
-    this.metaService.removeTag("rel='next'");
+    if (page > 1) {
+      const previousUrl = this.getPageUrl(page - 1);
+      this.metaService.setTag({ rel: 'prev', href: previousUrl });
+    }
 
-    if (page > 1) this.metaService.addTag({ rel: 'prev', href: `/tutorials?page=${page - 1}` });
+    if (page < this.totalPages) {
+      const nextUrl = this.getPageUrl(page + 1);
+      this.metaService.setTag({ rel: 'next', href: nextUrl });
+    }
+  }
 
-    if (page < this.totalPages)
-      this.metaService.addTag({ rel: 'next', href: `/tutorials?page=${page + 1}` });
+  private getPageUrl(page: number) {
+    return this.router
+      .createUrlTree([], {
+        relativeTo: this.route,
+        queryParams: { page },
+        queryParamsHandling: 'merge',
+      })
+      .toString();
   }
 
   get pageNumbers() {
