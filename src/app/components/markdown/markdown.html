@@ -44,7 +44,9 @@
 </ng-template>
 
 <ng-template #image let-node>
-  <img [src]="node.url" [alt]="node.alt" [title]="node.title" class="my-2 max-w-full" />
+  <div class="my-2 size-full max-h-[50vh] overflow-y-auto">
+    <img [src]="node.url" [alt]="node.alt" [title]="node.title" />
+  </div>
 </ng-template>
 
 <ng-template #code let-node>

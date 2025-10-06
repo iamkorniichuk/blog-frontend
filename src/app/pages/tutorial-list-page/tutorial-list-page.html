@@ -3,7 +3,7 @@
     <a [routerLink]="obj.id">
       <div class="card w-full mt-0">
         <div class="cover">
-          <img class="object-cover" [src]="obj.cover" [alt]="obj.title" />
+          <img [src]="obj.cover" [alt]="obj.title" />
           <app-gradient-overlay [sizePercentage]="10" color="surface-accent" side="b" />
         </div>
         <h2>{{ obj.title }}</h2>
