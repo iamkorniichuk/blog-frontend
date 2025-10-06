@@ -1,37 +1,80 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { DatePipe, NgTemplateOutlet } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { Meta } from '@angular/platform-browser';
 
-import { PageFilter, Tutorial, TutorialApiService } from '../../services/tutorial-api';
+import { Tutorial, TutorialApiService } from '../../services/tutorial-api';
 import { ContentPageComponent } from '../../components/content-page/content-page';
 import { GradientOverlayComponent } from '../../components/gradient-overlay/gradient-overlay';
+import { ArrowIconComponent } from '../../components/icons/arrow-icon';
 
 @Component({
   selector: 'app-tutorial-list-page',
-  imports: [ContentPageComponent, NgTemplateOutlet, DatePipe, RouterLink, GradientOverlayComponent],
+  imports: [
+    ContentPageComponent,
+    NgTemplateOutlet,
+    DatePipe,
+    RouterLink,
+    GradientOverlayComponent,
+    ArrowIconComponent,
+  ],
   templateUrl: './tutorial-list-page.html',
 })
 export class TutorialListPageComponent implements OnInit {
   private tutorialApiService = inject(TutorialApiService);
+  private route = inject(ActivatedRoute);
+  private metaService = inject(Meta);
   tutorials = signal<Tutorial[]>([]);
-  private pageStart = 0;
-  private pageSize = 10;
-  areAllTutorialsLoaded = signal<boolean>(false);
+  allTutorialsLength!: number;
+  pageSize = 10;
+  currentPage!: number;
+  totalPages!: number;
 
   async ngOnInit() {
-    await this.loadTutorials();
+    this.allTutorialsLength = await this.tutorialApiService.readLength();
+    this.totalPages = Math.ceil(this.allTutorialsLength / this.pageSize);
+
+    this.route.queryParamMap.subscribe(async (params) => {
+      const page = Number(params.get('page')) || 1;
+      this.currentPage = Math.min(Math.max(page, 1), this.totalPages);
+
+      this.setTags(this.currentPage);
+      await this.loadPage(this.currentPage);
+    });
   }
 
-  async loadTutorials() {
-    if (this.areAllTutorialsLoaded()) return;
+  async loadPage(page: number) {
+    const start = (page - 1) * this.pageSize;
+    const end = start + this.pageSize;
+    const newTutorials = await this.tutorialApiService.readAll({ start, end });
+    this.tutorials.set(newTutorials);
+  }
 
-    const pageEnd = this.pageStart + this.pageSize;
-    const page: PageFilter = { start: this.pageStart, end: pageEnd };
-    const newTutorials = await this.tutorialApiService.readAll(page);
-    this.tutorials.update((current) => [...current, ...newTutorials]);
-    this.pageStart = pageEnd;
+  private setTags(page: number) {
+    this.metaService.removeTag("rel='prev'");
+    this.metaService.removeTag("rel='next'");
 
-    const length = await this.tutorialApiService.readLength();
-    this.areAllTutorialsLoaded.set(pageEnd >= length);
+    if (page > 1) this.metaService.addTag({ rel: 'prev', href: `/tutorials?page=${page - 1}` });
+
+    if (page < this.totalPages)
+      this.metaService.addTag({ rel: 'next', href: `/tutorials?page=${page + 1}` });
+  }
+
+  get pageNumbers() {
+    const neighbors = 2;
+    const pages: (number | null)[] = [1];
+
+    const start = Math.max(2, this.currentPage - neighbors);
+    const end = Math.min(this.totalPages - 1, this.currentPage + neighbors);
+
+    if (start > 2) pages.push(null);
+
+    for (let i = start; i <= end; i++) pages.push(i);
+
+    if (end < this.totalPages - 1) pages.push(null);
+
+    if (this.totalPages > 1) pages.push(this.totalPages);
+
+    return pages;
   }
 }

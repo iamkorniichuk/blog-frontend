@@ -4,7 +4,12 @@
     @apply flex flex-row gap-2 items-center justify-center;
     @apply truncate;
     @apply hover:cursor-pointer active:cursor-pointer;
-    @apply disabled:hover:cursor-auto disabled:active:cursor-auto;
+
+    &:disabled,
+    &.btn-disabled,
+    &[aria-disabled='true'] {
+      @apply hover:cursor-default active:cursor-default pointer-events-none;
+    }
 
     svg {
       @apply stroke-current fill-none;
@@ -30,9 +35,13 @@
     @apply active:bg-[color:var(--color-accent,var(--color-surface-accent))];
     @apply active:text-text-extra-accent;
 
-    @apply disabled:border-[color:var(--color-extra-muted,var(--color-surface-extra-muted))];
-    @apply disabled:bg-[color:var(--color-extra-muted,var(--color-surface-extra-muted))];
-    @apply disabled:text-text-muted;
+    &:disabled,
+    &.btn-disabled,
+    &[aria-disabled='true'] {
+      @apply border-[color:var(--color-extra-muted,var(--color-surface-extra-muted))];
+      @apply bg-[color:var(--color-extra-muted,var(--color-surface-extra-muted))];
+      @apply text-text-muted;
+    }
   }
 
   .btn-secondary {
@@ -44,7 +53,11 @@
     @apply hover:text-[color:var(--color-accent,var(--color-text-accent))];
     @apply active:text-[color:var(--color-extra-accent,var(--color-text-extra-accent))];
 
-    @apply disabled:text-[color:var(--color-muted,var(--color-text-muted))];
-    @apply disabled:hover:bg-surface disabled:active:bg-surface;
+    &:disabled,
+    &.btn-disabled,
+    &[aria-disabled='true'] {
+      @apply text-[color:var(--color-muted,var(--color-text-muted))];
+      @apply hover:bg-surface active:bg-surface;
+    }
   }
 }

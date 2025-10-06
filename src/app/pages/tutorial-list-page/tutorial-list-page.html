@@ -1,4 +1,7 @@
 <ng-template #tutorialsList>
+  <div class="meta mb-1 w-full text-end">
+    Showing {{ tutorials().length }} results of {{ allTutorialsLength }} total
+  </div>
   @for (obj of tutorials(); track obj.id) {
     <a [routerLink]="obj.id">
       <div class="card w-full mt-0">
@@ -14,9 +17,49 @@
       </div>
     </a>
   }
-  @if (!areAllTutorialsLoaded()) {
-    <button class="btn btn-primary w-full" (click)="loadTutorials()">Load more</button>
-  }
+  <div class="flex flex-row justify-between w-full">
+    @if (currentPage === 1) {
+      <span class="btn btn-primary btn-icon btn-disabled"
+        ><app-arrow-icon class="rotate-90"
+      /></span>
+    } @else {
+      <a
+        class="btn btn-primary btn-icon"
+        [routerLink]="[]"
+        [queryParams]="{ page: currentPage - 1 }"
+        queryParamsHandling="merge"
+        ><app-arrow-icon class="rotate-90"
+      /></a>
+    }
+    @for (page of pageNumbers; track $index) {
+      @if (page === null) {
+        <span class="btn btn-secondary btn-icon btn-disabled">...</span>
+      } @else if (page === currentPage) {
+        <span class="btn btn-secondary btn-icon font-bold">{{ page }}</span>
+      } @else {
+        <a
+          class="btn btn-secondary btn-icon"
+          [routerLink]="[]"
+          [queryParams]="{ page: page }"
+          queryParamsHandling="merge"
+          >{{ page }}</a
+        >
+      }
+    }
+    @if (currentPage === totalPages) {
+      <span class="btn btn-primary btn-icon btn-disabled"
+        ><app-arrow-icon class="-rotate-90"
+      /></span>
+    } @else {
+      <a
+        class="btn btn-primary btn-icon"
+        [routerLink]="[]"
+        [queryParams]="{ page: currentPage + 1 }"
+        queryParamsHandling="merge"
+        ><app-arrow-icon class="-rotate-90"
+      /></a>
+    }
+  </div>
 </ng-template>
 
 <ng-template #phonePageTemplate>
