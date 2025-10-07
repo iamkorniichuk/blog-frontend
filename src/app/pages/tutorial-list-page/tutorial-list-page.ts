@@ -32,6 +32,15 @@ export class TutorialListPageComponent implements OnInit {
   totalPages!: number;
 
   async ngOnInit() {
+    const title = 'Programming Tutorials';
+    this.metaService.setTitle(title);
+    this.metaService.setTag({ name: 'og:title', content: title });
+    this.metaService.setTag({ name: 'og:type', content: 'article' });
+
+    const description = 'Answers to your programming problems with real life examples.';
+    this.metaService.setTag({ name: 'description', content: description });
+    this.metaService.setTag({ name: 'og:description', content: description });
+
     this.allTutorialsLength = await this.tutorialApiService.readLength();
     this.totalPages = Math.ceil(this.allTutorialsLength / this.pageSize);
 
