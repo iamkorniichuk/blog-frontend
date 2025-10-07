@@ -58,13 +58,13 @@
     (click)="isPopupVisible.set(true)"
     class="btn btn-icon btn-primary fixed right-0 bottom-8 text-4xl rounded-tr-none rounded-br-none"
   >
-    <app-list-icon />
+    <app-list-icon title="Open Table of Contents" />
   </button>
   @if (isPopupVisible()) {
     <div class="popup-overlay"></div>
     <button (click)="isPopupVisible.set(false)" class="popup text-left">
       <button (click)="isPopupVisible.set(false)" class="btn btn-icon absolute top-2 right-2">
-        <app-close-icon />
+        <app-close-icon title="Close Table of Contents" />
       </button>
       <ng-container *ngTemplateOutlet="contentTable" />
     </button>

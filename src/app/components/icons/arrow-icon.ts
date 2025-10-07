@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-arrow-icon',
@@ -12,8 +12,11 @@ import { Component } from '@angular/core';
       stroke-linecap="round"
       stroke-linejoin="round"
     >
+      <title>{{ title() }}</title>
       <path d="M6 9l6 6 6-6" />
     </svg>
   `,
 })
-export class ArrowIconComponent {}
+export class ArrowIconComponent {
+  title = input.required<string>();
+}
