@@ -9,6 +9,10 @@ export const serverRoutes: ServerRoute[] = [
     renderMode: RenderMode.Server,
   },
   {
+    path: 'about-us',
+    renderMode: RenderMode.Prerender,
+  },
+  {
     path: ':id',
     renderMode: RenderMode.Prerender,
     fallback: PrerenderFallback.Server,

@@ -43,6 +43,7 @@
   }
 
   .popup {
+    @apply size-fit max-w-[60vw] max-h-[60vh];
     @apply bg-surface rounded-xl py-8 px-10;
     @apply shadow-surface-extra-muted shadow-lg;
     @apply border-1 border-surface-accent;
