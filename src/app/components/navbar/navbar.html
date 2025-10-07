@@ -1,9 +1,6 @@
-<nav class="navbar flex flex-row p-2">
-  <a class="btn btn-icon text-6xl min-w-max pt-2" href="/"><app-logo-icon /></a>
-  <a class="btn btn-secondary">Angular</a>
-  <a class="btn btn-secondary">Typescript</a>
-  <a class="btn btn-secondary">Django</a>
-  <a class="btn btn-secondary">FastAPI</a>
-  <a class="btn btn-secondary">Python</a>
-  <a class="btn btn-secondary">AWS</a>
+<nav class="navbar flex flex-row gap-2 justify-between p-2">
+  <a class="btn btn-icon text-6xl min-w-max pt-2" routerLink="/"
+    ><app-logo-icon title="Home Page"
+  /></a>
+  <a class="btn btn-secondary" routerLink="about-us" routerLinkActive="font-medium">About Us</a>
 </nav>
