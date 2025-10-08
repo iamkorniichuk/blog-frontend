@@ -13,6 +13,10 @@ export const serverRoutes: ServerRoute[] = [
     renderMode: RenderMode.Prerender,
   },
   {
+    path: '404',
+    renderMode: RenderMode.Prerender,
+  },
+  {
     path: ':id',
     renderMode: RenderMode.Prerender,
     fallback: PrerenderFallback.Server,
