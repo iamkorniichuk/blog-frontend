@@ -5,12 +5,9 @@ import { TutorialPageComponent } from './pages/tutorial-page/tutorial-page';
 import { TutorialListPageComponent } from './pages/tutorial-list-page/tutorial-list-page';
 import { AboutUsPageComponent } from './pages/about-us-page/about-us-page';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page';
+import { ImageUpscalePageComponent } from './pages/image-upscale-page/image-upscale-page';
 
 export const routes: Routes = [
-  {
-    path: '',
-    component: TutorialListPageComponent,
-  },
   {
     path: 'about-us',
     component: AboutUsPageComponent,
@@ -20,7 +17,15 @@ export const routes: Routes = [
     component: NotFoundPageComponent,
   },
   {
-    path: ':id',
+    path: 'tools/image-upscale',
+    component: ImageUpscalePageComponent,
+  },
+  {
+    path: 'tutorials',
+    component: TutorialListPageComponent,
+  },
+  {
+    path: 'tutorials/:id',
     component: TutorialPageComponent,
     resolve: { tutorial: tutorialResolver },
   },

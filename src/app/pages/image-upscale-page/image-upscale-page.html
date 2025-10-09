@@ -1,0 +1,32 @@
+<div>
+  <h1>AI Image Upscaler</h1>
+  <p>Upscale your images right in the browser</p>
+  <p>NO SIGN UP, NO SUBSCRIPTION, NO CREDITS, NO INTRUSIVE ADS</p>
+  <!-- TODO: Display progress, uploaded images, upscaled images, comparisons, download all -->
+  <input type="file" multiple accept="image/*" (change)="onFilesSelected($event)" />
+  <div class="flex flex-row">
+    <button (click)="upscaleImages()" class="btn btn-primary primary">Upscale</button>
+    <select name="factor" id="factor">
+      @for (option of upscaleOptions; track $index) {
+        <option [value]="option">{{ option }}</option>
+      }
+    </select>
+  </div>
+  <div class="flex flex-row overflow-x-auto">
+    @for (image of uploadedImages(); track $index) {
+      <img [src]="image.src" [alt]="image.alt" class="h-full object-contain" />
+      @let upscaled = upscaledData()[$index];
+      @if (upscaled.state === 'queued') {
+        <div>Queued</div>
+      } @else if (upscaled.state === 'inprogress') {
+        <div>{{ upscaled.progress }}</div>
+      } @else if (upscaled.state === 'done' && upscaled.image) {
+        <img
+          [src]="upscaled.image"
+          [alt]="'Upscaled: ' + image.alt"
+          class="h-full object-contain"
+        />
+      }
+    }
+  </div>
+</div>

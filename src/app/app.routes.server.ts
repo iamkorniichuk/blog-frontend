@@ -5,10 +5,6 @@ import { TutorialApiService } from './services/tutorial-api';
 
 export const serverRoutes: ServerRoute[] = [
   {
-    path: '',
-    renderMode: RenderMode.Server,
-  },
-  {
     path: 'about-us',
     renderMode: RenderMode.Prerender,
   },
@@ -17,7 +13,15 @@ export const serverRoutes: ServerRoute[] = [
     renderMode: RenderMode.Prerender,
   },
   {
-    path: ':id',
+    path: 'tools/image-upscale',
+    renderMode: RenderMode.Prerender,
+  },
+  {
+    path: 'tutorials',
+    renderMode: RenderMode.Server,
+  },
+  {
+    path: 'tutorials/:id',
     renderMode: RenderMode.Prerender,
     fallback: PrerenderFallback.Server,
     async getPrerenderParams() {
