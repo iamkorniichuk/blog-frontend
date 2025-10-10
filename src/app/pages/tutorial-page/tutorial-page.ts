@@ -9,8 +9,7 @@ import { GradientOverlayComponent } from '../../components/gradient-overlay/grad
 import { MetaService } from '../../services/meta';
 import { MarkdownAstPipe } from '../../pipes/markdown-ast-pipe';
 import { TocMarkdownComponent } from '../../components/toc-markdown/toc-markdown';
-import { ListIconComponent } from '../../components/icons/list-icon';
-import { CloseIconComponent } from '../../components/icons/close-icon';
+import { IconComponent } from '../../components/icon/icon';
 
 @Component({
   selector: 'app-tutorial-page',
@@ -23,8 +22,7 @@ import { CloseIconComponent } from '../../components/icons/close-icon';
     ContentPageComponent,
     GradientOverlayComponent,
     TocMarkdownComponent,
-    ListIconComponent,
-    CloseIconComponent,
+    IconComponent,
   ],
   providers: [DatePipe],
   templateUrl: './tutorial-page.html',

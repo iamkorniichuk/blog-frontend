@@ -1,0 +1,58 @@
+<ng-template #arrow>
+  <svg:g style="stroke: currentColor; fill: none">
+    <path d="M6 9l6 6 6-6" />
+  </svg:g>
+</ng-template>
+<ng-template #close>
+  <svg:g style="stroke: currentColor; fill: none">
+    <line x1="3" y1="3" x2="21" y2="21" />
+    <line x1="21" y1="3" x2="3" y2="21" />
+  </svg:g>
+</ng-template>
+<ng-template #copy>
+  <svg:g style="stroke: currentColor; fill: none">
+    <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+  </svg:g>
+</ng-template>
+<ng-template #list>
+  <svg:g style="stroke: currentColor; fill: none">
+    <line x1="3" y1="6" x2="21" y2="6" />
+    <line x1="3" y1="12" x2="21" y2="12" />
+    <line x1="3" y1="18" x2="21" y2="18" />
+  </svg:g>
+</ng-template>
+<ng-template #logo>
+  <svg:g style="stroke: none; fill: currentColor">
+    <path
+      aria-label="null;"
+      d="m2.7 15h-2v-6.1h1.6v2.6h-0.1q0-0.9 0.3-1.5 0.2-0.7 0.7-1 0.5-0.3 1.1-0.3h0.1q1.1 0 1.6 0.7 0.6 0.7 0.6 2.1v3.5h-2v-3.5q0-0.4-0.3-0.7-0.2-0.3-0.6-0.3-0.5 0-0.7 0.3-0.3 0.3-0.3 0.7zm7.1 0.2q-1.1 0-1.6-0.7-0.6-0.7-0.6-2.1v-3.5h2v3.6q0 0.4 0.2 0.7 0.3 0.2 0.7 0.2 0.4 0 0.6-0.2 0.3-0.3 0.3-0.7v-3.6h2v6.1h-1.6v-2.6h0.1q0 1-0.2 1.6-0.2 0.6-0.7 0.9-0.5 0.3-1.2 0.3zm7-0.2h-2v-8h2zm0-6.6h-2.7v-1.5h2.7zm4 6.6h-2v-8h2zm0-6.6h-2.7v-1.5h2.7zm3.1 5l-1.4 3.6-1.5-0.6 1.2-3.6zm-0.2-1.9h-2.2v-2.2h2.2z"
+    />
+  </svg:g>
+</ng-template>
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+  preserveAspectRatio="xMidYMid meet"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <title>{{ title() }}</title>
+  @if (icon() === 'arrow') {
+    <ng-container [ngTemplateOutlet]="arrow"></ng-container>
+  }
+  @if (icon() === 'close') {
+    <ng-container [ngTemplateOutlet]="close"></ng-container>
+  }
+  @if (icon() === 'copy') {
+    <ng-container [ngTemplateOutlet]="copy"></ng-container>
+  }
+  @if (icon() === 'list') {
+    <ng-container [ngTemplateOutlet]="list"></ng-container>
+  }
+  @if (icon() === 'logo') {
+    <ng-container [ngTemplateOutlet]="logo"></ng-container>
+  }
+</svg>

@@ -12,7 +12,7 @@ import {
 import Prism from 'prismjs';
 import 'prismjs/components/prism-typescript';
 
-import { CopyIconComponent } from '../icons/copy-icon';
+import { IconComponent } from '../icon/icon';
 
 export type FileType =
   | 'css'
@@ -30,7 +30,7 @@ export type FileType =
 
 @Component({
   selector: 'app-code-block',
-  imports: [CopyIconComponent, NgTemplateOutlet],
+  imports: [IconComponent, NgTemplateOutlet],
   templateUrl: './code-block.html',
   host: { ngSkipHydration: 'true' },
 })

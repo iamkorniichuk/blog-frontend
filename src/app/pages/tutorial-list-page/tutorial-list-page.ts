@@ -5,8 +5,8 @@ import { ActivatedRoute, RouterLink, Router } from '@angular/router';
 import { Tutorial, TutorialApiService } from '../../services/tutorial-api';
 import { ContentPageComponent } from '../../components/content-page/content-page';
 import { GradientOverlayComponent } from '../../components/gradient-overlay/gradient-overlay';
-import { ArrowIconComponent } from '../../components/icons/arrow-icon';
 import { MetaService } from '../../services/meta';
+import { IconComponent } from '../../components/icon/icon';
 
 @Component({
   selector: 'app-tutorial-list-page',
@@ -16,7 +16,7 @@ import { MetaService } from '../../services/meta';
     DatePipe,
     RouterLink,
     GradientOverlayComponent,
-    ArrowIconComponent,
+    IconComponent,
   ],
   templateUrl: './tutorial-list-page.html',
 })

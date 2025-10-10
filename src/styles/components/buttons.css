@@ -11,18 +11,14 @@
       @apply hover:cursor-default active:cursor-default pointer-events-none;
     }
 
-    svg {
-      @apply stroke-current fill-none;
-    }
-
     img,
     svg {
-      @apply h-[1em] w-[1em] align-middle;
+      @apply h-[1em] align-middle;
     }
   }
 
   .btn-icon {
-    @apply px-2 py-1;
+    @apply aspect-square p-2;
   }
 
   .btn-primary {

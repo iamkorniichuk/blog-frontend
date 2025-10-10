@@ -29,6 +29,10 @@
     --navbar-height: 3rem;
   }
 
+  svg {
+    @apply h-[1em];
+  }
+
   ol {
     @apply list-decimal pl-6;
   }

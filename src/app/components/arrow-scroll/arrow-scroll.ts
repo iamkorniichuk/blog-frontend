@@ -9,14 +9,14 @@ import {
   ViewChild,
 } from '@angular/core';
 
-import { ArrowIconComponent } from '../icons/arrow-icon';
+import { IconComponent } from '../icon/icon';
 import { Color, GradientOverlayComponent } from '../gradient-overlay/gradient-overlay';
 
 export type Direction = 'l' | 'r';
 
 @Component({
   selector: 'app-arrow-scroll',
-  imports: [ArrowIconComponent, GradientOverlayComponent],
+  imports: [IconComponent, GradientOverlayComponent],
   templateUrl: './arrow-scroll.html',
 })
 export class ArrowScrollComponent implements AfterViewInit {
