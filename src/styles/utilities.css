@@ -1,10 +1,25 @@
 @layer utilities {
+  .text {
+    --color-extra-accent: var(--color-text-extra-accent);
+    --color-accent: var(--color-text-accent);
+    --color: var(--color-text);
+    --color-muted: var(--color-text-muted);
+    --color-extra-muted: var(--color-text-extra-muted);
+  }
+
   .surface {
     --color-extra-accent: var(--color-surface-extra-accent);
     --color-accent: var(--color-surface-accent);
     --color: var(--color-surface);
     --color-muted: var(--color-surface-muted);
     --color-extra-muted: var(--color-surface-extra-muted);
+  }
+  .primary {
+    --color-extra-accent: var(--color-primary-extra-accent);
+    --color-accent: var(--color-primary-accent);
+    --color: var(--color-primary);
+    --color-muted: var(--color-primary-muted);
+    --color-extra-muted: var(--color-primary-extra-muted);
   }
   .success {
     --color-extra-accent: var(--color-success-extra-accent);
