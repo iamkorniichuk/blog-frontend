@@ -35,7 +35,7 @@ export class TutorialListPageComponent implements OnInit {
     const title = 'Programming Tutorials';
     this.metaService.setTitle(title);
     this.metaService.setTag({ name: 'og:title', content: title });
-    this.metaService.setTag({ name: 'og:type', content: 'article' });
+    this.metaService.setTag({ name: 'og:type', content: 'website' });
 
     const description = 'Answers to your programming problems with real life examples.';
     this.metaService.setTag({ name: 'description', content: description });

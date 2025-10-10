@@ -1,0 +1,16 @@
+@layer components {
+  select {
+    @apply overflow-hidden px-3;
+    @apply hover:cursor-pointer;
+
+    @apply border-b-2;
+    @apply border-[color:var(--color-extra-accent,var(--color-surface-extra-accent))];
+    @apply bg-[color:var(--color,var(--color-surface))];
+
+    &:disabled,
+    &[aria-disabled='true'] {
+      @apply border-[color:var(--color-extra-muted,var(--color-surface-extra-muted))];
+      @apply text-text-muted;
+    }
+  }
+}

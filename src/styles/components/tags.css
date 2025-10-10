@@ -11,4 +11,28 @@
   .meta {
     @apply text-text-extra-muted text-sm text-nowrap whitespace-nowrap;
   }
+
+  .ticker {
+    @apply text-text-extra-muted text-sm font-bold;
+    @apply text-nowrap whitespace-nowrap;
+  }
+
+  .animate-ticker {
+    @apply w-max;
+    @apply will-change-transform;
+    animation: ticker-scroll 5s linear infinite;
+
+    &:hover {
+      animation-play-state: paused;
+    }
+  }
+
+  @keyframes ticker-scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
 }

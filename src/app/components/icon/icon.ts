@@ -1,7 +1,7 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { Component, input } from '@angular/core';
 
-export type Icon = 'arrow' | 'close' | 'copy' | 'list' | 'logo';
+export type Icon = 'arrow' | 'close' | 'copy' | 'list' | 'logo' | 'upload';
 
 @Component({
   selector: 'app-icon',

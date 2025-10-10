@@ -1,0 +1,19 @@
+<div
+  class="relative size-full overflow-hidden cursor-ew-resize select-none"
+  (mousedown)="dragDivider($event)"
+  (mousemove)="$event.buttons === 1 && dragDivider($event)"
+  (touchmove)="dragDivider($event)"
+>
+  <ng-container *ngTemplateOutlet="first()" />
+  <div
+    class="absolute inset-0 overflow-hidden"
+    [style.clip-path]="'inset(0 0 0 ' + dividerPosition() + '%)'"
+  >
+    <ng-container *ngTemplateOutlet="second()" />
+  </div>
+
+  <div
+    class="absolute top-0 bottom-0 w-1 bg-blue-500 shadow-md"
+    [style.left.%]="dividerPosition()"
+  ></div>
+</div>

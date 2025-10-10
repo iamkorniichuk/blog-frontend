@@ -1,4 +1,5 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
 
 import * as tf from '@tensorflow/tfjs';
 
@@ -8,6 +9,12 @@ import {
   UpscaleFactor,
   WorkerMessage,
 } from '../../workers/image-upscale.worker';
+import { NewsTickerComponent } from '../../components/news-ticker/news-ticker';
+import { ContentPageComponent } from '../../components/content-page/content-page';
+import { MetaService } from '../../services/meta';
+import { InputFileComponent } from '../../components/elements/input-file/input-file';
+import { IconComponent } from '../../components/icon/icon';
+import { SliderCompareComponent } from '../../components/slider-compare/slider-compare';
 
 export interface UpscaledData {
   state: State;
@@ -17,24 +24,49 @@ export interface UpscaledData {
 
 @Component({
   selector: 'app-image-upscale-page',
-  imports: [],
+  imports: [
+    NewsTickerComponent,
+    ContentPageComponent,
+    NgTemplateOutlet,
+    IconComponent,
+    InputFileComponent,
+    SliderCompareComponent,
+  ],
   templateUrl: './image-upscale-page.html',
 })
-export class ImageUpscalePageComponent {
+export class ImageUpscalePageComponent implements OnInit {
+  private metaService = inject(MetaService);
+
   uploadedImages = signal<HTMLImageElement[]>([]);
-  upscaleFactor = signal<string>('4x');
+  upscaleFactor = signal<UpscaleFactor>('x2');
   upscaledData = signal<UpscaledData[]>([]);
+  allImagesUpscaled = computed<boolean>(() => {
+    if (this.upscaledData().length === 0) return false;
+
+    for (const data of this.upscaledData()) {
+      if (data.state !== 'done') return false;
+    }
+    return true;
+  });
 
   upscaleOptions: UpscaleFactor[] = ['x2', 'x3', 'x4', 'x8'];
 
-  onFilesSelected(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (!input.files) return;
+  ngOnInit() {
+    const title = 'Upscale image';
+    this.metaService.setTitle(title);
+    this.metaService.setTag({ name: 'og:title', content: title });
+    this.metaService.setTag({ name: 'og:type', content: 'website' });
 
-    this.uploadedImages.set([]);
-    this.upscaledData.set([]);
-    const files = Array.from(input.files);
-    for (const file of files) {
+    const description = 'Upscale your images for free without sign up.';
+    this.metaService.setTag({ name: 'description', content: description });
+    this.metaService.setTag({ name: 'og:description', content: description });
+
+    const tags = 'upscale image, no sign up, free';
+    this.metaService.setTag({ name: 'keywords', content: tags });
+  }
+
+  onFilesSelected(files: FileList) {
+    for (const file of Array.from(files)) {
       const reader = new FileReader();
       reader.onload = () => {
         const img = new Image();
@@ -50,6 +82,48 @@ export class ImageUpscalePageComponent {
     }
   }
 
+  downloadAll() {
+    const images = this.upscaledData();
+
+    images.forEach((data, index) => {
+      const src = data.image;
+      if (!src) return;
+
+      const ext = this.getExtensionFromDataUrl(src);
+      const link = document.createElement('a');
+      link.href = src;
+      link.download = `image-${index + 1}.${ext}`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
+  }
+
+  private getExtensionFromDataUrl(dataUrl: string): string {
+    const match = dataUrl.match(/^data:(image\/[a-zA-Z0-9+.-]+);base64,/);
+    if (!match) return 'bin';
+
+    const mime = match[1];
+    const ext = mime.split('/')[1];
+
+    if (ext === 'jpeg') return 'jpg';
+    if (ext === 'svg+xml') return 'svg';
+    return ext;
+  }
+
+  removeImage(index: number) {
+    this.uploadedImages.update((current) => {
+      const copy = [...current];
+      copy.splice(index, 1);
+      return copy;
+    });
+    this.upscaledData.update((current) => {
+      const copy = [...current];
+      copy.splice(index, 1);
+      return copy;
+    });
+  }
+
   async upscaleImages() {
     const worker = new Worker(new URL('../../workers/image-upscale.worker', import.meta.url));
 
@@ -57,14 +131,6 @@ export class ImageUpscalePageComponent {
       for (const i in data) {
         const index = i as unknown as number;
         const { state, progress, imageData } = data[index] as WorkerMessage;
-
-        if (state === 'inprogress') {
-          this.upscaledData.update((images) => {
-            images[index].state = state;
-            images[index].progress = progress;
-            return [...images];
-          });
-        }
 
         if (state === 'done' && imageData) {
           const [image, shape] = imageData;
@@ -81,11 +147,16 @@ export class ImageUpscalePageComponent {
           const src = canvas.toDataURL('image/png');
           this.upscaledData.update((images) => {
             images[index].image = src;
-            images[index].state = state;
-            images[index].progress = progress;
-            return [...images];
+            return images;
           });
         }
+
+        this.upscaledData.update((images) => {
+          const copy = [...images];
+          copy[index].state = state;
+          copy[index].progress = progress;
+          return copy;
+        });
       }
     };
 
@@ -97,5 +168,11 @@ export class ImageUpscalePageComponent {
     }
 
     worker.postMessage({ imagesData: tensorImages, upscaleFactor: this.upscaleFactor() });
+  }
+
+  changeUpscaleFactor(event: Event) {
+    const target = event.target as HTMLSelectElement;
+    const factor = target.value as UpscaleFactor;
+    this.upscaleFactor.set(factor);
   }
 }

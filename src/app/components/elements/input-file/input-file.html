@@ -1,0 +1,21 @@
+<label
+  [class]="isDraggedOver() ? 'success' : 'primary'"
+  class="btn btn-primary flex flex-col items-center justify-center py-8"
+  (dragover)="onDragOver($event)"
+  (dragleave)="onDragLeave($event)"
+  (drop)="onDrop($event)"
+>
+  <div class="text-6xl mb-4"><app-icon icon="upload" title="Upload files" /></div>
+  @if (isDraggedOver()) {
+    <div>Drop it!</div>
+  } @else {
+    <div><strong>Choose a file</strong> or drop it here</div>
+  }
+  <input
+    class="hidden"
+    type="file"
+    [accept]="accept()"
+    [multiple]="multiple()"
+    (change)="onChange($event)"
+  />
+</label>

@@ -30,6 +30,13 @@
     />
   </svg:g>
 </ng-template>
+<ng-template #upload>
+  <svg:g style="stroke: currentColor; fill: none">
+    <path d="M6 10l6 6 6-6" />
+    <path d="M12 4v12" />
+    <path d="M4 20h16" />
+  </svg:g>
+</ng-template>
 
 <svg
   xmlns="http://www.w3.org/2000/svg"
@@ -54,5 +61,8 @@
   }
   @if (icon() === 'logo') {
     <ng-container [ngTemplateOutlet]="logo"></ng-container>
+  }
+  @if (icon() === 'upload') {
+    <ng-container [ngTemplateOutlet]="upload"></ng-container>
   }
 </svg>
