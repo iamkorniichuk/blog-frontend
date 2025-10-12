@@ -46,55 +46,49 @@
   }
 </ng-template>
 
-<ng-template #phonePageTemplate>
-  <ng-container *ngTemplateOutlet="cover" />
-  <ng-container *ngTemplateOutlet="heading" />
-  <ng-container *ngTemplateOutlet="meta" />
-  <div class="card">
-    <ng-container *ngTemplateOutlet="solution" />
-  </div>
-  <ng-container *ngTemplateOutlet="content" />
-  <button
-    (click)="isPopupVisible.set(true)"
-    class="btn btn-icon btn-primary fixed right-0 bottom-8 text-4xl rounded-tr-none rounded-br-none"
-  >
-    <app-icon icon="list" title="Open Table of Contents" />
-  </button>
-  @if (isPopupVisible()) {
-    <div class="popup-overlay"></div>
-    <button (click)="isPopupVisible.set(false)" class="popup text-left">
-      <button (click)="isPopupVisible.set(false)" class="btn btn-icon absolute top-2 right-2">
-        <app-icon icon="close" title="Close Table of Contents" />
-      </button>
-      <ng-container *ngTemplateOutlet="contentTable" />
+<app-content-page>
+  <ng-container id="phonePage">
+    <ng-container *ngTemplateOutlet="cover" />
+    <ng-container *ngTemplateOutlet="heading" />
+    <ng-container *ngTemplateOutlet="meta" />
+    <div class="card">
+      <ng-container *ngTemplateOutlet="solution" />
+    </div>
+    <ng-container *ngTemplateOutlet="content" />
+    <button
+      (click)="isPopupVisible.set(true)"
+      class="btn btn-icon btn-primary fixed right-0 bottom-8 text-4xl rounded-tr-none rounded-br-none"
+    >
+      <app-icon icon="list" title="Open Table of Contents" />
     </button>
-  }
-</ng-template>
+    @if (isPopupVisible()) {
+      <div class="popup-overlay"></div>
+      <button (click)="isPopupVisible.set(false)" class="popup text-left">
+        <button (click)="isPopupVisible.set(false)" class="btn btn-icon absolute top-2 right-2">
+          <app-icon icon="close" title="Close Table of Contents" />
+        </button>
+        <ng-container *ngTemplateOutlet="contentTable" />
+      </button>
+    }
+  </ng-container>
 
-<ng-template #desktopContentTemplate>
-  <ng-container *ngTemplateOutlet="cover" />
-  <ng-container *ngTemplateOutlet="heading" />
-  <ng-container *ngTemplateOutlet="meta" />
-  <ng-container *ngTemplateOutlet="content" />
-</ng-template>
+  <ng-container id="desktopContent">
+    <ng-container *ngTemplateOutlet="cover" />
+    <ng-container *ngTemplateOutlet="heading" />
+    <ng-container *ngTemplateOutlet="meta" />
+    <ng-container *ngTemplateOutlet="content" />
+  </ng-container>
 
-<ng-template #desktopContentTableTemplate>
-  <div
-    class="content-card sticky left-0"
-    style="top: calc(var(--navbar-height) + calc(var(--spacing) * 4))"
-  >
-    <ng-container *ngTemplateOutlet="contentTable" />
-  </div>
-</ng-template>
+  <ng-container id="desktopSidebar">
+    <div class="content-card">
+      <ng-container *ngTemplateOutlet="solution" />
+    </div>
 
-<ng-template #desktopSolutionTemplate>
-  <div class="content-card">
-    <ng-container *ngTemplateOutlet="solution" />
-  </div>
-</ng-template>
-
-<app-content-page
-  [phonePageTemplate]="phonePageTemplate"
-  [desktopContentTemplate]="desktopContentTemplate"
-  [desktopCardTemplates]="[desktopSolutionTemplate, desktopContentTableTemplate]"
-/>
+    <div
+      class="content-card sticky left-0"
+      style="top: calc(var(--navbar-height) + calc(var(--spacing) * 4))"
+    >
+      <ng-container *ngTemplateOutlet="contentTable" />
+    </div>
+  </ng-container>
+</app-content-page>

@@ -1,34 +1,13 @@
+import { NgTemplateOutlet } from '@angular/common';
 import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-heading',
-  imports: [],
-  template: `
-    @switch (level()) {
-      @case (1) {
-        <h1 [class]="class()" [id]="id()">{{ text() }}</h1>
-      }
-      @case (2) {
-        <h2 [class]="class()" [id]="id()">{{ text() }}</h2>
-      }
-      @case (3) {
-        <h3 [class]="class()" [id]="id()">{{ text() }}</h3>
-      }
-      @case (4) {
-        <h4 [class]="class()" [id]="id()">{{ text() }}</h4>
-      }
-      @case (5) {
-        <h5 [class]="class()" [id]="id()">{{ text() }}</h5>
-      }
-      @case (6) {
-        <h6 [class]="class()" [id]="id()">{{ text() }}</h6>
-      }
-    }
-  `,
+  imports: [NgTemplateOutlet],
+  templateUrl: './heading.html',
 })
 export class Heading {
   class = input<string>();
   id = input<string>();
-  text = input.required<string>();
   level = input.required<number>();
 }

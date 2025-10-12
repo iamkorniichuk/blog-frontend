@@ -2,22 +2,27 @@
   <h1>AI Image Upscaler</h1>
 </ng-template>
 
-<ng-template #tickerData>
-  <div class="flex flex-row gap-4">
-    <span>NO SIGN UP</span>
-    <span>|</span>
-    <span>NO SUBSCRIPTION</span>
-    <span>|</span>
-    <span>NO CREDITS</span>
-    <span>|</span>
-    <span>NO INTRUSIVE ADS</span>
-    <span>|</span>
-    <span></span>
-  </div>
-</ng-template>
-
-<ng-template #tickerTemplate>
-  <app-news-ticker [template]="tickerData" />
+<ng-template #ticker>
+  <app-news-ticker>
+    <div class="inline-flex flex-row gap-4 mr-4">
+      <span>NO SIGN UP</span>
+      <span>|</span>
+      <span>NO NEWSLETTER</span>
+      <span>|</span>
+      <span>NO QUEUE</span>
+      <span>|</span>
+      <span>NO SUBSCRIPTION</span>
+      <span>|</span>
+      <span>NO CREDITS</span>
+      <span>|</span>
+      <span>NO FREEMIUM</span>
+      <span>|</span>
+      <span>NO LIMITED OPTIONS</span>
+      <span>|</span>
+      <span>NO INTRUSIVE ADS</span>
+      <span>|</span>
+    </div>
+  </app-news-ticker>
 </ng-template>
 
 <ng-template #description>
@@ -46,51 +51,57 @@
   <div class="flex flex-col overflow-x-auto gap-4">
     @for (image of uploadedImages(); track $index) {
       @let upscaled = upscaledData()[$index];
-      <ng-template #first>
-        <img [src]="image.src" [alt]="image.alt" class="w-full object-contain" />
-        <div class="absolute left-2 bottom-2 text-shadow-lg text-shadow-surface-extra-accent/50">
-          Uploaded
-        </div>
-        @if (upscaled.state === 'queued') {
-          <div
-            class="absolute inset-0 bg-surface-extra-accent/50 flex items-center justify-center pointer-events-none"
-          >
-            Queued
-          </div>
-        } @else if (upscaled.state === 'inprogress') {
-          <div
-            class="absolute inset-0 bg-surface-extra-accent/50 flex items-center justify-center pointer-events-none"
-          >
-            {{ upscaled.progress }}%
-          </div>
-        }
-      </ng-template>
-      <ng-template #second>
-        @if (upscaled.state === 'done') {
-          <img
-            [src]="upscaled.image"
-            [alt]="'Upscaled: ' + image.alt"
-            class="w-full object-contain"
-          />
-          <div class="absolute right-2 bottom-2 text-shadow-lg text-shadow-surface-extra-accent/50">
-            Upscaled
-          </div>
-        } @else if (upscaled.state === 'nostate') {
-          <div
-            class="absolute inset-0 flex items-center justify-center bg-surface text-text-extra-muted"
-          >
-            Press "Upscale" button to see a result
-          </div>
-        } @else {
-          <div
-            class="absolute inset-0 flex items-center justify-center bg-surface text-text-extra-muted"
-          >
-            Wait until upscale process finishes
-          </div>
-        }
-      </ng-template>
+
       <div class="relative flex-shrink-0 w-full aspect-auto">
-        <app-slider-compare [first]="first" [second]="second" />
+        <app-slider-compare>
+          <ng-container id="before">
+            <img [src]="image.src" [alt]="image.alt" class="w-full object-contain" />
+            <div
+              class="absolute left-2 bottom-2 text-shadow-lg text-shadow-surface-extra-accent/50"
+            >
+              Uploaded
+            </div>
+            @if (upscaled.state === 'queued') {
+              <div
+                class="absolute inset-0 bg-surface-extra-accent/50 flex items-center justify-center pointer-events-none"
+              >
+                Queued
+              </div>
+            } @else if (upscaled.state === 'inprogress') {
+              <div
+                class="absolute inset-0 bg-surface-extra-accent/50 flex items-center justify-center pointer-events-none"
+              >
+                {{ upscaled.progress }}%
+              </div>
+            }
+          </ng-container>
+          <ng-container id="after">
+            @if (upscaled.state === 'done') {
+              <img
+                [src]="upscaled.image"
+                [alt]="'Upscaled: ' + image.alt"
+                class="w-full object-contain"
+              />
+              <div
+                class="absolute right-2 bottom-2 text-shadow-lg text-shadow-surface-extra-accent/50"
+              >
+                Upscaled
+              </div>
+            } @else if (upscaled.state === 'nostate') {
+              <div
+                class="absolute inset-0 flex items-center justify-center bg-surface text-text-extra-muted"
+              >
+                Press "Upscale" button to see a result
+              </div>
+            } @else {
+              <div
+                class="absolute inset-0 flex items-center justify-center bg-surface text-text-extra-muted"
+              >
+                Wait until upscale process finishes
+              </div>
+            }
+          </ng-container>
+        </app-slider-compare>
         <button
           (click)="removeImage($index)"
           class="z-50 absolute top-2 right-2 btn btn-primary btn-icon danger"
@@ -106,42 +117,36 @@
   <button (click)="downloadAll()" class="btn btn-primary success w-full">Download All</button>
 </ng-template>
 
-<ng-template #phonePageTemplate>
-  <ng-container *ngTemplateOutlet="heading" />
-  <ng-container *ngTemplateOutlet="tickerTemplate" />
-  <ng-container *ngTemplateOutlet="description" />
-  <div class="card">
-    <ng-container *ngTemplateOutlet="uploadForm" />
-  </div>
-  @if (allImagesUpscaled()) {
-    <ng-container *ngTemplateOutlet="downloadAllButton" />
-  }
-  <ng-container *ngTemplateOutlet="images" />
-</ng-template>
-
-<ng-template #desktopContentTemplate>
-  <ng-container *ngTemplateOutlet="heading" />
-  <ng-container *ngTemplateOutlet="tickerTemplate" />
-  <ng-container *ngTemplateOutlet="description" />
-  <ng-container *ngTemplateOutlet="images" />
-</ng-template>
-
-<ng-template #desktopUploadFormCard>
-  <div class="content-card">
-    <ng-container *ngTemplateOutlet="uploadForm" />
-  </div>
-</ng-template>
-
-<ng-template #desktopDownloadCard>
-  @if (allImagesUpscaled()) {
-    <div class="content-card">
-      <ng-container *ngTemplateOutlet="downloadAllButton" />
+<app-content-page>
+  <ng-container id="phonePage">
+    <ng-container *ngTemplateOutlet="heading" />
+    <ng-container *ngTemplateOutlet="ticker" />
+    <ng-container *ngTemplateOutlet="description" />
+    <div class="card">
+      <ng-container *ngTemplateOutlet="uploadForm" />
     </div>
-  }
-</ng-template>
+    @if (allImagesUpscaled()) {
+      <ng-container *ngTemplateOutlet="downloadAllButton" />
+    }
+    <ng-container *ngTemplateOutlet="images" />
+  </ng-container>
 
-<app-content-page
-  [phonePageTemplate]="phonePageTemplate"
-  [desktopContentTemplate]="desktopContentTemplate"
-  [desktopCardTemplates]="[desktopUploadFormCard, desktopDownloadCard]"
-/>
+  <ng-container id="desktopContent">
+    <ng-container *ngTemplateOutlet="heading" />
+    <ng-container *ngTemplateOutlet="ticker" />
+    <ng-container *ngTemplateOutlet="description" />
+    <ng-container *ngTemplateOutlet="images" />
+  </ng-container>
+
+  <ng-container id="desktopSidebar">
+    <div class="content-card">
+      <ng-container *ngTemplateOutlet="uploadForm" />
+    </div>
+
+    @if (allImagesUpscaled()) {
+      <div class="content-card">
+        <ng-container *ngTemplateOutlet="downloadAllButton" />
+      </div>
+    }
+  </ng-container>
+</app-content-page>

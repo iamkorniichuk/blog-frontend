@@ -4,12 +4,12 @@
   (mousemove)="$event.buttons === 1 && dragDivider($event)"
   (touchmove)="dragDivider($event)"
 >
-  <ng-container *ngTemplateOutlet="first()" />
+  <ng-content select="[id=before]" />
   <div
     class="absolute inset-0 overflow-hidden"
     [style.clip-path]="'inset(0 0 0 ' + dividerPosition() + '%)'"
   >
-    <ng-container *ngTemplateOutlet="second()" />
+    <ng-content select="[id=after]" />
   </div>
 
   <div

@@ -1,10 +1,4 @@
 @if (isMultiline()) {
-  <ng-container *ngTemplateOutlet="multiline"></ng-container>
-} @else {
-  <ng-container *ngTemplateOutlet="inline"></ng-container>
-}
-
-<ng-template #multiline>
   <div [class]="class()" class="code-block">
     @if (fileName()) {
       <div class="code-header">
@@ -12,18 +6,18 @@
       </div>
     }
     <div class="relative">
-      <pre
-        class="code-pre"
-      ><code #codeBlock [attr.class]="'language-' + fileType()">{{ code() }}</code></pre>
+      <pre class="code-pre"><ng-container *ngTemplateOutlet="codeWrap"/></pre>
       <button class="btn btn-primary btn-icon surface absolute top-1 right-5" (click)="copyCode()">
         <app-icon icon="copy" title="Copy code" />
       </button>
     </div>
   </div>
-</ng-template>
-
-<ng-template #inline>
+} @else {
   <span [class]="class()" class="code-inline">
-    <code #codeBlock [attr.class]="'language-' + fileType()">{{ code() }}</code>
+    <ng-container *ngTemplateOutlet="codeWrap" />
   </span>
+}
+
+<ng-template #codeWrap>
+  <code #codeBlock [attr.class]="'language-' + fileType()">{{ code() }}</code>
 </ng-template>

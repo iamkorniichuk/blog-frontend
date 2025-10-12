@@ -1,19 +1,17 @@
 @if (screenSize() === 'sm') {
   <div class="w-full">
     <div class="w-full min-w-0 max-w-4xl content-block">
-      <ng-container *ngTemplateOutlet="phonePageTemplate()" />
+      <ng-content select="[id=phonePage]" />
     </div>
   </div>
 } @else {
   <div class="flex flex-row justify-center w-full">
     <div class="basis-3/5 min-w-0 w-full max-w-4xl content-block">
-      <ng-container *ngTemplateOutlet="desktopContentTemplate()" />
+      <ng-content select="[id=desktopContent]" />
     </div>
 
     <div class="basis-2/5 min-w-2xs w-full max-w-xl">
-      @for (template of desktopCardTemplates(); track $index) {
-        <ng-container *ngTemplateOutlet="template" />
-      }
+      <ng-content select="[id=desktopSidebar]" />
     </div>
   </div>
 }

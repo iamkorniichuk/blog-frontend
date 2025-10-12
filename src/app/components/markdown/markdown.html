@@ -20,7 +20,9 @@
 
 <ng-template #heading let-node>
   @for (child of node.children; track $index) {
-    <app-heading class="mt-6 mb-2" [level]="node.depth" [text]="child.value" [id]="node.data.id" />
+    <app-heading class="mt-6 mb-2" [level]="node.depth" [id]="node.data.id">
+      {{ child.value }}
+    </app-heading>
   }
 </ng-template>
 

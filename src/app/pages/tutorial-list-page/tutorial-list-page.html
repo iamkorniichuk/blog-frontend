@@ -62,15 +62,12 @@
   </div>
 </ng-template>
 
-<ng-template #phonePageTemplate>
-  <ng-container *ngTemplateOutlet="tutorialsList" />
-</ng-template>
+<app-content-page>
+  <ng-container id="phonePage">
+    <ng-container *ngTemplateOutlet="tutorialsList" />
+  </ng-container>
 
-<ng-template #desktopContentTemplate>
-  <ng-container *ngTemplateOutlet="tutorialsList" />
-</ng-template>
-
-<app-content-page
-  [phonePageTemplate]="phonePageTemplate"
-  [desktopContentTemplate]="desktopContentTemplate"
-/>
+  <ng-container id="desktopContent">
+    <ng-container *ngTemplateOutlet="tutorialsList" />
+  </ng-container>
+</app-content-page>

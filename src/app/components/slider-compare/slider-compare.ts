@@ -1,14 +1,10 @@
-import { NgTemplateOutlet } from '@angular/common';
-import { Component, input, signal, TemplateRef } from '@angular/core';
+import { Component, signal } from '@angular/core';
 
 @Component({
   selector: 'app-slider-compare',
-  imports: [NgTemplateOutlet],
   templateUrl: './slider-compare.html',
 })
 export class SliderCompareComponent {
-  first = input.required<TemplateRef<unknown>>();
-  second = input.required<TemplateRef<unknown>>();
   dividerPosition = signal<number>(70);
 
   dragDivider(event: MouseEvent | TouchEvent) {
