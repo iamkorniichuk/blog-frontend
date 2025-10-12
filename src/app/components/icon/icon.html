@@ -30,6 +30,12 @@
     />
   </svg:g>
 </ng-template>
+<ng-template #move>
+  <svg:g style="stroke: currentColor; fill: none">
+    <path d="M4 12l5-5M4 12l5 5" />
+    <path d="M20 12l-5-5M20 12l-5 5" />
+  </svg:g>
+</ng-template>
 <ng-template #upload>
   <svg:g style="stroke: currentColor; fill: none">
     <path d="M6 10l6 6 6-6" />
@@ -61,6 +67,9 @@
   }
   @if (icon() === 'logo') {
     <ng-container [ngTemplateOutlet]="logo"></ng-container>
+  }
+  @if (icon() === 'move') {
+    <ng-container [ngTemplateOutlet]="move"></ng-container>
   }
   @if (icon() === 'upload') {
     <ng-container [ngTemplateOutlet]="upload"></ng-container>

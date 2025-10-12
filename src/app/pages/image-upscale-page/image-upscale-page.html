@@ -1,5 +1,5 @@
 <ng-template #heading>
-  <h1>AI Image Upscaler</h1>
+  <h1>Free Image Upscaler</h1>
 </ng-template>
 
 <ng-template #ticker>
@@ -26,7 +26,11 @@
 </ng-template>
 
 <ng-template #description>
-  <div class="mt-2">Upscale your images right in the browser</div>
+  <div class="mt-2">
+    Upscale your images with <app-code-block [isMultiline]="false" code="ESRGAN Thick" /> AI model
+    right in your browser. No limits applied: no subscription, no sign up, no credits, no images
+    number limit
+  </div>
 </ng-template>
 
 <ng-template #uploadForm>
@@ -47,70 +51,208 @@
   </div>
 </ng-template>
 
-<ng-template #images>
-  <div class="flex flex-col overflow-x-auto gap-4">
-    @for (image of uploadedImages(); track $index) {
-      @let upscaled = upscaledData()[$index];
+<ng-template #content>
+  @if (uploadedImages().length > 0) {
+    <div class="flex flex-col overflow-x-auto gap-4">
+      @for (image of uploadedImages(); track $index) {
+        @let upscaled = upscaledData()[$index];
 
-      <div class="relative flex-shrink-0 w-full aspect-auto">
-        <app-slider-compare>
-          <ng-container id="before">
-            <img [src]="image.src" [alt]="image.alt" class="w-full object-contain" />
-            <div
-              class="absolute left-2 bottom-2 text-shadow-lg text-shadow-surface-extra-accent/50"
-            >
-              Uploaded
-            </div>
-            @if (upscaled.state === 'queued') {
-              <div
-                class="absolute inset-0 bg-surface-extra-accent/50 flex items-center justify-center pointer-events-none"
-              >
-                Queued
-              </div>
-            } @else if (upscaled.state === 'inprogress') {
-              <div
-                class="absolute inset-0 bg-surface-extra-accent/50 flex items-center justify-center pointer-events-none"
-              >
-                {{ upscaled.progress }}%
-              </div>
-            }
-          </ng-container>
-          <ng-container id="after">
-            @if (upscaled.state === 'done') {
+        <div class="relative flex-shrink-0 w-full">
+          <app-process-progress [state]="upscaled.state" [progress]="upscaled.progress">
+            <ng-container id="before">
+              <img [src]="image.src" [alt]="image.alt" class="w-full object-contain" />
+            </ng-container>
+            <ng-container id="after">
               <img
                 [src]="upscaled.image"
                 [alt]="'Upscaled: ' + image.alt"
                 class="w-full object-contain"
               />
-              <div
-                class="absolute right-2 bottom-2 text-shadow-lg text-shadow-surface-extra-accent/50"
-              >
-                Upscaled
-              </div>
-            } @else if (upscaled.state === 'nostate') {
-              <div
-                class="absolute inset-0 flex items-center justify-center bg-surface text-text-extra-muted"
-              >
-                Press "Upscale" button to see a result
-              </div>
-            } @else {
-              <div
-                class="absolute inset-0 flex items-center justify-center bg-surface text-text-extra-muted"
-              >
-                Wait until upscale process finishes
-              </div>
-            }
-          </ng-container>
-        </app-slider-compare>
-        <button
-          (click)="removeImage($index)"
-          class="z-50 absolute top-2 right-2 btn btn-primary btn-icon danger"
-        >
-          <app-icon icon="close" title="Delete image" />
-        </button>
-      </div>
-    }
-  </div>
+            </ng-container>
+          </app-process-progress>
+
+          <button
+            (click)="removeImage($index)"
+            class="z-50 absolute top-2 right-2 btn btn-primary btn-icon danger"
+          >
+            <app-icon icon="close" title="Delete image" />
+          </button>
+        </div>
+      }
+    </div>
+  } @else {
+    <ng-template
+      #upscaleExample
+      let-beforeSrc="beforeSrc"
+      let-afterSrc="afterSrc"
+      let-beforeDescription="beforeDescription"
+      let-afterDescription="afterDescription"
+      let-alt="alt"
+    >
+      <app-slider-compare>
+        <ng-content id="before">
+          <div class="relative size-full">
+            <img [src]="beforeSrc" [alt]="alt + ' before upscale'" class="w-full object-contain" />
+            <div
+              class="absolute left-2 bottom-2 text-sm text-content-extra-accent text-shadow-2xs text-shadow-surface-extra-muted"
+            >
+              {{ beforeDescription }}
+            </div>
+          </div>
+        </ng-content>
+        <ng-content id="after">
+          <div class="relative size-full">
+            <img [src]="afterSrc" [alt]="alt + ' after upscale'" class="w-full object-contain" />
+            <div
+              class="absolute right-2 bottom-2 text-sm text-content-extra-accent text-shadow-2xs text-shadow-surface-extra-muted"
+            >
+              {{ afterDescription }}
+            </div>
+          </div>
+        </ng-content>
+      </app-slider-compare>
+    </ng-template>
+
+    <h2 class="mt-4">Example Showcase</h2>
+    <p class="hint mb-2">
+      Note that images are fit to exaggerated (bigger or smaller) sizes, so it is easier to see the
+      difference after upscaling.
+    </p>
+    <div class="grid grid-cols-2 gap-4">
+      <ng-container
+        *ngTemplateOutlet="
+          upscaleExample;
+          context: {
+            beforeSrc: './images/upscale-examples/person-image.png',
+            afterSrc: './images/upscale-examples/upscaled-person-image.png',
+            beforeDescription: '80x80px',
+            afterDescription: '640x640px (x8)',
+            alt: 'Person photo',
+          }
+        "
+      />
+
+      <ng-container
+        *ngTemplateOutlet="
+          upscaleExample;
+          context: {
+            beforeSrc: './images/upscale-examples/dog-image.jpg',
+            afterSrc: './images/upscale-examples/upscaled-dog-image.png',
+            beforeDescription: '150x150px',
+            afterDescription: '1200x1200px (x8)',
+            alt: 'Dog photo',
+          }
+        "
+      />
+
+      <ng-container
+        *ngTemplateOutlet="
+          upscaleExample;
+          context: {
+            beforeSrc: './images/upscale-examples/forest-image.jpg',
+            afterSrc: './images/upscale-examples/upscaled-forest-image.png',
+            beforeDescription: '150x150px',
+            afterDescription: '1200x1200px (x8)',
+            alt: 'Forest photo',
+          }
+        "
+      />
+
+      <ng-container
+        *ngTemplateOutlet="
+          upscaleExample;
+          context: {
+            beforeSrc: './images/upscale-examples/apple-image.jpg',
+            afterSrc: './images/upscale-examples/upscaled-apple-image.png',
+            beforeDescription: '180x180px',
+            afterDescription: '1440x1440px (x8)',
+            alt: 'Apple logo image',
+          }
+        "
+      />
+
+      <ng-container
+        *ngTemplateOutlet="
+          upscaleExample;
+          context: {
+            beforeSrc: './images/upscale-examples/computer-image.jpg',
+            afterSrc: './images/upscale-examples/upscaled-computer-image.png',
+            beforeDescription: '150x150px',
+            afterDescription: '1200x1200px (x8)',
+            alt: 'Computer image',
+          }
+        "
+      />
+
+      <ng-container
+        *ngTemplateOutlet="
+          upscaleExample;
+          context: {
+            beforeSrc: './images/upscale-examples/document-image.jpg',
+            afterSrc: './images/upscale-examples/upscaled-document-image.png',
+            beforeDescription: '150x150px',
+            afterDescription: '1200x1200px (x8)',
+            alt: 'Document image',
+          }
+        "
+      />
+    </div>
+    <h2 class="my-4">Explanation</h2>
+    <p>
+      This upscaler runs entirely in your browser — no uploads, no servers, no hidden processing
+      elsewhere. When you choose an image, everything happens locally on your device using modern
+      web technologies.
+    </p>
+    <br />
+    <p>
+      Behind the scenes, the tool uses
+      <a
+        class="link"
+        target="_blank"
+        rel="noopener norefferer nofollow"
+        href="https://upscalerjs.com/"
+        >UpscalerJS</a
+      >
+      , an open-source library built on
+      <a
+        class="link"
+        target="_blank"
+        rel="noopener norefferer nofollow"
+        href="https://www.tensorflow.org/js"
+        >TensorFlow.js</a
+      >, to perform real AI upscaling. It runs a model called
+      <a
+        class="link"
+        target="_blank"
+        rel="noopener norefferer nofollow"
+        href="https://upscalerjs.com/models/available/upscaling/esrgan-thick/"
+        >ESRGAN Thick</a
+      >, a powerful neural network trained to restore lost detail and enhance textures. ESRGAN
+      stands for Enhanced Super-Resolution Generative Adversarial Network — the same family of
+      models used in many professional image enhancement tools.
+    </p>
+    <br />
+
+    <p>
+      To keep your browser smooth while the AI works, the heavy processing is done inside a Web
+      Worker. That means the upscaling happens in a separate background thread, so the main page
+      stays responsive and interactive.
+    </p>
+    <br />
+
+    <p>
+      Because the entire process runs locally, your images never leave your computer. The AI model
+      is downloaded once and runs right inside your browser’s GPU or CPU using
+      <a
+        class="link"
+        target="_blank"
+        rel="noopener norefferer nofollow"
+        href="https://en.wikipedia.org/wiki/WebGL"
+        >WebGL</a
+      >
+      acceleration, depending on your device.
+    </p>
+  }
 </ng-template>
 
 <ng-template #downloadAllButton>
@@ -128,14 +270,14 @@
     @if (allImagesUpscaled()) {
       <ng-container *ngTemplateOutlet="downloadAllButton" />
     }
-    <ng-container *ngTemplateOutlet="images" />
+    <ng-container *ngTemplateOutlet="content" />
   </ng-container>
 
   <ng-container id="desktopContent">
     <ng-container *ngTemplateOutlet="heading" />
     <ng-container *ngTemplateOutlet="ticker" />
     <ng-container *ngTemplateOutlet="description" />
-    <ng-container *ngTemplateOutlet="images" />
+    <ng-container *ngTemplateOutlet="content" />
   </ng-container>
 
   <ng-container id="desktopSidebar">

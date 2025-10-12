@@ -1,0 +1,37 @@
+<div>
+  @if (state() !== 'done') {
+    <div class="relative">
+      <ng-container *ngTemplateOutlet="before" />
+      @if (state() !== 'nostate') {
+        <div
+          class="absolute inset-0 flex items-center justify-center bg-surface-extra-accent/50 text-content-extra-accent"
+        >
+          @switch (state()) {
+            @case ('queued') {
+              Queued
+            }
+            @case ('inprogress') {
+              <app-progress-bar
+                class="w-full mx-12 shadow-lg shadow-surface"
+                [progress]="progress()"
+              />
+            }
+          }
+        </div>
+      }
+    </div>
+  } @else {
+    <app-slider-compare>
+      <ng-container id="before" *ngTemplateOutlet="before" />
+      <ng-container id="after" *ngTemplateOutlet="after" />
+    </app-slider-compare>
+  }
+</div>
+
+<ng-template #before>
+  <ng-content select="[id=before]" />
+</ng-template>
+
+<ng-template #after>
+  <ng-content select="[id=after]" />
+</ng-template>

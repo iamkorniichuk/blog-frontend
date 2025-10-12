@@ -3,18 +3,18 @@ import { NgTemplateOutlet } from '@angular/common';
 
 import * as tf from '@tensorflow/tfjs';
 
-import {
-  State,
-  TensorImageData,
-  UpscaleFactor,
-  WorkerMessage,
-} from '../../workers/image-upscale.worker';
+import { TensorImageData, UpscaleFactor, WorkerMessage } from '../../workers/image-upscale.worker';
 import { NewsTickerComponent } from '../../components/news-ticker/news-ticker';
 import { ContentPageComponent } from '../../components/content-page/content-page';
 import { MetaService } from '../../services/meta';
 import { InputFileComponent } from '../../components/elements/input-file/input-file';
 import { IconComponent } from '../../components/icon/icon';
 import { SliderCompareComponent } from '../../components/slider-compare/slider-compare';
+import {
+  State,
+  ProcessProgressComponent,
+} from '../../components/process-progress/process-progress';
+import { CodeBlockComponent } from '../../components/code-block/code-block';
 
 export interface UpscaledData {
   state: State;
@@ -31,6 +31,8 @@ export interface UpscaledData {
     IconComponent,
     InputFileComponent,
     SliderCompareComponent,
+    ProcessProgressComponent,
+    CodeBlockComponent,
   ],
   templateUrl: './image-upscale-page.html',
 })
@@ -166,7 +168,6 @@ export class ImageUpscalePageComponent implements OnInit {
       tensorImages.push([await tensor.data(), tensor.shape]);
       tensor.dispose();
     }
-
     worker.postMessage({ imagesData: tensorImages, upscaleFactor: this.upscaleFactor() });
   }
 

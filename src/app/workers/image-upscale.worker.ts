@@ -3,10 +3,11 @@ import Upscaler, { ModelDefinition } from 'upscaler';
 import * as models from '@upscalerjs/esrgan-thick';
 import * as tf from '@tensorflow/tfjs';
 
+import { State } from '../components/process-progress/process-progress';
+
 tf.enableProdMode();
 tf.env().set('WEBGL_DELETE_TEXTURE_THRESHOLD', 0);
 
-export type State = 'nostate' | 'queued' | 'inprogress' | 'done';
 export type UpscaleFactor = 'x2' | 'x3' | 'x4' | 'x8';
 export type TensorImageData = [
   Float32Array<ArrayBufferLike> | Int32Array<ArrayBufferLike> | Uint8Array<ArrayBufferLike>,

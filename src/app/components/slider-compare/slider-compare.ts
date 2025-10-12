@@ -1,11 +1,14 @@
 import { Component, signal } from '@angular/core';
 
+import { IconComponent } from '../icon/icon';
+
 @Component({
   selector: 'app-slider-compare',
   templateUrl: './slider-compare.html',
+  imports: [IconComponent],
 })
 export class SliderCompareComponent {
-  dividerPosition = signal<number>(70);
+  dividerPosition = signal<number>(50);
 
   dragDivider(event: MouseEvent | TouchEvent) {
     const target = event.currentTarget as HTMLElement;

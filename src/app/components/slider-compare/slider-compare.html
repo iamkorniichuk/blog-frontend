@@ -13,7 +13,16 @@
   </div>
 
   <div
-    class="absolute top-0 bottom-0 w-1 bg-blue-500 shadow-md"
+    class="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 flex items-center justify-center"
     [style.left.%]="dividerPosition()"
-  ></div>
+  >
+    <div
+      class="absolute top-0 bottom-0 w-1 bg-content [filter:drop-shadow(0_0_6px_var(--color-surface-extra-muted))]"
+    ></div>
+    <button
+      class="relative z-10 btn btn-icon btn-primary content cursor-ew-resize shadow-lg shadow-surface-extra-muted"
+    >
+      <app-icon title="Slide" icon="move" />
+    </button>
+  </div>
 </div>
