@@ -24,7 +24,7 @@
   }
 
   :root {
-    @apply bg-surface text-text;
+    @apply bg-surface text-content;
     font-family: 'IBM Plex Sans', sans-serif;
     --navbar-height: 3rem;
   }
@@ -42,11 +42,11 @@
   }
 
   hr {
-    @apply w-full border-t-1 border-text-muted place-self-center mt-0.5 mb-3;
+    @apply w-full border-t-1 border-content-muted place-self-center mt-0.5 mb-3;
   }
 
   table {
-    @apply bg-surface border-collapse border-1 border-text-extra-muted;
+    @apply bg-surface border-collapse border-1 border-content-extra-muted;
     @apply table-auto overflow-y-auto w-fit max-h-[70vh];
   }
 
@@ -55,15 +55,15 @@
   }
 
   th {
-    @apply font-medium text-left text-text-extra-accent bg-surface-extra-accent border-r-1 border-text-extra-muted py-1 px-3;
+    @apply font-medium text-left text-content-extra-accent bg-surface-extra-accent border-r-1 border-content-extra-muted py-1 px-3;
   }
 
   tr {
-    @apply border-b-1 border-text-extra-muted;
+    @apply border-b-1 border-content-extra-muted;
   }
 
   td {
-    @apply px-3 py-1 border-1 border-text-extra-muted;
+    @apply px-3 py-1 border-1 border-content-extra-muted;
   }
 
   h1,

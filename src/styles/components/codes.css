@@ -21,7 +21,7 @@
 
   pre,
   code {
-    @apply text-text text-sm font-mono leading-tight text-left whitespace-pre;
+    @apply text-content text-sm font-mono leading-tight text-left whitespace-pre;
     font-family: 'Space Mono', monospace;
   }
 
@@ -29,7 +29,7 @@
   code::selection,
   pre *::selection,
   code *::selection {
-    @apply bg-info-extra-muted text-text;
+    @apply bg-info-extra-muted text-content;
   }
 
   .token.comment,
@@ -38,7 +38,7 @@
   }
 
   .token.punctuation {
-    @apply text-text;
+    @apply text-content;
   }
 
   .token.property,
@@ -59,7 +59,7 @@
 
   .token.operator,
   .token.entity {
-    @apply text-text;
+    @apply text-content;
   }
 
   .token.keyword {
@@ -96,7 +96,7 @@
   }
 
   .token.tag .token.punctuation {
-    @apply text-text-muted;
+    @apply text-content-muted;
   }
 
   .line-highlight.line-highlight {

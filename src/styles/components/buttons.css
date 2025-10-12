@@ -23,36 +23,37 @@
 
   .btn-primary {
     @apply font-medium border-1;
-    @apply border-[color:var(--color-extra-accent,var(--color-surface-extra-accent))];
-    @apply bg-[color:var(--color-muted,var(--color-surface-muted))];
+    @apply text-[color:var(--color-text,var(--color-content))];
+    @apply border-[color:var(--color-bg-extra-accent,var(--color-surface-extra-accent))];
+    @apply bg-[color:var(--color-bg-muted,var(--color-surface-muted))];
 
-    @apply hover:bg-[color:var(--color,var(--color-surface))];
-    @apply hover:text-text-accent;
-    @apply active:bg-[color:var(--color-accent,var(--color-surface-accent))];
-    @apply active:text-text-extra-accent;
+    @apply hover:bg-[color:var(--color-bg,var(--color-surface))];
+    @apply hover:text-[color:var(--color-text-accent,var(--color-content-accent))];
+    @apply active:bg-[color:var(--color-bg-accent,var(--color-surface-accent))];
+    @apply active:text-[color:var(--color-text-extra-accent,var(--color-content-extra-accent))];
 
     &:disabled,
     &.btn-disabled,
     &[aria-disabled='true'] {
-      @apply border-[color:var(--color-extra-muted,var(--color-surface-extra-muted))];
-      @apply bg-[color:var(--color-extra-muted,var(--color-surface-extra-muted))];
-      @apply text-text-muted;
+      @apply border-[color:var(--color-bg-extra-muted,var(--color-surface-extra-muted))];
+      @apply bg-[color:var(--color-bg-extra-muted,var(--color-surface-extra-muted))];
+      @apply text-[color:var(--color-text-muted,var(--color-content-muted))];
     }
   }
 
   .btn-secondary {
     @apply font-normal bg-surface;
-    @apply text-[color:var(--color,var(--color-text))];
+    @apply text-[color:var(--color-bg,var(--color-content))];
 
     @apply hover:bg-surface-accent;
     @apply active:bg-surface-extra-accent;
-    @apply hover:text-[color:var(--color-accent,var(--color-text-accent))];
-    @apply active:text-[color:var(--color-extra-accent,var(--color-text-extra-accent))];
+    @apply hover:text-[color:var(--color-bg-accent,var(--color-content-accent))];
+    @apply active:text-[color:var(--color-bg-extra-accent,var(--color-content-extra-accent))];
 
     &:disabled,
     &.btn-disabled,
     &[aria-disabled='true'] {
-      @apply text-[color:var(--color-muted,var(--color-text-muted))];
+      @apply text-[color:var(--color-bg-muted,var(--color-content-muted))];
       @apply hover:bg-surface active:bg-surface;
     }
   }

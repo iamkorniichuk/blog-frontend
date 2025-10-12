@@ -4,13 +4,14 @@
     @apply hover:cursor-pointer;
 
     @apply border-b-2;
-    @apply border-[color:var(--color-extra-accent,var(--color-surface-extra-accent))];
-    @apply bg-[color:var(--color,var(--color-surface))];
+    @apply text-[color:var(--color-text,var(--color-content))];
+    @apply border-[color:var(--color-bg-extra-accent,var(--color-surface-extra-accent))];
+    @apply bg-[color:var(--color-bg,var(--color-surface))];
 
     &:disabled,
     &[aria-disabled='true'] {
-      @apply border-[color:var(--color-extra-muted,var(--color-surface-extra-muted))];
-      @apply text-text-muted;
+      @apply border-[color:var(--color-bg-extra-muted,var(--color-surface-extra-muted))];
+      @apply text-[color:var(--color-text-muted,var(--color-content-muted))];
     }
   }
 }

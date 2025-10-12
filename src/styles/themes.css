@@ -1,22 +1,22 @@
 @layer theme {
   @theme {
-    --color-text-extra-accent: #ffffff;
-    --color-text-accent: #fafafa;
-    --color-text: #f0f0f0;
-    --color-text-muted: #d9d9d9;
-    --color-text-extra-muted: #c2c2c2;
-
-    --color-primary-extra-accent: #d0b3ff;
-    --color-primary-accent: #b380ff;
-    --color-primary: #9966ff;
-    --color-primary-muted: #734dbf;
-    --color-primary-extra-muted: #4d337f;
+    --color-content-extra-accent: #ffffff;
+    --color-content-accent: #fafafa;
+    --color-content: #f0f0f0;
+    --color-content-muted: #d9d9d9;
+    --color-content-extra-muted: #c2c2c2;
 
     --color-surface-extra-accent: #1a1a1a;
     --color-surface-accent: #141414;
     --color-surface: #101010;
     --color-surface-muted: #0d0d0d;
     --color-surface-extra-muted: #0a0a0a;
+
+    --color-primary-extra-accent: #d0b3ff;
+    --color-primary-accent: #b380ff;
+    --color-primary: #9966ff;
+    --color-primary-muted: #734dbf;
+    --color-primary-extra-muted: #4d337f;
 
     --color-success-extra-accent: #66ffb2;
     --color-success-accent: #55e6a0;

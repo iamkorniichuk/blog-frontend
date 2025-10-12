@@ -1,52 +1,94 @@
 @layer utilities {
-  .text {
-    --color-extra-accent: var(--color-text-extra-accent);
-    --color-accent: var(--color-text-accent);
-    --color: var(--color-text);
-    --color-muted: var(--color-text-muted);
-    --color-extra-muted: var(--color-text-extra-muted);
+  .content {
+    --color-bg-extra-accent: var(--color-content-extra-accent);
+    --color-bg-accent: var(--color-content-accent);
+    --color-bg: var(--color-content);
+    --color-bg-muted: var(--color-content-muted);
+    --color-bg-extra-muted: var(--color-content-extra-muted);
+
+    --color-text-extra-accent: var(--color-surface-extra-accent);
+    --color-text-accent: var(--color-surface-accent);
+    --color-text: var(--color-surface);
+    --color-text-muted: var(--color-surface-muted);
+    --color-text-extra-muted: var(--color-surface-extra-muted);
   }
 
   .surface {
-    --color-extra-accent: var(--color-surface-extra-accent);
-    --color-accent: var(--color-surface-accent);
-    --color: var(--color-surface);
-    --color-muted: var(--color-surface-muted);
-    --color-extra-muted: var(--color-surface-extra-muted);
+    --color-bg-extra-accent: var(--color-surface-extra-accent);
+    --color-bg-accent: var(--color-surface-accent);
+    --color-bg: var(--color-surface);
+    --color-bg-muted: var(--color-surface-muted);
+    --color-bg-extra-muted: var(--color-surface-extra-muted);
+
+    --color-text-extra-accent: var(--color-content-extra-accent);
+    --color-text-accent: var(--color-content-accent);
+    --color-text: var(--color-content);
+    --color-text-muted: var(--color-content-muted);
+    --color-text-extra-muted: var(--color-content-extra-muted);
   }
   .primary {
-    --color-extra-accent: var(--color-primary-extra-accent);
-    --color-accent: var(--color-primary-accent);
-    --color: var(--color-primary);
-    --color-muted: var(--color-primary-muted);
-    --color-extra-muted: var(--color-primary-extra-muted);
+    --color-bg-extra-accent: var(--color-primary-extra-accent);
+    --color-bg-accent: var(--color-primary-accent);
+    --color-bg: var(--color-primary);
+    --color-bg-muted: var(--color-primary-muted);
+    --color-bg-extra-muted: var(--color-primary-extra-muted);
+
+    --color-text-extra-accent: var(--color-content-extra-accent);
+    --color-text-accent: var(--color-content-accent);
+    --color-text: var(--color-content);
+    --color-text-muted: var(--color-content-muted);
+    --color-text-extra-muted: var(--color-content-extra-muted);
   }
   .success {
-    --color-extra-accent: var(--color-success-extra-accent);
-    --color-accent: var(--color-success-accent);
-    --color: var(--color-success);
-    --color-muted: var(--color-success-muted);
-    --color-extra-muted: var(--color-success-extra-muted);
+    --color-bg-extra-accent: var(--color-success-extra-accent);
+    --color-bg-accent: var(--color-success-accent);
+    --color-bg: var(--color-success);
+    --color-bg-muted: var(--color-success-muted);
+    --color-bg-extra-muted: var(--color-success-extra-muted);
+
+    --color-text-extra-accent: var(--color-content-extra-accent);
+    --color-text-accent: var(--color-content-accent);
+    --color-text: var(--color-content);
+    --color-text-muted: var(--color-content-muted);
+    --color-text-extra-muted: var(--color-content-extra-muted);
   }
   .warning {
-    --color-extra-accent: var(--color-warning-extra-accent);
-    --color-accent: var(--color-warning-accent);
-    --color: var(--color-warning);
-    --color-muted: var(--color-warning-muted);
-    --color-extra-muted: var(--color-warning-extra-muted);
+    --color-bg-extra-accent: var(--color-warning-extra-accent);
+    --color-bg-accent: var(--color-warning-accent);
+    --color-bg: var(--color-warning);
+    --color-bg-muted: var(--color-warning-muted);
+    --color-bg-extra-muted: var(--color-warning-extra-muted);
+
+    --color-text-extra-accent: var(--color-content-extra-accent);
+    --color-text-accent: var(--color-content-accent);
+    --color-text: var(--color-content);
+    --color-text-muted: var(--color-content-muted);
+    --color-text-extra-muted: var(--color-content-extra-muted);
   }
   .danger {
-    --color-extra-accent: var(--color-danger-extra-accent);
-    --color-accent: var(--color-danger-accent);
-    --color: var(--color-danger);
-    --color-muted: var(--color-danger-muted);
-    --color-extra-muted: var(--color-danger-extra-muted);
+    --color-bg-extra-accent: var(--color-danger-extra-accent);
+    --color-bg-accent: var(--color-danger-accent);
+    --color-bg: var(--color-danger);
+    --color-bg-muted: var(--color-danger-muted);
+    --color-bg-extra-muted: var(--color-danger-extra-muted);
+
+    --color-text-extra-accent: var(--color-content-extra-accent);
+    --color-text-accent: var(--color-content-accent);
+    --color-text: var(--color-content);
+    --color-text-muted: var(--color-content-muted);
+    --color-text-extra-muted: var(--color-content-extra-muted);
   }
   .info {
-    --color-extra-accent: var(--color-info-extra-accent);
-    --color-accent: var(--color-info-accent);
-    --color: var(--color-info);
-    --color-muted: var(--color-info-muted);
-    --color-extra-muted: var(--color-info-extra-muted);
+    --color-bg-extra-accent: var(--color-info-extra-accent);
+    --color-bg-accent: var(--color-info-accent);
+    --color-bg: var(--color-info);
+    --color-bg-muted: var(--color-info-muted);
+    --color-bg-extra-muted: var(--color-info-extra-muted);
+
+    --color-text-extra-accent: var(--color-content-extra-accent);
+    --color-text-accent: var(--color-content-accent);
+    --color-text: var(--color-content);
+    --color-text-muted: var(--color-content-muted);
+    --color-text-extra-muted: var(--color-content-extra-muted);
   }
 }

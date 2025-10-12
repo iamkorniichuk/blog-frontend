@@ -5,22 +5,26 @@
 
   .meta-tag {
     @apply bg-surface-muted border-1 border-surface-extra-muted rounded-2xl;
-    @apply text-text-extra-muted text-xs text-nowrap whitespace-nowrap px-2 py-1;
+    @apply text-content-extra-muted text-xs text-nowrap whitespace-nowrap px-2 py-1;
   }
 
   .meta {
-    @apply text-text-extra-muted text-sm text-nowrap whitespace-nowrap;
+    @apply text-content-extra-muted text-sm text-nowrap whitespace-nowrap;
+  }
+
+  .hint {
+    @apply text-content-extra-muted text-sm;
   }
 
   .ticker {
-    @apply text-text-extra-muted text-sm font-bold;
+    @apply text-content-extra-muted text-sm font-bold;
     @apply text-nowrap whitespace-nowrap;
   }
 
   .animate-ticker {
     @apply w-max;
     @apply will-change-transform;
-    animation: ticker-scroll 5s linear infinite;
+    animation: ticker-scroll 20s linear infinite;
 
     &:hover {
       animation-play-state: paused;
