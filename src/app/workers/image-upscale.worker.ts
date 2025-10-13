@@ -40,6 +40,7 @@ addEventListener('message', async ({ data }) => {
   const results: WorkerMessage[] = imagesData.map(() => {
     return { state: 'queued', progress: 0, imageData: null };
   });
+  postMessage(results);
 
   for (const i in imagesData) {
     tf.engine().startScope();

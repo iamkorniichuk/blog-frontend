@@ -1,7 +1,7 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
-import { NgTemplateOutlet } from '@angular/common';
+import { Component, computed, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
+import { isPlatformBrowser, NgTemplateOutlet } from '@angular/common';
 
-import * as tf from '@tensorflow/tfjs';
+import { Tensor3D } from '@tensorflow/tfjs';
 
 import { TensorImageData, UpscaleFactor, WorkerMessage } from '../../workers/image-upscale.worker';
 import { NewsTickerComponent } from '../../components/news-ticker/news-ticker';
@@ -38,6 +38,7 @@ export interface UpscaledData {
 })
 export class ImageUpscalePageComponent implements OnInit {
   private metaService = inject(MetaService);
+  private platformId = inject(PLATFORM_ID);
 
   uploadedImages = signal<HTMLImageElement[]>([]);
   upscaleFactor = signal<UpscaleFactor>('x2');
@@ -127,11 +128,15 @@ export class ImageUpscalePageComponent implements OnInit {
   }
 
   async upscaleImages() {
+    if (!isPlatformBrowser(this.platformId)) return;
+
+    const tf = (window as unknown as { tf: typeof import('@tensorflow/tfjs') }).tf;
+
     const worker = new Worker(new URL('../../workers/image-upscale.worker', import.meta.url));
 
     worker.onmessage = async ({ data }) => {
       for (const i in data) {
-        const index = i as unknown as number;
+        const index = Number(i);
         const { state, progress, imageData } = data[index] as WorkerMessage;
 
         if (state === 'done' && imageData) {
@@ -142,9 +147,13 @@ export class ImageUpscalePageComponent implements OnInit {
           canvas.width = width;
           canvas.height = height;
 
-          const tensor = tf.tensor(image, shape, 'int32') as tf.Tensor3D;
-          await tf.browser.toPixels(tensor, canvas);
-          tensor.dispose();
+          try {
+            const tensor = tf.tensor(image, shape, 'int32') as Tensor3D;
+            await tf.browser.toPixels(tensor, canvas);
+            tensor.dispose();
+          } catch (err) {
+            console.error('Error converting returned tensor to pixels:', err);
+          }
 
           const src = canvas.toDataURL('image/png');
           this.upscaledData.update((images) => {
@@ -168,6 +177,7 @@ export class ImageUpscalePageComponent implements OnInit {
       tensorImages.push([await tensor.data(), tensor.shape]);
       tensor.dispose();
     }
+
     worker.postMessage({ imagesData: tensorImages, upscaleFactor: this.upscaleFactor() });
   }
 
