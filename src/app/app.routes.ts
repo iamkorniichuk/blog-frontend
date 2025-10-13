@@ -1,14 +1,20 @@
 import { Routes } from '@angular/router';
 
 import { tutorialResolver } from './shared/tutorial-resolver';
-import { TutorialPageComponent } from './pages/tutorial-page/tutorial-page';
-import { TutorialListPageComponent } from './pages/tutorial-list-page/tutorial-list-page';
+
+import { HomePageComponent } from './pages/home-page/home-page';
 import { AboutUsPageComponent } from './pages/about-us-page/about-us-page';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page';
 import { ToolsListPageComponent } from './pages/tools-list-page/tools-list-page';
 import { ImageUpscalePageComponent } from './pages/image-upscale-page/image-upscale-page';
+import { TutorialPageComponent } from './pages/tutorial-page/tutorial-page';
+import { TutorialListPageComponent } from './pages/tutorial-list-page/tutorial-list-page';
 
 export const routes: Routes = [
+  {
+    path: '',
+    component: HomePageComponent,
+  },
   {
     path: 'about-us',
     component: AboutUsPageComponent,

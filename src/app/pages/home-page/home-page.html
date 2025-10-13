@@ -1,0 +1,54 @@
+<ng-template #heading>
+  <h1><strong class="underline">Returns Null;</strong> - a place of solo-developers</h1>
+</ng-template>
+<ng-template #description>
+  <p>
+    This project is a one-person effort for same people who wants to build their software products.
+  </p>
+</ng-template>
+
+<ng-template #toolsList>
+  <h2 class="mb-2">Explore our tools</h2>
+  <div>
+    <h3><a [routerLink]="['/tools/image-upscale']" class="link">Image Upscale</a></h3>
+    <p class="hint">Make your images bigger without a loss of quality</p>
+  </div>
+</ng-template>
+
+<ng-template #tutorialsList>
+  <h2>Tutorials</h2>
+  @for (obj of tutorials(); track $index) {
+    <div class="my-2">
+      <h3>
+        <a [routerLink]="['/tutorials/', obj.id]" class="link">{{ obj.title }}</a>
+      </h3>
+      <p class="hint">{{ obj.description }}</p>
+    </div>
+  }
+  <a class="btn btn-primary w-full" [routerLink]="['/tutorials']">View All</a>
+</ng-template>
+
+<app-content-page>
+  <ng-container id="phonePage">
+    <ng-container *ngTemplateOutlet="heading" />
+    <ng-container *ngTemplateOutlet="description" />
+    <div class="card">
+      <ng-container *ngTemplateOutlet="toolsList" />
+    </div>
+    <ng-container *ngTemplateOutlet="tutorialsList" />
+  </ng-container>
+
+  <ng-container id="desktopContent">
+    <ng-container *ngTemplateOutlet="heading" />
+    <ng-container *ngTemplateOutlet="description" />
+    <div class="mt-4">
+      <ng-container *ngTemplateOutlet="tutorialsList" />
+    </div>
+  </ng-container>
+
+  <ng-container id="desktopSidebar">
+    <div class="content-card">
+      <ng-container *ngTemplateOutlet="toolsList" />
+    </div>
+  </ng-container>
+</app-content-page>
