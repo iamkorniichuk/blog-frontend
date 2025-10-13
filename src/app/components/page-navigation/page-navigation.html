@@ -1,0 +1,43 @@
+<div class="flex flex-row justify-between w-full">
+  @if (current() === 1) {
+    <span class="btn btn-primary btn-icon btn-disabled"
+      ><app-icon icon="arrow" title="Previous Page" class="rotate-90"
+    /></span>
+  } @else {
+    <a
+      class="btn btn-primary btn-icon"
+      [routerLink]="[]"
+      [queryParams]="getPageUrl(current() - 1).queryParams"
+      queryParamsHandling="merge"
+      ><app-icon icon="arrow" title="Previous Page" class="rotate-90"
+    /></a>
+  }
+  @for (page of pageNumbers; track $index) {
+    @if (page === null) {
+      <span class="btn btn-secondary btn-icon btn-disabled">...</span>
+    } @else if (page === current()) {
+      <span class="btn btn-secondary btn-icon font-bold">{{ page }}</span>
+    } @else {
+      <a
+        class="btn btn-secondary btn-icon"
+        [routerLink]="[]"
+        [queryParams]="getPageUrl(page).queryParams"
+        queryParamsHandling="merge"
+        >{{ page }}</a
+      >
+    }
+  }
+  @if (current() === total()) {
+    <span class="btn btn-primary btn-icon btn-disabled"
+      ><app-icon icon="arrow" title="Next Page" class="-rotate-90"
+    /></span>
+  } @else {
+    <a
+      class="btn btn-primary btn-icon"
+      [routerLink]="[]"
+      [queryParams]="getPageUrl(current() + 1).queryParams"
+      queryParamsHandling="merge"
+      ><app-icon icon="arrow" title="Next Page" class="-rotate-90"
+    /></a>
+  }
+</div>

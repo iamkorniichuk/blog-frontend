@@ -1,6 +1,6 @@
 @layer components {
   .cover {
-    @apply w-fit relative overflow-hidden;
+    @apply relative overflow-hidden;
     > img {
       @apply w-full object-contain object-center;
     }
@@ -21,6 +21,8 @@
   }
 
   .card {
+    @apply max-h-[80vh] size-full;
+
     @apply text-[color:var(--color-text,var(--color-content))];
     @apply bg-[color:var(--color-bg-accent,var(--color-surface-accent))] rounded-xl h-fit w-full p-4 my-6;
     @apply shadow-[color:var(--color-bg-extra-muted,var(--color-surface-extra-muted))] shadow-lg;

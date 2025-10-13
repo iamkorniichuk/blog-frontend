@@ -17,49 +17,7 @@
       </div>
     </a>
   }
-  <div class="flex flex-row justify-between w-full">
-    @if (currentPage === 1) {
-      <span class="btn btn-primary btn-icon btn-disabled"
-        ><app-icon icon="arrow" title="Previous Page" class="rotate-90"
-      /></span>
-    } @else {
-      <a
-        class="btn btn-primary btn-icon"
-        [routerLink]="[]"
-        [queryParams]="{ page: currentPage - 1 }"
-        queryParamsHandling="merge"
-        ><app-icon icon="arrow" title="Previous Page" class="rotate-90"
-      /></a>
-    }
-    @for (page of pageNumbers; track $index) {
-      @if (page === null) {
-        <span class="btn btn-secondary btn-icon btn-disabled">...</span>
-      } @else if (page === currentPage) {
-        <span class="btn btn-secondary btn-icon font-bold">{{ page }}</span>
-      } @else {
-        <a
-          class="btn btn-secondary btn-icon"
-          [routerLink]="[]"
-          [queryParams]="{ page: page }"
-          queryParamsHandling="merge"
-          >{{ page }}</a
-        >
-      }
-    }
-    @if (currentPage === totalPages) {
-      <span class="btn btn-primary btn-icon btn-disabled"
-        ><app-icon icon="arrow" title="Next Page" class="-rotate-90"
-      /></span>
-    } @else {
-      <a
-        class="btn btn-primary btn-icon"
-        [routerLink]="[]"
-        [queryParams]="{ page: currentPage + 1 }"
-        queryParamsHandling="merge"
-        ><app-icon icon="arrow" title="Next Page" class="-rotate-90"
-      /></a>
-    }
-  </div>
+  <app-page-navigation [total]="totalPages" (pageChange)="loadPage($event)" />
 </ng-template>
 
 <app-content-page>

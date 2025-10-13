@@ -1,6 +1,10 @@
-<nav class="navbar flex flex-row gap-2 justify-between p-2">
-  <a class="inline-flex items-center mt-1 text-7xl" routerLink="/"
-    ><app-icon icon="logo" title="Home Page"
-  /></a>
+<nav class="navbar flex flex-row justify-between p-2">
+  <div class="flex flex-row gap-2">
+    <a class="inline-flex items-center mt-1 text-7xl" routerLink="/"
+      ><app-icon icon="logo" title="Home Page"
+    /></a>
+    <a class="btn btn-secondary" routerLink="tutorials" routerLinkActive="font-medium">Tutorials</a>
+    <a class="btn btn-secondary" routerLink="tools" routerLinkActive="font-medium">Tools</a>
+  </div>
   <a class="btn btn-secondary" routerLink="about-us" routerLinkActive="font-medium">About Us</a>
 </nav>

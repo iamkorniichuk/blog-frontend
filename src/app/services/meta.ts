@@ -1,6 +1,9 @@
 import { inject, Injectable } from '@angular/core';
 import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
 
+export type DefinitiveKey = 'name' | 'rel';
+export type DefinitiveMeta = Partial<Record<DefinitiveKey, string>>;
+
 @Injectable({
   providedIn: 'root',
 })
@@ -8,23 +11,26 @@ export class MetaService {
   private titleService = inject(Title);
   private metaService = inject(Meta);
 
-  private definitiveProperties = ['name', 'rel'];
+  private definitiveKeys: DefinitiveKey[] = ['name', 'rel'];
 
-  setTag(meta: MetaDefinition) {
-    let definitiveProperty: string | null = null;
-    for (const property in meta) {
-      if (this.definitiveProperties.includes(property)) {
-        definitiveProperty = property;
-        break;
-      }
-    }
-    if (!definitiveProperty)
-      throw Error(`Meta lacks definitive property (${this.definitiveProperties.join(', ')})`);
-    const selector = `${definitiveProperty}="${meta[definitiveProperty]}"`;
-    const tags = this.metaService.getTags(selector);
-    for (const obj of tags) obj.remove();
+  setTag(meta: MetaDefinition & DefinitiveMeta) {
+    const definitiveKey = this.findDefinitiveKey(meta);
+    if (!definitiveKey) return;
 
-    this.metaService.addTag(meta);
+    const selector = `${definitiveKey}="${meta[definitiveKey]}"`;
+    this.metaService.updateTag(meta, selector);
+  }
+
+  deleteTag(meta: DefinitiveMeta) {
+    const definitiveKey = this.findDefinitiveKey(meta);
+    if (!definitiveKey) return;
+
+    const selector = `${definitiveKey}="${meta[definitiveKey]}"`;
+    this.metaService.removeTag(selector);
+  }
+
+  private findDefinitiveKey(meta: DefinitiveMeta): DefinitiveKey | undefined {
+    return this.definitiveKeys.find((k) => k in meta && !!meta[k]);
   }
 
   setTitle(title: string) {
