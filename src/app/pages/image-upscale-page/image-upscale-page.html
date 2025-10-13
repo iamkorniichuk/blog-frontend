@@ -1,5 +1,9 @@
+<ng-template #breadcrumbs>
+  <app-breadcrumbs />
+</ng-template>
+
 <ng-template #heading>
-  <h1>Free Image Upscaler</h1>
+  <h1 class="mt-2">Free Image Upscaler</h1>
 </ng-template>
 
 <ng-template #ticker>
@@ -261,6 +265,7 @@
 
 <app-content-page>
   <ng-container id="phonePage">
+    <ng-container *ngTemplateOutlet="breadcrumbs" />
     <ng-container *ngTemplateOutlet="heading" />
     <ng-container *ngTemplateOutlet="ticker" />
     <ng-container *ngTemplateOutlet="description" />
@@ -274,6 +279,7 @@
   </ng-container>
 
   <ng-container id="desktopContent">
+    <ng-container *ngTemplateOutlet="breadcrumbs" />
     <ng-container *ngTemplateOutlet="heading" />
     <ng-container *ngTemplateOutlet="ticker" />
     <ng-container *ngTemplateOutlet="description" />

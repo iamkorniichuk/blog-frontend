@@ -1,6 +1,9 @@
 <ng-template #tutorialsList>
-  <div class="meta mb-1 w-full text-end">
-    Showing {{ tutorials().length }} results of {{ allTutorialsLength }} total
+  <div class="flex flex-row justify-between">
+    <app-breadcrumbs />
+    <span class="hint mb-1 w-full text-end">
+      Showing {{ tutorials().length }} results of {{ allTutorialsLength }} total
+    </span>
   </div>
   @for (obj of tutorials(); track obj.id) {
     <a [routerLink]="obj.id">

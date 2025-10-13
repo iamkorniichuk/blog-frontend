@@ -15,6 +15,7 @@ import {
   ProcessProgressComponent,
 } from '../../components/process-progress/process-progress';
 import { CodeBlockComponent } from '../../components/code-block/code-block';
+import { BreadcrumbsComponent } from '../../components/breadcrumbs/breadcrumbs';
 
 export interface UpscaledData {
   state: State;
@@ -33,6 +34,7 @@ export interface UpscaledData {
     SliderCompareComponent,
     ProcessProgressComponent,
     CodeBlockComponent,
+    BreadcrumbsComponent,
   ],
   templateUrl: './image-upscale-page.html',
 })

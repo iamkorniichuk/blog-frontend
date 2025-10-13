@@ -7,6 +7,7 @@ import { ContentPageComponent } from '../../components/content-page/content-page
 import { GradientOverlayComponent } from '../../components/gradient-overlay/gradient-overlay';
 import { MetaService } from '../../services/meta';
 import { PageNavigationComponent } from '../../components/page-navigation/page-navigation';
+import { BreadcrumbsComponent } from '../../components/breadcrumbs/breadcrumbs';
 
 @Component({
   selector: 'app-tutorial-list-page',
@@ -17,6 +18,7 @@ import { PageNavigationComponent } from '../../components/page-navigation/page-n
     RouterLink,
     GradientOverlayComponent,
     PageNavigationComponent,
+    BreadcrumbsComponent,
   ],
   templateUrl: './tutorial-list-page.html',
 })

@@ -1,0 +1,12 @@
+<nav class="flex flex-row gap-2 hint">
+  @for (obj of links(); track $index) {
+    @if ($last) {
+      <span>{{ obj.title }}</span>
+    } @else {
+      <a [routerLink]="obj.href" class="link">
+        {{ obj.title }}
+      </a>
+      <span>></span>
+    }
+  }
+</nav>

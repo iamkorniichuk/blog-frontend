@@ -10,6 +10,7 @@ import { MetaService } from '../../services/meta';
 import { MarkdownAstPipe } from '../../pipes/markdown-ast-pipe';
 import { TocMarkdownComponent } from '../../components/toc-markdown/toc-markdown';
 import { IconComponent } from '../../components/icon/icon';
+import { BreadcrumbsComponent } from '../../components/breadcrumbs/breadcrumbs';
 
 @Component({
   selector: 'app-tutorial-page',
@@ -23,6 +24,7 @@ import { IconComponent } from '../../components/icon/icon';
     GradientOverlayComponent,
     TocMarkdownComponent,
     IconComponent,
+    BreadcrumbsComponent,
   ],
   providers: [DatePipe],
   templateUrl: './tutorial-page.html',
