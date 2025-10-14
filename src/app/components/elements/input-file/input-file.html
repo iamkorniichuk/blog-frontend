@@ -1,5 +1,6 @@
 <label
   [class]="isDraggedOver() ? 'success' : 'primary'"
+  [class]="disabled() ? 'bg-primary-muted border-primary-muted pointer-events-none' : 'primary'"
   class="btn btn-primary flex flex-col items-center justify-center py-8"
   (dragover)="onDragOver($event)"
   (dragleave)="onDragLeave($event)"
@@ -14,6 +15,7 @@
   <input
     class="hidden"
     type="file"
+    [disabled]="disabled()"
     [accept]="accept()"
     [multiple]="multiple()"
     (change)="onChange($event)"

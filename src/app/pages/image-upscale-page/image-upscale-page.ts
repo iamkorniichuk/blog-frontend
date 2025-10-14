@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { isPlatformBrowser, NgTemplateOutlet } from '@angular/common';
 
 import { Tensor3D } from '@tensorflow/tfjs';
@@ -22,6 +22,7 @@ export interface UpscaledData {
   progress: number;
   image: string | null;
 }
+export type UpscalingState = 'idle' | 'inprogress' | 'done';
 
 @Component({
   selector: 'app-image-upscale-page',
@@ -45,16 +46,10 @@ export class ImageUpscalePageComponent implements OnInit {
   uploadedImages = signal<HTMLImageElement[]>([]);
   upscaleFactor = signal<UpscaleFactor>('x2');
   upscaledData = signal<UpscaledData[]>([]);
-  allImagesUpscaled = computed<boolean>(() => {
-    if (this.upscaledData().length === 0) return false;
-
-    for (const data of this.upscaledData()) {
-      if (data.state !== 'done') return false;
-    }
-    return true;
-  });
+  upscaleState = signal<UpscalingState>('idle');
 
   upscaleOptions: UpscaleFactor[] = ['x2', 'x3', 'x4', 'x8'];
+  worker: Worker | null = null;
 
   ngOnInit() {
     const title = 'Upscale image';
@@ -71,6 +66,10 @@ export class ImageUpscalePageComponent implements OnInit {
   }
 
   onFilesSelected(files: FileList) {
+    this.uploadedImages.set([]);
+    this.upscaledData.set([]);
+    this.upscaleState.set('idle');
+
     for (const file of Array.from(files)) {
       const reader = new FileReader();
       reader.onload = () => {
@@ -85,6 +84,11 @@ export class ImageUpscalePageComponent implements OnInit {
       };
       reader.readAsDataURL(file);
     }
+  }
+
+  abortUpscaling() {
+    this.upscaleState.set('idle');
+    this.worker?.terminate();
   }
 
   downloadAll() {
@@ -134,14 +138,16 @@ export class ImageUpscalePageComponent implements OnInit {
 
     const tf = (window as unknown as { tf: typeof import('@tensorflow/tfjs') }).tf;
 
-    const worker = new Worker(new URL('../../workers/image-upscale.worker', import.meta.url));
+    this.worker = new Worker(new URL('../../workers/image-upscale.worker', import.meta.url));
 
-    worker.onmessage = async ({ data }) => {
+    this.worker.onmessage = async ({ data }) => {
+      let doneNumbers = 0;
       for (const i in data) {
         const index = Number(i);
         const { state, progress, imageData } = data[index] as WorkerMessage;
 
         if (state === 'done' && imageData) {
+          ++doneNumbers;
           const [image, shape] = imageData;
           const [height, width] = shape.slice(0, 2);
 
@@ -171,6 +177,8 @@ export class ImageUpscalePageComponent implements OnInit {
           return copy;
         });
       }
+      const allDone = doneNumbers === this.upscaledData().length;
+      this.upscaleState.set(allDone ? 'done' : 'inprogress');
     };
 
     const tensorImages: TensorImageData[] = [];
@@ -180,7 +188,7 @@ export class ImageUpscalePageComponent implements OnInit {
       tensor.dispose();
     }
 
-    worker.postMessage({ imagesData: tensorImages, upscaleFactor: this.upscaleFactor() });
+    this.worker.postMessage({ imagesData: tensorImages, upscaleFactor: this.upscaleFactor() });
   }
 
   changeUpscaleFactor(event: Event) {

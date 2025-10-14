@@ -8,6 +8,7 @@ import { IconComponent } from '../../icon/icon';
   templateUrl: './input-file.html',
 })
 export class InputFileComponent {
+  disabled = input<boolean>(false);
   accept = input<string>('*');
   multiple = input<boolean>(false);
   onchange = output<FileList>();
@@ -23,6 +24,7 @@ export class InputFileComponent {
 
   onDragOver(event: DragEvent) {
     event.preventDefault();
+    if (this.disabled()) return;
     this.isDraggedOver.set(true);
   }
 
@@ -33,6 +35,7 @@ export class InputFileComponent {
 
   onDrop(event: DragEvent) {
     event.preventDefault();
+    if (this.disabled()) return;
     this.isDraggedOver.set(false);
 
     const files = event.dataTransfer?.files;
