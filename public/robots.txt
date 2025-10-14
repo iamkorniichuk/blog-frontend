@@ -1,0 +1,43 @@
+# Search engines
+User-agent: Googlebot
+Disallow:
+
+User-agent: Bingbot
+Disallow:
+
+User-agent: Slurp
+Disallow:
+
+User-agent: DuckDuckBot
+Disallow:
+
+User-agent: Baiduspider
+Disallow:
+
+# Social media
+User-agent: facebookexternalhit
+Disallow:
+
+User-agent: Twitterbot
+Disallow:
+
+User-agent: LinkedInBot
+Disallow:
+
+User-agent: Slackbot
+Disallow:
+
+User-agent: Pinterestbot
+Disallow:
+
+# LLMs
+User-agent: ChatGPT-User
+Disallow:
+
+User-agent: OAI-SearchBot
+Disallow:
+
+User-agent: *
+Disallow: /
+
+Sitemap: https://www.returnsnull.dev/sitemap.xml
