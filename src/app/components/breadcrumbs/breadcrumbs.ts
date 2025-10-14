@@ -24,22 +24,20 @@ export class BreadcrumbsComponent implements OnInit {
   }
 
   private buildBreadcrumbs(url: string): Link[] {
-    const segments = url.split('/').filter(Boolean);
+    const cleanUrl = url.split(/[?#]/)[0];
+    const segments = cleanUrl.split('/').filter(Boolean);
+
+    const results: Link[] = [{ title: 'Home', href: '/' }];
     let currentPath = '';
 
-    const results = [
-      {
-        title: 'Home',
-        href: '/',
-      },
-    ];
-    for (const obj of segments) {
-      currentPath += `/${obj}`;
+    for (const segment of segments) {
+      currentPath += `/${segment}`;
       results.push({
-        title: this.formatTitle(obj),
+        title: this.formatTitle(segment),
         href: currentPath,
       });
     }
+
     return results;
   }
 
