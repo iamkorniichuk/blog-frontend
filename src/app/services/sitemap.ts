@@ -20,7 +20,7 @@ export class SitemapService {
   async generateXml(request: Request): Promise<string> {
     const protocol = 'https';
     const host = request.headers.host;
-    this.origin = `${protocol}://${host}/`;
+    this.origin = `${protocol}://${host}`;
 
     const urls = await this.getUrls();
     return `
@@ -59,6 +59,8 @@ export class SitemapService {
   }
 
   private absolute(path: string): string {
+    if (path !== '') path = '/' + path;
+
     return this.origin + path;
   }
 }
