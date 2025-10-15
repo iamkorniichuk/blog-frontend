@@ -21,7 +21,7 @@
   }
 
   .card {
-    @apply max-h-[80vh] size-full;
+    @apply max-h-[80vh] size-full overflow-y-auto;
 
     @apply text-[color:var(--color-text,var(--color-content))];
     @apply bg-[color:var(--color-bg-accent,var(--color-surface-accent))] rounded-xl h-fit w-full p-4 my-6;

@@ -304,7 +304,10 @@
   </ng-container>
 
   <ng-container id="desktopSidebar">
-    <div class="content-card">
+    <div
+      class="content-card sticky left-0"
+      style="top: calc(var(--navbar-height) + calc(var(--spacing) * 4))"
+    >
       <ng-container *ngTemplateOutlet="uploadForm" />
     </div>
 

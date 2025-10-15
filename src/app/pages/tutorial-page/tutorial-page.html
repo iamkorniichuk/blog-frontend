@@ -45,7 +45,7 @@
 <ng-template #solution>
   @let solutionAst = tutorial().solution | markdownAst;
   @if (solutionAst) {
-    <h3>Solution:</h3>
+    <h3 class="mb-2 text-primary-extra-accent">Solution:</h3>
     <app-markdown [ast]="solutionAst"></app-markdown>
   }
 </ng-template>
@@ -56,7 +56,7 @@
     <ng-container *ngTemplateOutlet="breadcrumbs" />
     <ng-container *ngTemplateOutlet="heading" />
     <ng-container *ngTemplateOutlet="meta" />
-    <div class="card">
+    <div class="card border-primary-extra-accent shadow-primary-muted/50">
       <ng-container *ngTemplateOutlet="solution" />
     </div>
     <ng-container *ngTemplateOutlet="content" />
@@ -86,7 +86,7 @@
   </ng-container>
 
   <ng-container id="desktopSidebar">
-    <div class="content-card">
+    <div class="content-card border-primary-accent shadow-primary-extra-muted/50">
       <ng-container *ngTemplateOutlet="solution" />
     </div>
 
