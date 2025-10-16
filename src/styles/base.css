@@ -42,7 +42,7 @@
   }
 
   hr {
-    @apply w-full border-t-1 border-content-muted place-self-center mt-0.5 mb-3;
+    @apply w-full border-t-1 border-content-extra-muted/75 place-self-center;
   }
 
   table {

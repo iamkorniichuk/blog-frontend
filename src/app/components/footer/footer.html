@@ -1,0 +1,40 @@
+<footer class="border-t-1 border-surface-extra-accent p-8">
+  <div class="flex flex-col justify-center w-full max-w-3xl place-self-center">
+    <div class="flex flex-col md:flex-row justify-between items-center md:items-start gap-6">
+      <div class="flex flex-col items-center md:items-start">
+        <h3>Tutorials</h3>
+        <a [routerLink]="['/tutorials']" routerLinkActive="font-medium">See all</a>
+      </div>
+
+      <div class="flex flex-col items-center md:items-start">
+        <h3>Tools</h3>
+        <a [routerLink]="['/tools/image-upscale']" routerLinkActive="font-medium">Image Upscale</a>
+      </div>
+
+      <div class="flex flex-col items-center md:items-start">
+        <h3>Company</h3>
+        <a [routerLink]="['/about-us']" routerLinkActive="font-medium">About Us</a>
+        <a [routerLink]="['/contact']" routerLinkActive="font-medium">Contact</a>
+        <a [routerLink]="['/privacy']" routerLinkActive="font-medium">Privacy Policy</a>
+        <a [routerLink]="['/cookies']" routerLinkActive="font-medium">Cookies Policy</a>
+      </div>
+    </div>
+    <hr class="my-3" />
+    <div class="flex flex-col md:flex-row gap-2">
+      <a
+        class="btn btn-primary w-full"
+        href="https://buymeacoffee.com/returnsnull"
+        target="_blank"
+        rel="noopener norefferer nofollow"
+        >Buy me a coffee</a
+      >
+      <a
+        class="btn btn-primary w-full"
+        href="https://patreon.com/ReturnsNull"
+        rel="noopener norefferer nofollow"
+        target="_blank"
+        >Support on Patreon</a
+      >
+    </div>
+  </div>
+</footer>
