@@ -1,17 +1,48 @@
-<div class="popup">
+<ng-template #content>
   <app-breadcrumbs />
   <h1 class="mt-2">About Us</h1>
-  <h2>Who are We</h2>
   <p>
     This project is a one-person effort — just me, a developer who enjoys turning everyday
     programming problems into clear, practical tutorials. Everything I publish here comes from real
     issues I’ve faced in my own work. I provide quick copy-paste solutions at the top of each page,
     and if you want to dive deeper, the main article explains how everything works.
   </p>
-  <br />
-  <h2>Contacts</h2>
-  <p>
-    I have not set up official contact channels yet, but I plan to soon. For now, you can stay tuned
-    for new tutorials or updates on this site.
-  </p>
-</div>
+</ng-template>
+
+<ng-template #support>
+  <h2>Support me</h2>
+  <p class="hint my-2">It would be much appreciated!</p>
+  <a
+    href="https://buymeacoffee.com/returnsnull"
+    target="_blank"
+    rel="noopener norefferer nofollow"
+    class="btn btn-primary w-full my-2"
+    >Buy me a coffee</a
+  >
+  <a
+    href="https://patreon.com/ReturnsNull"
+    rel="noopener norefferer nofollow"
+    target="_blank"
+    class="btn btn-primary w-full"
+    >Support on Patreon</a
+  >
+</ng-template>
+
+<app-content-page>
+  <ng-container id="phonePage">
+    <ng-container *ngTemplateOutlet="content" />
+    <div class="card">
+      <ng-container *ngTemplateOutlet="support" />
+    </div>
+  </ng-container>
+
+  <ng-container id="desktopContent">
+    <ng-container *ngTemplateOutlet="content" />
+  </ng-container>
+
+  <ng-container id="desktopSidebar">
+    <div class="content-card">
+      <ng-container *ngTemplateOutlet="support" />
+    </div>
+  </ng-container>
+</app-content-page>

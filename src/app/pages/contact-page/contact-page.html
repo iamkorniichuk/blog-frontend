@@ -1,0 +1,32 @@
+<ng-template #form>
+  <app-breadcrumbs />
+  <h1 class="mt-2">Contact Us</h1>
+  <div>We really value your feedback! Every message helps make this project better.</div>
+</ng-template>
+
+<ng-template #info>
+  <h2>Contact Info</h2>
+  <a href="mailto:support@returnsnull.dev" target="_blank" class="link my-2"
+    >support&#64;returnsnull.dev</a
+  >
+  <p class="hint">Replies might take a bit of time.</p>
+</ng-template>
+
+<app-content-page>
+  <ng-container id="phonePage">
+    <ng-container *ngTemplateOutlet="form" />
+    <div class="card">
+      <ng-container *ngTemplateOutlet="info" />
+    </div>
+  </ng-container>
+
+  <ng-container id="desktopContent">
+    <ng-container *ngTemplateOutlet="form" />
+  </ng-container>
+
+  <ng-container id="desktopSidebar">
+    <div class="content-card">
+      <ng-container *ngTemplateOutlet="info" />
+    </div>
+  </ng-container>
+</app-content-page>

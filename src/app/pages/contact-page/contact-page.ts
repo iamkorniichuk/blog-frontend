@@ -6,14 +6,14 @@ import { BreadcrumbsComponent } from '../../components/breadcrumbs/breadcrumbs';
 import { ContentPageComponent } from '../../components/content-page/content-page';
 
 @Component({
-  selector: 'app-about-us-page',
+  selector: 'app-contact-page',
   imports: [BreadcrumbsComponent, ContentPageComponent, NgTemplateOutlet],
-  templateUrl: './about-us-page.html',
+  templateUrl: './contact-page.html',
 })
-export class AboutUsPageComponent implements OnInit {
+export class ContactPageComponent implements OnInit {
   private metaService = inject(MetaService);
 
   ngOnInit() {
-    this.metaService.setTitle('About Us');
+    this.metaService.setTitle('Contact');
   }
 }

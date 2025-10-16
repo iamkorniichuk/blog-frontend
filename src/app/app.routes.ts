@@ -4,6 +4,7 @@ import { tutorialResolver } from './shared/tutorial-resolver';
 
 import { HomePageComponent } from './pages/home-page/home-page';
 import { AboutUsPageComponent } from './pages/about-us-page/about-us-page';
+import { ContactPageComponent } from './pages/contact-page/contact-page';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page';
 import { ToolsListPageComponent } from './pages/tools-list-page/tools-list-page';
 import { ImageUpscalePageComponent } from './pages/image-upscale-page/image-upscale-page';
@@ -18,6 +19,10 @@ export const routes: Routes = [
   {
     path: 'about-us',
     component: AboutUsPageComponent,
+  },
+  {
+    path: 'contact',
+    component: ContactPageComponent,
   },
   {
     path: '404',
