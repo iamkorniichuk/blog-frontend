@@ -1,0 +1,46 @@
+<ng-template #breadcrumbs>
+  <app-breadcrumbs />
+</ng-template>
+
+<ng-template #heading>
+  <h1 class="mt-2">Cookies Policy</h1>
+</ng-template>
+
+@let contentAst = policyContent | markdownAst;
+<ng-template #content>
+  @if (contentAst) {
+    <app-markdown [ast]="contentAst" />
+  }
+</ng-template>
+
+<ng-template #contentTable>
+  @if (contentAst) {
+    <app-toc-markdown [ast]="contentAst" />
+  }
+</ng-template>
+
+<app-content-page>
+  <ng-container id="phonePage">
+    <ng-container *ngTemplateOutlet="breadcrumbs" />
+    <ng-container *ngTemplateOutlet="heading" />
+    <div class="card">
+      <ng-container *ngTemplateOutlet="contentTable" />
+    </div>
+    <ng-container *ngTemplateOutlet="content" />
+  </ng-container>
+
+  <ng-container id="desktopContent">
+    <ng-container *ngTemplateOutlet="breadcrumbs" />
+    <ng-container *ngTemplateOutlet="heading" />
+    <ng-container *ngTemplateOutlet="content" />
+  </ng-container>
+
+  <ng-container id="desktopSidebar">
+    <div
+      class="content-card sticky left-0"
+      style="top: calc(var(--navbar-height) + calc(var(--spacing) * 4))"
+    >
+      <ng-container *ngTemplateOutlet="contentTable" />
+    </div>
+  </ng-container>
+</app-content-page>

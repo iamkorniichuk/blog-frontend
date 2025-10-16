@@ -5,12 +5,13 @@ import { tutorialResolver } from './shared/tutorial-resolver';
 import { HomePageComponent } from './pages/home-page/home-page';
 import { AboutUsPageComponent } from './pages/about-us-page/about-us-page';
 import { ContactPageComponent } from './pages/contact-page/contact-page';
+import { PrivacyPolicyPageComponent } from './pages/privacy-policy-page/privacy-policy-page';
+import { CookiesPolicyPageComponent } from './pages/cookies-policy-page/cookies-policy-page';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page';
 import { ToolsListPageComponent } from './pages/tools-list-page/tools-list-page';
 import { ImageUpscalePageComponent } from './pages/image-upscale-page/image-upscale-page';
 import { TutorialPageComponent } from './pages/tutorial-page/tutorial-page';
 import { TutorialListPageComponent } from './pages/tutorial-list-page/tutorial-list-page';
-import { PrivacyPolicyPageComponent } from './pages/privacy-policy-page/privacy-policy-page';
 
 export const routes: Routes = [
   {
@@ -28,6 +29,10 @@ export const routes: Routes = [
   {
     path: 'privacy',
     component: PrivacyPolicyPageComponent,
+  },
+  {
+    path: 'cookies',
+    component: CookiesPolicyPageComponent,
   },
   {
     path: '404',
