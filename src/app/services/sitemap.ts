@@ -44,7 +44,7 @@ export class SitemapService {
   async getUrls(): Promise<SitemapUrl[]> {
     const urls: SitemapUrl[] = [
       { loc: this.absolute(''), changefreq: 'weekly', priority: 1 },
-      { loc: this.absolute('about-us'), changefreq: 'yearly', priority: 0.9 },
+      { loc: this.absolute('about'), changefreq: 'yearly', priority: 0.9 },
       { loc: this.absolute('tools'), changefreq: 'monthly', priority: 0.8 },
       { loc: this.absolute('tools/image-upscale'), changefreq: 'yearly', priority: 0.7 },
       { loc: this.absolute('tutorials'), changefreq: 'weekly', priority: 0.8 },
