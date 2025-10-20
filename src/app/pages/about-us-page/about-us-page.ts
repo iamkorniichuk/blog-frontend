@@ -14,6 +14,7 @@ export class AboutUsPageComponent implements OnInit {
   private metaService = inject(MetaService);
 
   ngOnInit() {
-    this.metaService.setTitle('About Us');
+    this.metaService.setTitle('About');
+    this.metaService.deleteCanonical();
   }
 }

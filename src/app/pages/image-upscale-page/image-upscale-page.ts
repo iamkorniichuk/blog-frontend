@@ -63,6 +63,8 @@ export class ImageUpscalePageComponent implements OnInit {
 
     const tags = 'upscale image, no sign up, free';
     this.metaService.setTag({ name: 'keywords', content: tags });
+
+    this.metaService.deleteCanonical();
   }
 
   onFilesSelected(files: FileList) {

@@ -15,5 +15,6 @@ export class ContactPageComponent implements OnInit {
 
   ngOnInit() {
     this.metaService.setTitle('Contact');
+    this.metaService.deleteCanonical();
   }
 }

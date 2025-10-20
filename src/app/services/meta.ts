@@ -1,4 +1,5 @@
-import { inject, Injectable } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { DOCUMENT, inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
 
 export type DefinitiveKey = 'name' | 'rel';
@@ -10,6 +11,8 @@ export type DefinitiveMeta = Partial<Record<DefinitiveKey, string>>;
 export class MetaService {
   private titleService = inject(Title);
   private metaService = inject(Meta);
+  private documentService = inject(DOCUMENT);
+  private platformId = inject(PLATFORM_ID);
 
   private definitiveKeys: DefinitiveKey[] = ['name', 'rel'];
 
@@ -35,5 +38,23 @@ export class MetaService {
 
   setTitle(title: string) {
     this.titleService.setTitle(title);
+  }
+
+  setCanonical(url: string) {
+    if (!isPlatformBrowser(this.platformId)) return;
+
+    this.deleteCanonical();
+
+    const link = this.documentService.createElement('link');
+    link.setAttribute('rel', 'canonical');
+    link.setAttribute('href', url);
+    this.documentService.head.appendChild(link);
+  }
+
+  deleteCanonical() {
+    if (!isPlatformBrowser(this.platformId)) return;
+
+    const oldLink = this.documentService.querySelector('link[rel=canonical]');
+    if (oldLink) oldLink.remove();
   }
 }

@@ -55,6 +55,8 @@ export class TutorialPageComponent implements OnInit {
     const dateScheme = 'dd/MM/yy';
     const date = this.datePipe.transform(this.tutorial().createdAt, dateScheme);
     if (date) this.metaService.setTag({ name: 'date', content: date, scheme: dateScheme });
+
+    this.metaService.deleteCanonical();
   }
 
   togglePopupVisibility() {

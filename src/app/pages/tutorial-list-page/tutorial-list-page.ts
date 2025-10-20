@@ -41,6 +41,8 @@ export class TutorialListPageComponent implements OnInit {
     this.metaService.setTag({ name: 'description', content: description });
     this.metaService.setTag({ name: 'og:description', content: description });
 
+    this.metaService.deleteCanonical();
+
     this.allTutorialsLength = await this.tutorialApiService.readLength();
     this.totalPages = Math.ceil(this.allTutorialsLength / this.pageSize);
   }
