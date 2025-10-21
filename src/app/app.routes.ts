@@ -92,19 +92,6 @@ export const routes: (Route & { data: StaticRouteMeta })[] = [
     },
   },
   {
-    path: '404',
-    component: NotFoundPageComponent,
-    data: {
-      title: 'Not Found | ReturnsNull;',
-      description: "Page not found - the URL you're looking for doesn't exist.",
-      imageUrl: 'https://www.returnsnull.dev/images/home-page-image.png',
-      imageAlt: 'White text "null;" on black background',
-      type: 'website',
-      createdAt: new Date(2025, 9, 4),
-      tags: ['404', 'error page', 'not found'],
-    },
-  },
-  {
     path: 'tools',
     component: ToolsListPageComponent,
     data: {
@@ -150,5 +137,18 @@ export const routes: (Route & { data: StaticRouteMeta })[] = [
     component: TutorialPageComponent,
     resolve: { tutorial: tutorialResolver },
     data: { type: 'article' },
+  },
+  {
+    path: '**',
+    component: NotFoundPageComponent,
+    data: {
+      title: 'Not Found | ReturnsNull;',
+      description: "Page not found - the URL you're looking for doesn't exist.",
+      imageUrl: 'https://www.returnsnull.dev/images/home-page-image.png',
+      imageAlt: 'White text "null;" on black background',
+      type: 'website',
+      createdAt: new Date(2025, 9, 4),
+      tags: ['404', 'error page', 'not found'],
+    },
   },
 ];
