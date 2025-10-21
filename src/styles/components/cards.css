@@ -8,7 +8,7 @@
 
   .content-card {
     @apply text-[color:var(--color-text,var(--color-content))];
-    @apply bg-[color:var(--color-bg,var(--color-surface))] rounded-xl h-fit p-4 m-4;
+    @apply bg-surface rounded-xl h-fit p-4 m-4;
     @apply shadow-[color:var(--color-bg-extra-muted,var(--color-surface-extra-muted))] shadow-lg;
     @apply border-1 border-[color:var(--color-bg-accent,var(--color-surface-accent))];
 
@@ -24,7 +24,7 @@
     @apply max-h-[80vh] size-full overflow-y-auto;
 
     @apply text-[color:var(--color-text,var(--color-content))];
-    @apply bg-[color:var(--color-bg-accent,var(--color-surface-accent))] rounded-xl h-fit w-full p-4 my-6;
+    @apply bg-surface-accent rounded-xl h-fit w-full p-4 my-6;
     @apply shadow-[color:var(--color-bg-extra-muted,var(--color-surface-extra-muted))] shadow-lg;
     @apply border-1 border-[color:var(--color-bg-extra-accent,var(--color-surface-extra-accent))];
 
@@ -38,7 +38,7 @@
 
   .content-block {
     @apply text-[color:var(--color-text,var(--color-content))];
-    @apply bg-[color:var(--color-bg,var(--color-surface))] py-8 px-10 size-max;
+    @apply bg-surface py-8 px-10 size-max;
     @apply shadow-[color:var(--color-bg-extra-muted,var(--color-surface-extra-muted))] shadow-lg;
     @apply border-1 border-[color:var(--color-bg-accent,var(--color-surface-accent))];
 
@@ -50,7 +50,7 @@
   .popup {
     @apply size-fit max-w-[60vw] max-h-[60vh];
     @apply text-[color:var(--color-text,var(--color-content))];
-    @apply bg-[color:var(--color-bg,var(--color-surface))] rounded-xl py-8 px-10;
+    @apply bg-surface rounded-xl py-8 px-10;
     @apply shadow-[color:var(--color-bg-extra-muted,var(--color-surface-extra-muted))] shadow-lg;
     @apply border-1 border-[color:var(--color-bg-accent,var(--color-surface-accent))];
     @apply fixed inset-0 place-self-center;

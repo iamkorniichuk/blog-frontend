@@ -86,14 +86,11 @@
   </ng-container>
 
   <ng-container id="desktopSidebar">
-    <div class="content-card border-primary-accent shadow-primary-extra-muted/50">
+    <div class="content-card primary">
       <ng-container *ngTemplateOutlet="solution" />
     </div>
 
-    <div
-      class="content-card sticky left-0"
-      style="top: calc(var(--navbar-height) + calc(var(--spacing) * 4))"
-    >
+    <div class="content-card">
       <ng-container *ngTemplateOutlet="contentTable" />
     </div>
   </ng-container>

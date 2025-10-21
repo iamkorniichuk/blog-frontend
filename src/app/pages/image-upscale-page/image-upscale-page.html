@@ -48,11 +48,11 @@
     <button
       [disabled]="upscaleState() !== 'idle' || uploadedImages().length === 0"
       (click)="upscaleImages()"
-      class="btn btn-primary w-full"
+      class="btn btn-primary surface w-full"
     >
       Upscale
     </button>
-    <select name="factor" id="factor" (change)="changeUpscaleFactor($event)">
+    <select class="surface" name="factor" id="factor" (change)="changeUpscaleFactor($event)">
       @for (option of upscaleOptions; track $index) {
         <option [value]="option" [selected]="option === upscaleFactor()">{{ option }}</option>
       }
@@ -281,7 +281,7 @@
     <ng-container *ngTemplateOutlet="heading" />
     <ng-container *ngTemplateOutlet="ticker" />
     <ng-container *ngTemplateOutlet="description" />
-    <div class="card">
+    <div class="card primary">
       <ng-container *ngTemplateOutlet="uploadForm" />
     </div>
     <div class="mb-4">
@@ -304,10 +304,7 @@
   </ng-container>
 
   <ng-container id="desktopSidebar">
-    <div
-      class="content-card sticky left-0"
-      style="top: calc(var(--navbar-height) + calc(var(--spacing) * 4))"
-    >
+    <div class="content-card primary">
       <ng-container *ngTemplateOutlet="uploadForm" />
     </div>
 
