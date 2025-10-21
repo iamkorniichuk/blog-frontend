@@ -47,6 +47,10 @@
     }
   }
 
+  .sidebar:empty {
+    display: none;
+  }
+
   .popup {
     @apply size-fit max-w-[60vw] max-h-[60vh];
     @apply text-[color:var(--color-text,var(--color-content))];
