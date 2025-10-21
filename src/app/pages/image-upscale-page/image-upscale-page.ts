@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
+import { Component, inject, PLATFORM_ID, signal } from '@angular/core';
 import { isPlatformBrowser, NgTemplateOutlet } from '@angular/common';
 
 import { Tensor3D } from '@tensorflow/tfjs';
@@ -6,7 +6,6 @@ import { Tensor3D } from '@tensorflow/tfjs';
 import { TensorImageData, UpscaleFactor, WorkerMessage } from '../../workers/image-upscale.worker';
 import { NewsTickerComponent } from '../../components/news-ticker/news-ticker';
 import { ContentPageComponent } from '../../components/content-page/content-page';
-import { MetaService } from '../../services/meta';
 import { InputFileComponent } from '../../components/elements/input-file/input-file';
 import { IconComponent } from '../../components/icon/icon';
 import { SliderCompareComponent } from '../../components/slider-compare/slider-compare';
@@ -39,8 +38,7 @@ export type UpscalingState = 'idle' | 'inprogress' | 'done';
   ],
   templateUrl: './image-upscale-page.html',
 })
-export class ImageUpscalePageComponent implements OnInit {
-  private metaService = inject(MetaService);
+export class ImageUpscalePageComponent {
   private platformId = inject(PLATFORM_ID);
 
   uploadedImages = signal<HTMLImageElement[]>([]);
@@ -50,22 +48,6 @@ export class ImageUpscalePageComponent implements OnInit {
 
   upscaleOptions: UpscaleFactor[] = ['x2', 'x3', 'x4', 'x8'];
   worker: Worker | null = null;
-
-  ngOnInit() {
-    const title = 'Upscale image';
-    this.metaService.setTitle(title);
-    this.metaService.setTag({ name: 'og:title', content: title });
-    this.metaService.setTag({ name: 'og:type', content: 'website' });
-
-    const description = 'Upscale your images for free without sign up.';
-    this.metaService.setTag({ name: 'description', content: description });
-    this.metaService.setTag({ name: 'og:description', content: description });
-
-    const tags = 'upscale image, no sign up, free';
-    this.metaService.setTag({ name: 'keywords', content: tags });
-
-    this.metaService.deleteCanonical();
-  }
 
   onFilesSelected(files: FileList) {
     this.uploadedImages.set([]);

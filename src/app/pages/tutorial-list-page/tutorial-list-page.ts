@@ -5,7 +5,6 @@ import { RouterLink } from '@angular/router';
 import { Tutorial, TutorialApiService } from '../../services/tutorial-api';
 import { ContentPageComponent } from '../../components/content-page/content-page';
 import { GradientOverlayComponent } from '../../components/gradient-overlay/gradient-overlay';
-import { MetaService } from '../../services/meta';
 import { PageNavigationComponent } from '../../components/page-navigation/page-navigation';
 import { BreadcrumbsComponent } from '../../components/breadcrumbs/breadcrumbs';
 
@@ -24,7 +23,6 @@ import { BreadcrumbsComponent } from '../../components/breadcrumbs/breadcrumbs';
 })
 export class TutorialListPageComponent implements OnInit {
   private tutorialApiService = inject(TutorialApiService);
-  private metaService = inject(MetaService);
   tutorials = signal<Tutorial[]>([]);
 
   allTutorialsLength!: number;
@@ -32,17 +30,6 @@ export class TutorialListPageComponent implements OnInit {
   totalPages!: number;
 
   async ngOnInit() {
-    const title = 'Programming Tutorials';
-    this.metaService.setTitle(title);
-    this.metaService.setTag({ name: 'og:title', content: title });
-    this.metaService.setTag({ name: 'og:type', content: 'website' });
-
-    const description = 'Answers to your programming problems with real life examples.';
-    this.metaService.setTag({ name: 'description', content: description });
-    this.metaService.setTag({ name: 'og:description', content: description });
-
-    this.metaService.deleteCanonical();
-
     this.allTutorialsLength = await this.tutorialApiService.readLength();
     this.totalPages = Math.ceil(this.allTutorialsLength / this.pageSize);
   }

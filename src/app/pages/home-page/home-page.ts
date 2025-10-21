@@ -14,13 +14,17 @@ import { MetaService } from '../../services/meta';
 export class HomePageComponent implements OnInit {
   private tutorialApiService = inject(TutorialApiService);
   private metaService = inject(MetaService);
+
   tutorials = signal<Tutorial[]>([]);
 
   async ngOnInit() {
     const tutorials = await this.tutorialApiService.readAll({ start: 0, end: 10 });
     this.tutorials.set(tutorials);
 
-    this.metaService.setTitle('Programming Blog | ReturnsNull;');
-    this.metaService.setCanonical('https://www.returnsnull.dev');
+    const lastTutorial = tutorials[0];
+    const imageUrl = lastTutorial.cover;
+    const imageAlt = lastTutorial.coverAlt;
+    const modifiedAt = lastTutorial.createdAt;
+    this.metaService.setRouteMeta({ imageUrl, imageAlt, modifiedAt });
   }
 }

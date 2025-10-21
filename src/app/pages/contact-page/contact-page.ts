@@ -1,7 +1,6 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 
-import { MetaService } from '../../services/meta';
 import { BreadcrumbsComponent } from '../../components/breadcrumbs/breadcrumbs';
 import { ContentPageComponent } from '../../components/content-page/content-page';
 
@@ -10,11 +9,4 @@ import { ContentPageComponent } from '../../components/content-page/content-page
   imports: [BreadcrumbsComponent, ContentPageComponent, NgTemplateOutlet],
   templateUrl: './contact-page.html',
 })
-export class ContactPageComponent implements OnInit {
-  private metaService = inject(MetaService);
-
-  ngOnInit() {
-    this.metaService.setTitle('Contact');
-    this.metaService.deleteCanonical();
-  }
-}
+export class ContactPageComponent {}
