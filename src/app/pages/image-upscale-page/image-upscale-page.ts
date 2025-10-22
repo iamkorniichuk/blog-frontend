@@ -1,9 +1,7 @@
 import { Component, inject, PLATFORM_ID, signal } from '@angular/core';
 import { isPlatformBrowser, NgTemplateOutlet } from '@angular/common';
 
-import { Tensor3D } from '@tensorflow/tfjs';
-
-import { TensorImageData, UpscaleFactor, WorkerMessage } from '../../workers/image-upscale.worker';
+import { WorkerMessage } from '../../workers/image-upscale.worker';
 import { NewsTickerComponent } from '../../components/news-ticker/news-ticker';
 import { ContentPageComponent } from '../../components/content-page/content-page';
 import { InputFileComponent } from '../../components/elements/input-file/input-file';
@@ -15,11 +13,12 @@ import {
 } from '../../components/process-progress/process-progress';
 import { CodeBlockComponent } from '../../components/code-block/code-block';
 import { BreadcrumbsComponent } from '../../components/breadcrumbs/breadcrumbs';
+import { ImageCastService, ImageMatrix } from '../../services/image-cast';
 
 export interface UpscaledData {
   state: State;
   progress: number;
-  image: string | null;
+  image: HTMLImageElement | null;
 }
 export type UpscalingState = 'idle' | 'inprogress' | 'done';
 
@@ -40,68 +39,48 @@ export type UpscalingState = 'idle' | 'inprogress' | 'done';
 })
 export class ImageUpscalePageComponent {
   private platformId = inject(PLATFORM_ID);
+  private imageCast = inject(ImageCastService);
 
   uploadedImages = signal<HTMLImageElement[]>([]);
-  upscaleFactor = signal<UpscaleFactor>('x2');
   upscaledData = signal<UpscaledData[]>([]);
   upscaleState = signal<UpscalingState>('idle');
 
-  upscaleOptions: UpscaleFactor[] = ['x2', 'x3', 'x4', 'x8'];
   worker: Worker | null = null;
 
-  onFilesSelected(files: FileList) {
-    this.uploadedImages.set([]);
-    this.upscaledData.set([]);
-    this.upscaleState.set('idle');
+  async onFilesSelected(files: FileList) {
+    this.resetState();
 
-    for (const file of Array.from(files)) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const img = new Image();
-        img.alt = file.name;
-        img.src = reader.result as string;
-        this.uploadedImages.update((current) => [...current, img]);
-        this.upscaledData.update((current) => [
-          ...current,
-          { state: 'nostate', progress: 0, image: null },
-        ]);
-      };
-      reader.readAsDataURL(file);
+    for (const obj of Array.from(files)) {
+      const image = await this.imageCast.fileToImage(obj);
+      if (image === null) continue;
+
+      this.uploadedImages.update((current) => [...current, image]);
+      this.upscaledData.update((current) => [
+        ...current,
+        { state: 'nostate', progress: 0, image: null },
+      ]);
     }
   }
 
-  abortUpscaling() {
+  onAbortClick() {
+    this.upscaleState.set('idle');
+    this.worker?.terminate();
+  }
+
+  private resetState() {
+    this.uploadedImages.set([]);
+    this.upscaledData.set([]);
     this.upscaleState.set('idle');
     this.worker?.terminate();
   }
 
   downloadAll() {
-    const images = this.upscaledData();
-
-    images.forEach((data, index) => {
-      const src = data.image;
-      if (!src) return;
-
-      const ext = this.getExtensionFromDataUrl(src);
-      const link = document.createElement('a');
-      link.href = src;
-      link.download = `image-${index + 1}.${ext}`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+    const images: HTMLImageElement[] = [];
+    this.upscaledData().forEach((data) => {
+      if (data.image) images.push(data.image);
     });
-  }
 
-  private getExtensionFromDataUrl(dataUrl: string): string {
-    const match = dataUrl.match(/^data:(image\/[a-zA-Z0-9+.-]+);base64,/);
-    if (!match) return 'bin';
-
-    const mime = match[1];
-    const ext = mime.split('/')[1];
-
-    if (ext === 'jpeg') return 'jpg';
-    if (ext === 'svg+xml') return 'svg';
-    return ext;
+    this.imageCast.downloadImages(images);
   }
 
   removeImage(index: number) {
@@ -120,64 +99,41 @@ export class ImageUpscalePageComponent {
   async upscaleImages() {
     if (!isPlatformBrowser(this.platformId)) return;
 
-    const tf = (window as unknown as { tf: typeof import('@tensorflow/tfjs') }).tf;
-
     this.worker = new Worker(new URL('../../workers/image-upscale.worker', import.meta.url));
 
     this.worker.onmessage = async ({ data }) => {
       let doneNumbers = 0;
       for (const i in data) {
         const index = Number(i);
-        const { state, progress, imageData } = data[index] as WorkerMessage;
+        const { state, progress, result } = data[index] as WorkerMessage;
 
-        if (state === 'done' && imageData) {
+        if (state === 'done' && result) {
           ++doneNumbers;
-          const [image, shape] = imageData;
-          const [height, width] = shape.slice(0, 2);
-
-          const canvas = document.createElement('canvas');
-          canvas.width = width;
-          canvas.height = height;
-
-          try {
-            const tensor = tf.tensor(image, shape, 'int32') as Tensor3D;
-            await tf.browser.toPixels(tensor, canvas);
-            tensor.dispose();
-          } catch (err) {
-            console.error('Error converting returned tensor to pixels:', err);
-          }
-
-          const src = canvas.toDataURL('image/png');
-          this.upscaledData.update((images) => {
-            images[index].image = src;
-            return images;
+          const image = this.imageCast.matrixToImage(result, 'image/png');
+          this.upscaledData.update((current) => {
+            current[index].image = image;
+            return current;
           });
         }
 
-        this.upscaledData.update((images) => {
-          const copy = [...images];
+        this.upscaledData.update((current) => {
+          const copy = [...current];
           copy[index].state = state;
           copy[index].progress = progress;
           return copy;
         });
       }
+
       const allDone = doneNumbers === this.upscaledData().length;
       this.upscaleState.set(allDone ? 'done' : 'inprogress');
     };
 
-    const tensorImages: TensorImageData[] = [];
-    for (const image of this.uploadedImages()) {
-      const tensor = await tf.browser.fromPixelsAsync(image);
-      tensorImages.push([await tensor.data(), tensor.shape]);
-      tensor.dispose();
-    }
+    const imagesMatrix: ImageMatrix[] = [];
+    this.uploadedImages().forEach((img) => {
+      const matrix = this.imageCast.imageToMatrix(img);
+      if (matrix) imagesMatrix.push(matrix);
+    });
 
-    this.worker.postMessage({ imagesData: tensorImages, upscaleFactor: this.upscaleFactor() });
-  }
-
-  changeUpscaleFactor(event: Event) {
-    const target = event.target as HTMLSelectElement;
-    const factor = target.value as UpscaleFactor;
-    this.upscaleFactor.set(factor);
+    this.worker.postMessage(imagesMatrix);
   }
 }

@@ -44,20 +44,13 @@
     accept="image/*"
     (onchange)="onFilesSelected($event)"
   />
-  <div class="flex flex-row mt-3 gap-3">
-    <button
-      [disabled]="upscaleState() !== 'idle' || uploadedImages().length === 0"
-      (click)="upscaleImages()"
-      class="btn btn-primary surface w-full"
-    >
-      Upscale
-    </button>
-    <select class="surface" name="factor" id="factor" (change)="changeUpscaleFactor($event)">
-      @for (option of upscaleOptions; track $index) {
-        <option [value]="option" [selected]="option === upscaleFactor()">{{ option }}</option>
-      }
-    </select>
-  </div>
+  <button
+    [disabled]="upscaleState() !== 'idle' || uploadedImages().length === 0"
+    (click)="upscaleImages()"
+    class="btn btn-primary surface w-full mt-3"
+  >
+    Upscale
+  </button>
 </ng-template>
 
 <ng-template #content>
@@ -74,7 +67,7 @@
             </ng-container>
             <ng-container id="after">
               <img
-                [src]="upscaled.image"
+                [src]="upscaled.image?.src"
                 [alt]="'Upscaled: ' + image.alt"
                 class="w-full object-contain"
               />
@@ -272,7 +265,7 @@
 </ng-template>
 
 <ng-template #abortButton>
-  <button (click)="abortUpscaling()" class="btn btn-primary danger w-full">Abort</button>
+  <button (click)="onAbortClick()" class="btn btn-primary danger w-full">Abort</button>
 </ng-template>
 
 <app-content-page>

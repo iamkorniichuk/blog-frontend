@@ -1,73 +1,60 @@
 /// <reference lib="webworker" />
-import Upscaler, { ModelDefinition } from 'upscaler';
-import * as models from '@upscalerjs/esrgan-thick';
-import * as tf from '@tensorflow/tfjs';
+import Upscaler from 'upscaler';
+import model from '@upscalerjs/esrgan-legacy/gans';
+import * as tf from '@tensorflow/tfjs-core';
+import '@tensorflow/tfjs-backend-webgl';
 
 import { State } from '../components/process-progress/process-progress';
+import { ImageMatrix } from '../services/image-cast';
 
 tf.enableProdMode();
 tf.env().set('WEBGL_DELETE_TEXTURE_THRESHOLD', 0);
 
-export type UpscaleFactor = 'x2' | 'x3' | 'x4' | 'x8';
-export type TensorImageData = [
-  Float32Array<ArrayBufferLike> | Int32Array<ArrayBufferLike> | Uint8Array<ArrayBufferLike>,
-  [number, number, number],
-];
 export interface WorkerMessage {
   state: State;
   progress: number;
-  imageData: TensorImageData | null;
+  result: ImageMatrix | null;
 }
-const upscaleFactorModels: Record<UpscaleFactor, ModelDefinition> = {
-  x2: models.x2,
-  x3: models.x3,
-  x4: models.x4,
-  x8: models.x8,
-};
 
-let upscaler: InstanceType<typeof Upscaler> | null = null;
-let currentFactor: UpscaleFactor | null = null;
+const patchSize = 32;
+
+const upscaler = new Upscaler({ model });
+upscaler.warmup(patchSize);
 
 addEventListener('message', async ({ data }) => {
-  const upscaleFactor: UpscaleFactor = data['upscaleFactor'];
-  if (!upscaler || currentFactor !== upscaleFactor) {
-    if (upscaler) await upscaler.dispose();
-    upscaler = new Upscaler({ model: upscaleFactorModels[upscaleFactor] });
-    currentFactor = upscaleFactor;
-  }
-
-  const imagesData: TensorImageData[] = data['imagesData'];
-  const results: WorkerMessage[] = imagesData.map(() => {
-    return { state: 'queued', progress: 0, imageData: null };
+  const images = data as ImageMatrix[];
+  const results: WorkerMessage[] = images.map(() => {
+    return { state: 'queued', progress: 0, result: null };
   });
   postMessage(results);
 
-  for (const i in imagesData) {
+  for (const i in images) {
     tf.engine().startScope();
 
     const index = i as unknown as number;
 
-    const [data, shape] = imagesData[index];
-    const tensor = tf.tensor(data, shape) as tf.Tensor3D;
+    const [data, shape] = images[index];
+    const tensor = tf.tensor(data as tf.TensorLike, shape) as tf.Tensor3D;
 
     const result = await upscaler.execute(tensor, {
       awaitNextFrame: true,
       padding: 4,
-      patchSize: 32,
+      patchSize,
       output: 'tensor',
       progress: (amount: number) => {
         const state = 'inprogress';
         const progress = Number((amount * 100).toFixed(2));
-        const imageData = null;
-        results[index] = { state, progress, imageData };
+        const result = null;
+        results[index] = { state, progress, result };
         postMessage(results);
       },
     });
 
     const state: State = 'done';
     const progress = 100;
-    const imageData: TensorImageData = [await result.data(), result.shape];
-    results[index] = { state, progress, imageData };
+    const resultData = (await result.data()) as Uint8Array<ArrayBuffer>;
+    const matrix: ImageMatrix = [resultData, result.shape];
+    results[index] = { state, progress, result: matrix };
     postMessage(results);
 
     tf.engine().endScope();
