@@ -31,9 +31,9 @@
 
 <ng-template #description>
   <div class="mt-2">
-    Upscale your images with <app-code-block [isMultiline]="false" code="ESRGAN Thick" /> AI model
-    right in your browser. No limits applied: no subscription, no sign up, no credits, no images
-    number limit
+    Upscale your images with <app-code-block [isMultiline]="false" code="GANS" />
+    AI model right in your browser. No limits applied: no subscription, no sign up, no credits, no
+    images number limit.
   </div>
 </ng-template>
 
@@ -131,7 +131,7 @@
             beforeSrc: './images/upscale-examples/person-image.png',
             afterSrc: './images/upscale-examples/upscaled-person-image.png',
             beforeDescription: '80x80px',
-            afterDescription: '640x640px (x8)',
+            afterDescription: '320x320px',
             alt: 'Person photo',
           }
         "
@@ -144,7 +144,7 @@
             beforeSrc: './images/upscale-examples/dog-image.jpg',
             afterSrc: './images/upscale-examples/upscaled-dog-image.png',
             beforeDescription: '150x150px',
-            afterDescription: '1200x1200px (x8)',
+            afterDescription: '600x600px',
             alt: 'Dog photo',
           }
         "
@@ -157,7 +157,7 @@
             beforeSrc: './images/upscale-examples/forest-image.jpg',
             afterSrc: './images/upscale-examples/upscaled-forest-image.png',
             beforeDescription: '150x150px',
-            afterDescription: '1200x1200px (x8)',
+            afterDescription: '600x600px',
             alt: 'Forest photo',
           }
         "
@@ -170,7 +170,7 @@
             beforeSrc: './images/upscale-examples/apple-image.jpg',
             afterSrc: './images/upscale-examples/upscaled-apple-image.png',
             beforeDescription: '180x180px',
-            afterDescription: '1440x1440px (x8)',
+            afterDescription: '720x720px',
             alt: 'Apple logo image',
           }
         "
@@ -183,7 +183,7 @@
             beforeSrc: './images/upscale-examples/computer-image.jpg',
             afterSrc: './images/upscale-examples/upscaled-computer-image.png',
             beforeDescription: '150x150px',
-            afterDescription: '1200x1200px (x8)',
+            afterDescription: '600x600px',
             alt: 'Computer image',
           }
         "
@@ -196,7 +196,7 @@
             beforeSrc: './images/upscale-examples/document-image.jpg',
             afterSrc: './images/upscale-examples/upscaled-document-image.png',
             beforeDescription: '150x150px',
-            afterDescription: '1200x1200px (x8)',
+            afterDescription: '600x600px',
             alt: 'Document image',
           }
         "
@@ -230,11 +230,12 @@
         class="link"
         target="_blank"
         rel="noopener norefferer nofollow"
-        href="https://upscalerjs.com/models/available/upscaling/esrgan-thick/"
-        >ESRGAN Thick</a
-      >, a powerful neural network trained to restore lost detail and enhance textures. ESRGAN
-      stands for Enhanced Super-Resolution Generative Adversarial Network — the same family of
-      models used in many professional image enhancement tools.
+        href="https://upscalerjs.com/models/available/upscaling/esrgan-legacy/"
+        >GANS</a
+      >, a performative neural network trained to restore lost detail and enhance textures. This is
+      one of the model of ESRGAN family, that stands for Enhanced Super-Resolution Generative
+      Adversarial Network — the same family of models used in many professional image enhancement
+      tools.
     </p>
     <br />
 
