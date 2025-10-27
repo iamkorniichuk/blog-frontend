@@ -4,11 +4,11 @@ import { NgTemplateOutlet } from '@angular/common';
 import { RootContent, Root } from 'mdast';
 
 import { CodeBlockComponent } from '../code-block/code-block';
-import { Heading } from '../elements/heading/heading';
+import { HeadingComponent } from '../elements/heading/heading';
 
 @Component({
   selector: 'app-markdown',
-  imports: [NgTemplateOutlet, CodeBlockComponent, Heading],
+  imports: [NgTemplateOutlet, CodeBlockComponent, HeadingComponent],
   templateUrl: './markdown.html',
   host: { ngSkipHydration: 'true' },
 })

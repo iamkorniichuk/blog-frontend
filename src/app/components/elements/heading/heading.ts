@@ -6,7 +6,7 @@ import { Component, input } from '@angular/core';
   imports: [NgTemplateOutlet],
   templateUrl: './heading.html',
 })
-export class Heading {
+export class HeadingComponent {
   class = input<string>();
   id = input<string>();
   level = input.required<number>();

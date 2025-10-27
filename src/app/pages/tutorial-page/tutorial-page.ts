@@ -11,6 +11,7 @@ import { TocMarkdownComponent } from '../../components/toc-markdown/toc-markdown
 import { IconComponent } from '../../components/icon/icon';
 import { BreadcrumbsComponent } from '../../components/breadcrumbs/breadcrumbs';
 import { MetaService } from '../../services/meta';
+import { ImageComponent } from '../../components/elements/image/image';
 
 @Component({
   selector: 'app-tutorial-page',
@@ -25,6 +26,7 @@ import { MetaService } from '../../services/meta';
     TocMarkdownComponent,
     IconComponent,
     BreadcrumbsComponent,
+    ImageComponent,
   ],
   templateUrl: './tutorial-page.html',
 })
@@ -37,8 +39,12 @@ export class TutorialPageComponent implements OnInit {
   ngOnInit() {
     const title = this.tutorial().title;
     const description = this.tutorial().description;
-    const imageUrl = this.tutorial().cover;
-    const imageAlt = this.tutorial().coverAlt;
+
+    const jpegImage = this.tutorial().image.images['image/jpeg']?.[0].src;
+    const pngImage = this.tutorial().image.images['image/png']?.[0].src;
+    const imageUrl = jpegImage !== undefined ? jpegImage : pngImage;
+
+    const imageAlt = this.tutorial().image.alt;
     const createdAt = this.tutorial().createdAt;
     const tags = this.tutorial().tags;
     this.metaService.setRouteMeta({ title, description, imageUrl, imageAlt, createdAt, tags });

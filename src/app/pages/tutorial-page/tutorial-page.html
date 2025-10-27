@@ -1,6 +1,6 @@
 <ng-template #cover>
   <div class="cover">
-    <img [src]="tutorial().cover" [alt]="tutorial().coverAlt" />
+    <app-image [image]="tutorial().image" loading="lazy" decoding="async" />
     <app-gradient-overlay [sizePercentage]="10" color="surface" side="b" />
   </div>
 </ng-template>

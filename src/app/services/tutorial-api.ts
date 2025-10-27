@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 
 import tutorialsData from '../../assets/tutorials.json';
+import { ResponsiveImage } from '../components/elements/image/image';
 
 export interface Tutorial {
   id: string;
   title: string;
   description: string;
-  cover: string;
-  coverAlt: string;
+  image: ResponsiveImage;
   content: string;
   solution: string;
   tags: string[];

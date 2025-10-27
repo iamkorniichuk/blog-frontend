@@ -1,0 +1,38 @@
+<div
+  class="relative w-full overflow-hidden bg-surface-extra-accent"
+  [style.aspect-ratio]="`${image().ratio.width} / ${image().ratio.height}`"
+>
+  @if (!isLoaded()) {
+    <div class="absolute inset-0 flex items-center justify-center">
+      <span
+        class="block w-8 h-8 border-4 border-content-extra-muted border-t-primary-extra-muted rounded-full animate-spin"
+        aria-label="Loading image"
+      ></span>
+    </div>
+  }
+
+  <picture>
+    @for (format of orderedFormats; track format) {
+      @let imageFormat = image().images[format];
+      @if (imageFormat !== undefined) {
+        <source
+          [attr.type]="format"
+          [attr.srcset]="buildSrcset(imageFormat)"
+          [attr.sizes]="sizes()"
+        />
+      }
+    }
+    <img
+      [src]="fallbackImages[0].src"
+      [sizes]="sizes()"
+      [srcset]="buildSrcset(fallbackImages)"
+      [alt]="image().alt"
+      [loading]="loading()"
+      [decoding]="decoding()"
+      (load)="isLoaded.set(true)"
+      class="block w-full h-auto transition-opacity duration-500"
+      [class.opacity-0]="!isLoaded()"
+      [class.opacity-100]="isLoaded()"
+    />
+  </picture>
+</div>

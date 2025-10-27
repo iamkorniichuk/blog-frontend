@@ -22,8 +22,12 @@ export class HomePageComponent implements OnInit {
     this.tutorials.set(tutorials);
 
     const lastTutorial = tutorials[0];
-    const imageUrl = lastTutorial.cover;
-    const imageAlt = lastTutorial.coverAlt;
+
+    const jpegImage = lastTutorial.image.images['image/jpeg']?.[0].src;
+    const pngImage = lastTutorial.image.images['image/png']?.[0].src;
+    const imageUrl = jpegImage !== undefined ? jpegImage : pngImage;
+
+    const imageAlt = lastTutorial.image.alt;
     const modifiedAt = lastTutorial.createdAt;
     this.metaService.setRouteMeta({ imageUrl, imageAlt, modifiedAt });
   }

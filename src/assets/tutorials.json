@@ -3,8 +3,81 @@
         "id": "how-to-use-angular-v20-for-loop",
         "title": "How to Use Angular V20 For Loop",
         "description": "Learn about Angular V20 For Loop, its track keyword, and how to use them efficiently inside HTML.",
-        "cover": "./images/angular-for-loop-cover.png",
-        "coverAlt": "An Angular logo wrapped by a circle composed of two arrows that form a cycle on white background",
+        "image": {
+            "images": {
+                "image/avif": [
+                    {
+                        "src": "./images/tutorial-covers/angular-for-loop_1640.avif",
+                        "width": 1640,
+                        "height": 856
+                    },
+                    {
+                        "src": "./images/tutorial-covers/angular-for-loop_1024.avif",
+                        "width": 1024,
+                        "height": 534
+                    },
+                    {
+                        "src": "./images/tutorial-covers/angular-for-loop_768.avif",
+                        "width": 768,
+                        "height": 401
+                    },
+                    {
+                        "src": "./images/tutorial-covers/angular-for-loop_480.avif",
+                        "width": 480,
+                        "height": 251
+                    }
+                ],
+                "image/webp": [
+                    {
+                        "src": "./images/tutorial-covers/angular-for-loop_1640.webp",
+                        "width": 1640,
+                        "height": 856
+                    },
+                    {
+                        "src": "./images/tutorial-covers/angular-for-loop_1024.webp",
+                        "width": 1024,
+                        "height": 534
+                    },
+                    {
+                        "src": "./images/tutorial-covers/angular-for-loop_768.webp",
+                        "width": 768,
+                        "height": 401
+                    },
+                    {
+                        "src": "./images/tutorial-covers/angular-for-loop_480.webp",
+                        "width": 480,
+                        "height": 251
+                    }
+                ],
+                "image/png": [
+                    {
+                        "src": "./images/tutorial-covers/angular-for-loop_1640.png",
+                        "width": 1640,
+                        "height": 856
+                    },
+                    {
+                        "src": "./images/tutorial-covers/angular-for-loop_1024.png",
+                        "width": 1024,
+                        "height": 534
+                    },
+                    {
+                        "src": "./images/tutorial-covers/angular-for-loop_768.png",
+                        "width": 768,
+                        "height": 401
+                    },
+                    {
+                        "src": "./images/tutorial-covers/angular-for-loop_480.png",
+                        "width": 480,
+                        "height": 251
+                    }
+                ]
+            },
+            "ratio": {
+                "width": 205,
+                "height": 107
+            },
+            "alt": "An Angular logo wrapped by a circle composed of two arrows that form a cycle on white background"
+        },
         "content": "Angular V20 refines how we write loops in templates. The new `@for` control flow syntax brings clarity, speed, and structure to iteration — all while keeping your HTML readable and type-safe. It feels less like an Angular-specific directive and more like a natural language feature.\n\nLet’s dive deep into what `@for` is, how it works with arrays and objects, and how to get the most out of it.\n\n## The @for Syntax\n\nHere’s the simplest example:\n\n```html\n@for (user of users; track user.id) {\n  <li>{{ user.name }}</li>\n}\n```\n\nEach time the `users` array changes, Angular checks which items actually need updating based on your `track` expression. It then reuses existing DOM elements whenever possible — so you don’t lose input focus, component state, or animations.\n\nThe general pattern looks like this:\n\n```html\n@for (item of collection; track trackingExpression; let localVar = loopContext) {\n  <!-- your template -->\n}\n```\n\nAngular treats this block like a real loop: it has an opening brace `{` and a closing brace `}`, and everything inside is part of that block.\n\n## Tracking Changes Efficiently\n\nThe **`track` keyword** helps Angular know which items are unique.\nWithout it, Angular assumes every change means rebuilding the entire list.\n\nGood:\n\n```html\n@for (book of books; track book.id) {\n  <p>{{ book.title }}</p>\n}\n```\n\nLess good (but valid):\n\n```html\n@for (book of books) {\n  <p>{{ book.title }}</p>\n}\n```\n\nTracking by a stable identifier is important for performance — and for keeping stateful elements like inputs or animations intact during re-renders.\n\nYou can also track by `$index` if you don’t have unique IDs, though it’s less efficient when the array order changes:\n\n```html\n@for (item of list; track $index) {\n  {{ item }}\n}\n```\n\n## Loop Context Variables\n\nInside each `@for` block, Angular exposes several built-in context variables:\n\n* `$index` – the zero-based index\n* `$count` – total number of items\n* `$first`, `$last` – whether this is the first or last iteration\n* `$even`, `$odd` – for alternating styles\n\nExample:\n\n```html\n@for (product of products; track product.id) {\n  <div class=\"{{ $even ? 'bg-light' : 'bg-dark' }}\">\n    {{ $index + 1 }}. {{ product.name }}\n    @if ($first) { <em>First item!</em> }\n  </div>\n}\n```\n\nThese are especially handy for visual presentation, numbering, and conditional decoration.\n\n## Using @for with Objects (Dictionaries or Maps)\n\nArrays aren’t the only things you’ll iterate over.\nOften, you have an object that looks like this:\n\n```ts\nstats = {\n  health: 100,\n  stamina: 85,\n  focus: 60,\n};\n```\n\nYou can’t loop directly over an object, but you can convert it into a list of key-value pairs using the built-in `keyvalue` pipe:\n\n```html\n@for (entry of stats | keyvalue; track entry.key) {\n  <p>{{ entry.key }}: {{ entry.value }}</p>\n}\n```\n\nDon't forget to import the pipe like that:\n\n```typescript\nimport { KeyValuePipe } from '@angular/common';\n\n\n@Component({\n  imports: [KeyValuePipe],\n  // Your component's properties\n}\n```\n\nThe `keyvalue` pipe turns the object into an array of `{ key, value }` pairs that `@for` can easily handle.\nThis approach also supports sorting:\n\n```html\n@for (entry of stats | keyvalue: compareKeys; track entry.key) {\n  <p>{{ entry.key }}: {{ entry.value }}</p>\n}\n```\n\nWhere `compareKeys` is a simple comparator function in your component:\n\n```typescript\ncompareKeys(a: any, b: any) {\n  return a.key.localeCompare(b.key);\n}\n```\n\n## Nested Loops\n\n`@for` loops can be nested naturally — no awkward directive stacking.\n\n```html\n@for (category of categories; track category.id) {\n  <h3>{{ category.name }}</h3>\n  @for (item of category.items; track item.id) {\n    <li>{{ item.name }}</li>\n  }\n}\n```\n\nEach loop has its own context, so `$index` or `$first` inside the inner loop won’t collide with the outer one.\n\n## Combining @for and @if\n\nAngular’s control flow syntax was designed to be composable.\nYou can freely mix loops with conditions for expressive, readable logic:\n\n```html\n@for (task of tasks; track task.id) {\n  @if (task.completed) {\n    <p class=\"done\">{{ task.title }}</p>\n  } @else {\n    <p>{{ task.title }}</p>\n  }\n}\n```\n\nIt reads like code — but runs like efficient, compiled template logic.\n\n## How This Differs from Older Angular Versions\n\nBefore Angular 17, we wrote loops like this:\n\n```html\n<li *ngFor=\"let user of users; trackBy: trackUser\">{{ user.name }}</li>\n```\n\nThat syntax used **structural directives**, which were powerful but slightly opaque.\nThey transformed HTML at runtime, added implicit contexts, and carried extra directive overhead.\n\nThe `@for` syntax replaces that with **built-in control flow**:\n\n* No asterisks (`*`)\n* No need for special imports\n* Faster, because it’s compiled directly into template instructions\n* Clearer, because it behaves like a real code block\n\nYou can still use `*ngFor` for compatibility, but Angular recommends migrating to `@for` over time for new projects.",
         "solution": "The simplest example for a property `users`:\n\n```html\n@for (user of users; track $index) {\n  <li>{{ user.name }}</li>\n}\n```\n\nHowever, if your data has a **unique identifier** (like `user.id`), you should always prefer:\n\n```html\n@for (user of users; track user.id) {\n  <li>{{ user.name }}</li>\n}\n```\n\nAngular can match items by ID instead of their order. That means fewer DOM updates, smoother animations, and better performance — especially in dynamic or large datasets.\n",
         "tags": [
@@ -18,8 +91,81 @@
         "id": "how-to-configure-angular-v20-project-for-vercel",
         "title": "How to Configure Angular V20 Project for Vercel",
         "description": "Complete configuration for your Angular V20 project for Vercel functions that just works.",
-        "cover": "./images/angular-vercel-cover.png",
-        "coverAlt": "An arrow drawn from an Angular logo into a Vercel logo on white background",
+        "image": {
+            "images": {
+                "image/avif": [
+                    {
+                        "src": "./images/tutorial-covers/angular-vercel_1640.avif",
+                        "width": 1640,
+                        "height": 856
+                    },
+                    {
+                        "src": "./images/tutorial-covers/angular-vercel_1024.avif",
+                        "width": 1024,
+                        "height": 534
+                    },
+                    {
+                        "src": "./images/tutorial-covers/angular-vercel_768.avif",
+                        "width": 768,
+                        "height": 401
+                    },
+                    {
+                        "src": "./images/tutorial-covers/angular-vercel_480.avif",
+                        "width": 480,
+                        "height": 251
+                    }
+                ],
+                "image/webp": [
+                    {
+                        "src": "./images/tutorial-covers/angular-vercel_1640.webp",
+                        "width": 1640,
+                        "height": 856
+                    },
+                    {
+                        "src": "./images/tutorial-covers/angular-vercel_1024.webp",
+                        "width": 1024,
+                        "height": 534
+                    },
+                    {
+                        "src": "./images/tutorial-covers/angular-vercel_768.webp",
+                        "width": 768,
+                        "height": 401
+                    },
+                    {
+                        "src": "./images/tutorial-covers/angular-vercel_480.webp",
+                        "width": 480,
+                        "height": 251
+                    }
+                ],
+                "image/png": [
+                    {
+                        "src": "./images/tutorial-covers/angular-vercel_1640.png",
+                        "width": 1640,
+                        "height": 856
+                    },
+                    {
+                        "src": "./images/tutorial-covers/angular-vercel_1024.png",
+                        "width": 1024,
+                        "height": 534
+                    },
+                    {
+                        "src": "./images/tutorial-covers/angular-vercel_768.png",
+                        "width": 768,
+                        "height": 401
+                    },
+                    {
+                        "src": "./images/tutorial-covers/angular-vercel_480.png",
+                        "width": 480,
+                        "height": 251
+                    }
+                ]
+            },
+            "ratio": {
+                "width": 205,
+                "height": 107
+            },
+            "alt": "An arrow drawn from an Angular logo into a Vercel logo on white background"
+        },
         "content": "## Introduction\n\nDeploying an Angular app to Vercel is wonderfully easy — until you add Server-Side Rendering (SSR).\n\nA static Angular site builds to HTML, CSS, and JavaScript, which Vercel can host effortlessly from the `/dist` folder. But when you switch to SSR with `@angular/ssr`, your app becomes a Node server that renders pages on demand.\nVercel doesn’t just serve static files; it needs to **run** your server entry point as a **function**.\n\nAngular v20 makes this easier than ever, but you still have to tell Vercel where that server function lives and how to handle routing.\n\n## Why a Plain Deployment Isn’t Enough\n\nIf you build your Angular SSR app with:\n\n```bash\nng build && ng run <YOUR-PROJECT-NAME>:serve-ssr\n```\n\nyou’ll get a `dist/<YOUR-PROJECT-NAME>/server/server.mjs` file.\nThat’s the actual Node entry point — the compiled version of your `server.ts`.\n\nIf you just push this folder to Vercel without configuration, it *looks* like it’s working. Vercel will deploy the static files in `dist/<YOUR-PROJECT-NAME>/browser`, and your site will load.\n\nBut under the hood, SSR won’t run — Vercel is only serving static HTML. No server, no prerendering, no dynamic routes.\nThe reason: Vercel doesn’t automatically execute arbitrary `.mjs` files as functions. You must explicitly map your entry point into its **serverless function system**.\n\n## The Proper Configuration\n\nVercel expects functions inside an `api/` directory at the project root.\nEach file there becomes an endpoint, like `/api/index.mjs`, which Vercel executes as a serverless function.\n\nTo bridge Angular’s SSR output with Vercel’s runtime, create this file:\n\n\n```javascript api/index.mjs\nconst { reqHandler } = await import(\"../dist/<YOUR-PROJECT-NAME>/server/server.mjs\");\n\nexport default reqHandler;\n```\n\nReplace `<YOUR-PROJECT-NAME>` with the name of your project folder under `dist/`.\nThe `reqHandler` function is what Angular exposes as the universal request listener — it handles routing, rendering, and response.\n\nThis single file acts as the connection between Vercel’s request pipeline and your Angular SSR app.\n\n## Routing Everything Through the Function\n\nNext, create or update your `vercel.json` configuration file:\n```json vercel.json\n{\n  \"version\": 2,\n  \"name\": \"blog\",\n  \"rewrites\": [\n    {\n      \"source\": \"/(.*)\",\n      \"destination\": \"/api\"\n    }\n  ],\n  \"functions\": {\n    \"api/index.mjs\": {\n      \"includeFiles\": \"dist/<YOUR-PROJECT-NAME>/**\"\n    }\n  }\n}\n```\n\nHere’s what this does:\n\n* The **rewrite rule** tells Vercel that every route (like `/about`, `/blog/post/123`, etc.) should go to `/api`, which runs our server function.\n* The **includeFiles** property ensures all necessary Angular build files (your compiled server, browser assets, templates, etc.) are bundled with the function.\n\nWithout this, Vercel might only package the `api/index.mjs` file — and your SSR app would crash because it can’t find its runtime assets.\n\n## Deployment\n\nOnce your files are in place, deploy as you normally would:\n\n```bash\nvercel --prod\n```\n\nor through GitHub integration — whichever you prefer.\n\nVercel will detect your configuration, package your SSR build as a function, and handle all requests through it.\nAfter a successful deployment, visit your app and check the source: you’ll see **fully rendered HTML** coming from the server, not just the client bundle.\n\n## Summary\n\nDeploying an Angular SSR app to Vercel works perfectly — as long as you point Vercel to the right function.\n\nIt’s a minimal setup — two short files — but it transforms your Angular app from a static build into a full SSR deployment on Vercel’s edge infrastructure.\n\nOnce configured, you can treat Vercel as your Angular app’s zero-maintenance Node host — no servers to run, no ports to open, just instant global rendering.",
         "solution": "Create `api/index.mjs` file in the root folder with the next content:\n```js api/index.mjs\nconst { reqHandler } = await import(\"../dist/<YOUR-PROJECT-NAME>/server/server.mjs\");\n\nexport default reqHandler;\n```\nThen, in `vercel.json` file write this configuration:\n```json vercel.json\n{\n    \"version\": 2,\n    \"name\": \"blog\",\n    \"rewrites\": [\n        {\n            \"source\": \"/(.*)\",\n            \"destination\": \"/api\"\n        }\n    ],\n    \"functions\": {\n        \"api/index.mjs\": {\n            \"includeFiles\": \"dist/<YOUR-PROJECT-NAME>/**\"\n        }\n    }\n}\n```\n**Don't forget** to replace `<YOUR-PROJECT-NAME>` with your actual app name (the folder name under `dist/` when you build).\n\nDeploy to your Vercel with any method you comfortable with.",
         "tags": [
@@ -36,8 +182,81 @@
         "id": "how-to-upscale-images-for-free-online",
         "title": "How to Upscale Images for Free Online",
         "description": "Free Online tool to upscale your images without credits, sign up and subscriptions.",
-        "cover": "./images/image-upscale-cover.png",
-        "coverAlt": "An image of a lake, forest, mountains and blue sky splitted out in half into low quality (before) and high quality (after) parts",
+        "image": {
+            "images": {
+                "image/avif": [
+                    {
+                        "src": "./images/tutorial-covers/image-upscale_1640.avif",
+                        "width": 1640,
+                        "height": 856
+                    },
+                    {
+                        "src": "./images/tutorial-covers/image-upscale_1024.avif",
+                        "width": 1024,
+                        "height": 534
+                    },
+                    {
+                        "src": "./images/tutorial-covers/image-upscale_768.avif",
+                        "width": 768,
+                        "height": 401
+                    },
+                    {
+                        "src": "./images/tutorial-covers/image-upscale_480.avif",
+                        "width": 480,
+                        "height": 251
+                    }
+                ],
+                "image/webp": [
+                    {
+                        "src": "./images/tutorial-covers/image-upscale_1640.webp",
+                        "width": 1640,
+                        "height": 856
+                    },
+                    {
+                        "src": "./images/tutorial-covers/image-upscale_1024.webp",
+                        "width": 1024,
+                        "height": 534
+                    },
+                    {
+                        "src": "./images/tutorial-covers/image-upscale_768.webp",
+                        "width": 768,
+                        "height": 401
+                    },
+                    {
+                        "src": "./images/tutorial-covers/image-upscale_480.webp",
+                        "width": 480,
+                        "height": 251
+                    }
+                ],
+                "image/png": [
+                    {
+                        "src": "./images/tutorial-covers/image-upscale_1640.png",
+                        "width": 1640,
+                        "height": 856
+                    },
+                    {
+                        "src": "./images/tutorial-covers/image-upscale_1024.png",
+                        "width": 1024,
+                        "height": 534
+                    },
+                    {
+                        "src": "./images/tutorial-covers/image-upscale_768.png",
+                        "width": 768,
+                        "height": 401
+                    },
+                    {
+                        "src": "./images/tutorial-covers/image-upscale_480.png",
+                        "width": 480,
+                        "height": 251
+                    }
+                ]
+            },
+            "ratio": {
+                "width": 205,
+                "height": 107
+            },
+            "alt": "An image of a lake, forest, mountains and blue sky splitted out in half into low quality (before) and high quality (after) parts"
+        },
         "content": "## Introduction\n\nSometimes an image just isn’t big enough. Maybe it’s a screenshot that needs to fit a presentation, a texture that looks muddy up close, or an old logo that didn’t survive the march of Retina displays.\n\nMost “free” online upscalers promise crisp results, but they usually come with trade-offs — limited usage, server uploads, or hidden costs. The truth is, you don’t need any of that. Modern browsers are powerful enough to handle AI-powered upscaling right on your device.\n\nThat’s exactly what a browser-native AI upscaler does. Using `UpscalerJS` and the ESRGAN Legacy model, it can enhance images entirely on your device — directly with JavaScript.\n\n## Why Browser-Side Upscaling Works\n\nModern browsers aren’t just document viewers anymore; they’re computation platforms. With **WebGL** or **WebGPU**, they can run small neural networks fast enough to do image super-resolution in real time.\n\nThe model I use, **GANS**, belongs to the family of Enhanced Super-Resolution Generative Adversarial Networks. In short, it guesses what extra pixels should look like based on patterns learned from real-world images.\n\n## Using the Tool\n\nTo try it yourself, go to the [Image Upscale page](/tools/image-upscale).\n\n1. Upload one or more images (there’s no enforced limit).\n2. Click **Upscale**.\n\nProcessing happens entirely in your browser. You can even go offline after loading the page; no requests are made to any external API or server.\n\n## What’s Actually Happening\n\nWhen you press the button, the app spins up a **web worker** — a background thread so the UI stays responsive. The worker loads the GANS model weights and applies them tile by tile over your image.\n\nEach tile is passed through a deep convolutional network, and the results are stitched back together. The heavy math runs on the GPU through TensorFlow.js. It’s slower on integrated graphics but fast enough for single images on most laptops.\n\n## The Trade-Offs\n\nRunning AI locally isn’t magic; it has boundaries.\n\n* **Performance varies** — Large images can take several seconds, or even minutes, on weaker hardware.\n* **Behaviour is generalized** — The model was trained mainly on natural imagery. It handles photos and textures well but can oversmooth UI elements or text.\n* **Memory usage increases with image size** — Upscaling means creating more pixels. Big inputs may hit browser limits.\n\nStill, for personal projects, prototypes, or in-browser tools, it’s hard to beat the simplicity of “load once, upscale forever.”\n\n## Under the Hood\n\nAll of this runs through **UpscalerJS**, a library that wraps model loading, GPU execution, and output handling. Because it works with web workers, it doesn’t block Angular’s rendering loop — it just reports progress as it goes.\n\nHere’s the key design idea: you move AI inference as close to the user as possible. Instead of sending data to a server farm, you borrow their GPU for a moment.\n\n## Summary\n\nBrowser-side image upscaling won’t replace professional tools that run on specialized hardware. It’s slower, less flexible, and occasionally produces artifacts.\n\nBut it’s private, transparent, and surprisingly capable — a reminder of how much computing power already lives inside the browser.\n\nWith Angular handling the interface and UpscalerJS doing the pixel work, you get a lightweight, self-contained image enhancer that costs nothing to run and respects user privacy.\n\nA good example of how web apps can be both simpler and smarter at the same time.",
         "solution": "Go to [Image Upscale page](/tools/image-upscale), upload your images (unlimited number) and press \"Upscale\" button. **Voilà!**",
         "tags": [
@@ -52,8 +271,81 @@
         "id": "dynamic-sitemap-in-angular-v20",
         "title": "Dynamic Sitemap in Angular V20",
         "description": "Learn how to create a dynamic sitemap in Angular V20 that will help search engines index your freshly uploaded content.",
-        "cover": "./images/dynamic-sitemap-cover.png",
-        "coverAlt": "A loading circle on top of a blurred out icon of a sitemap on white background",
+        "image": {
+            "images": {
+                "image/avif": [
+                    {
+                        "src": "./images/tutorial-covers/dynamic-sitemap_1640.avif",
+                        "width": 1640,
+                        "height": 856
+                    },
+                    {
+                        "src": "./images/tutorial-covers/dynamic-sitemap_1024.avif",
+                        "width": 1024,
+                        "height": 534
+                    },
+                    {
+                        "src": "./images/tutorial-covers/dynamic-sitemap_768.avif",
+                        "width": 768,
+                        "height": 401
+                    },
+                    {
+                        "src": "./images/tutorial-covers/dynamic-sitemap_480.avif",
+                        "width": 480,
+                        "height": 251
+                    }
+                ],
+                "image/webp": [
+                    {
+                        "src": "./images/tutorial-covers/dynamic-sitemap_1640.webp",
+                        "width": 1640,
+                        "height": 856
+                    },
+                    {
+                        "src": "./images/tutorial-covers/dynamic-sitemap_1024.webp",
+                        "width": 1024,
+                        "height": 534
+                    },
+                    {
+                        "src": "./images/tutorial-covers/dynamic-sitemap_768.webp",
+                        "width": 768,
+                        "height": 401
+                    },
+                    {
+                        "src": "./images/tutorial-covers/dynamic-sitemap_480.webp",
+                        "width": 480,
+                        "height": 251
+                    }
+                ],
+                "image/png": [
+                    {
+                        "src": "./images/tutorial-covers/dynamic-sitemap_1640.png",
+                        "width": 1640,
+                        "height": 856
+                    },
+                    {
+                        "src": "./images/tutorial-covers/dynamic-sitemap_1024.png",
+                        "width": 1024,
+                        "height": 534
+                    },
+                    {
+                        "src": "./images/tutorial-covers/dynamic-sitemap_768.png",
+                        "width": 768,
+                        "height": 401
+                    },
+                    {
+                        "src": "./images/tutorial-covers/dynamic-sitemap_480.png",
+                        "width": 480,
+                        "height": 251
+                    }
+                ]
+            },
+            "ratio": {
+                "width": 205,
+                "height": 107
+            },
+            "alt": "A loading circle on top of a blurred out icon of a sitemap on white background"
+        },
         "content": "## Introduction\n\nSearch engines thrive on structure. They’re not artistic explorers — they’re librarians cataloging your digital shelves. To make your Angular app discoverable, you need to hand those librarians a clean, up-to-date **index** of your content. That’s what a **sitemap** does.\n\nAngular v20’s built-in SSR (Server-Side Rendering) capabilities through `@angular/ssr` make it easy to create and serve a **dynamic sitemap** directly from your Node server — no rebuilds, no manual updates, and no pretending HTML is XML.\n\n## Why You Need a Dynamic Sitemap\n\nA sitemap tells Google, Bing, and other crawlers where your pages live, how often they change, and which ones matter most.\nBut if your site’s content is dynamic—blog posts, portfolios, user-generated pages — a static `sitemap.xml` quickly becomes stale.\n\nA dynamic sitemap fixes that by generating URLs at runtime. When a new blog post or route appears, your sitemap updates automatically. No redeploy. No rebuild. Search engines always see the current state of your site.\n\n## Why a Component Page Won’t Work\n\nIt’s tempting to create a `SitemapComponent` and just render XML-looking markup inside it. Unfortunately, Angular components live inside an HTML ecosystem—**they can’t escape Angular’s wrapper**.\n\nWhen you serve a route like `/sitemap` through a component, three problems arise:\n\n1. **Incorrect MIME Type**\n   Angular apps always serve pages as `text/html`. Crawlers expect `application/xml`. Without the right MIME type, Google will ignore your sitemap or throw an “Invalid XML format” warning.\n\n2. **Angular’s DOM Wrapping**\n   Every Angular view sits inside an `<app-root>` or `<app-sitemap>` element. Your XML ends up like this:\n\n   ```html\n   <app-sitemap>\n     <?xml version=\"1.0\"?>\n     <urlset>...</urlset>\n   </app-sitemap>\n   ```\n\n   That’s HTML, not XML. Crawlers don’t like HTML wrapped in XML clothing.\n\n## What server.ts Does\n\nWhen you enable SSR with: `ng add @angular/ssr`.\n\nAngular generates a file called `app/server.ts`. This file is your **server entry point**, powered by Express (a Node.js web framework). It bridges Angular’s rendering engine with the Node environment.\n\nHere’s what it does conceptually:\n\n* **Bootstraps your Angular app on the server:**\n  It imports and runs the server version of your Angular app so it can render HTML before sending it to the browser.\n* **Serves static files:**\n  It delivers your compiled JavaScript, CSS, and images.\n* **Defines API endpoints:**\n  You can extend it—like we’ll do here—to respond to specific routes (e.g., `/sitemap.xml`).\n\nThink of `server.ts` as the backstage manager that decides how to serve your app’s responses, while Angular itself handles the on-stage performance.\n\n## Solution\n\nSitemap's schema expects an XML page with URLs that have next properties: `loc` (required), `lastmod` (optional), `changefreq` (optional), and `priority` (optional but very important). For details, refer to the [Sitemap Official website](https://www.sitemaps.org/protocol.html).\n\nOpen `app/server.ts` and you will find this comment:\n```typescript app/server.ts\n/**\n * Example Express Rest API endpoints can be defined here.\n * Uncomment and define endpoints as necessary.\n *\n * Example:\n * ```typescript\n * app.get('/api/{*splat}', (req, res) => {\n *   // Handle API request\n * });\n * ```\n */\n```\n\nReplace this comment with `app.get('/sitemap.xml', (request, response) => {})` that will define a new `GET` route.\n\n### Defining routes\nInside a lambda function, you can declare your routes, calling external APIs, building a path, etc.\nThe example with calling an API service:\n```typescript app/server.ts\nconst tutorialApi = new TutorialApiService();\n\nconst urls = [\n  { loc: 'https: //example.com', changefreq: 'weekly', priority: 1 },\n  { loc: 'https://example.com/about-us', changefreq: 'yearly', priority: 0.9, lastmod: '2025-01-01' },\n  { loc: 'https://example.com/tools', changefreq: 'monthly', priority: 0.8 },\n  { loc: 'https://example.com/tools/image-upscale', changefreq: 'yearly', priority: 0.7 },\n  { loc: 'https://example.com/tutorials', changefreq: 'weekly', priority: 0.8 },\n];\n\ntutorialApi.readAllIds().then(results => {\n  for (const id of results) {\n    urls.push({ loc: `https://example.com/tutorials/${id}`, changefreq: 'monthly', priority: 0.7 });\n  }\n});\n```\n\n### Building XML page\nNext, we need to build an XML string:\n```typescript app/server.ts\nconst xml = `\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  ${urls\n    .map(\n      (u) => `\n      <url>\n        <loc>${u.loc}</loc>\n        ${u.lastmod ? `<lastmod>${u.lastmod}</lastmod>` : ''}\n        ${u.changefreq ? `<changefreq>${u.changefreq}</changefreq>` : ''}\n        ${u.priority ? `<priority>${u.priority}</priority>` : ''}\n      </url>`,\n    )\n    .join('')}\n</urlset>\n`.trim();\n```\n\nNext, we need to set a status code, content type header, and send our XML page:\n```typescript app/server.ts\nresponse.header('Content-Type', 'application/xml');\nresponse.status(200).send(xml);\n```\n\n### Whole code example\nThat's all! The whole code looks like this:\n```typescript app/server.ts\napp.get('/sitemap.xml', (request, response) => {\n  const tutorialApi = new TutorialApiService();\n  const urls = [\n    { loc: 'https://example.com', changefreq: 'weekly', priority: 1 },\n    { loc: 'https://example.com/about-us', changefreq: 'yearly', priority: 0.9, lastmod: '2025-01-01' },\n    { loc: 'https://example.com/tools', changefreq: 'monthly', priority: 0.8 },\n    { loc: 'https://example.com/tools/image-upscale', changefreq: 'yearly', priority: 0.7 },\n    { loc: 'https://example.com/tutorials', changefreq: 'weekly', priority: 0.8 },\n  ];\n\n  tutorialApi.readAllIds().then(results => {\n    for (const id of results) {\n      urls.push({ loc: `https://example.com/tutorials/${id}`, changefreq: 'monthly', priority: 0.7 });\n    }\n  });\n\n  const xml = `\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  ${urls\n      .map(\n        (u) => `\n      <url>\n        <loc>${u.loc}</loc>\n        ${u.lastmod ? `<lastmod>${u.lastmod}</lastmod>` : ''}\n        ${u.changefreq ? `<changefreq>${u.changefreq}</changefreq>` : ''}\n        ${u.priority ? `<priority>${u.priority}</priority>` : ''}\n      </url>`,\n      )\n      .join('')}\n</urlset>\n`.trim();\n\n  response.header('Content-Type', 'application/xml');\n  response.status(200).send(xml);\n});\n```\n\n![Sitemap example](./images/sitemap-example.png)\n\n\n## Verification with Google Search Console\n\nOnce your dynamic sitemap is live, you’ll want to verify and register it with Google. Here’s how:\n\n1. Deploy your app.\n2. Go to [Google Search Console](https://search.google.com/search-console/). Add your website (if not done previously).\n\n3. Verify your ownership (if not done previously).\n\n4. In the “Sitemaps” section, enter the full URL to the website's `sitemap.xml`.\n\n5. Google will process your sitemap and start indexing pages. You can track which URLs are discovered, indexed, or skipped.\n\n![Successful indexing](./images/successful-indexing.png)\n\n\n## Summary\n\n`server.ts` is where your Angular app stops being a purely client-side experience and starts behaving like a proper web server. By defining a `/sitemap.xml` endpoint inside it, you gain fine-grained control over headers, MIME types, and dynamically generated content.\n\nThe result:\n\n* A valid, SEO-friendly XML sitemap.\n* Automatic updates with no redeploys.\n* Full compatibility with Google Search Console and other crawlers.\n\nIn essence, this approach turns your Angular app into a living organism that updates itself—always ready for discovery in the ever-growing ecosystem of the web.",
         "solution": "In `app/server.ts` change this comment: \n```typescript app/server.ts\n/**\n * Example Express Rest API endpoints can be defined here.\n * Uncomment and define endpoints as necessary.\n *\n * Example:\n * ```typescript\n * app.get('/api/{*splat}', (req, res) => {\n *   // Handle API request\n * });\n * ```\n */\n```\n to this:\n```typescript app/server.ts\napp.get('/sitemap.xml', (request, response) => {\n  // Your urls - can be retrieved from API with `async` call and `.then()`\n  const urls = [\n    { loc: 'https://example.com', changefreq: 'weekly', lastmod: '07/10/25', priority: 1 },\n    { loc: 'https://example.com/about', changefreq: 'yearly', priority: 0.9 },\n    { loc: 'https://example.com/blogs', changefreq: 'daily', priority: 0.8 },\n    { loc: 'https://example.com/blogs/1', changefreq: 'yearly', priority: 0.7 },\n  ];\n  const xml = `\n  <?xml version=\"1.0\" encoding=\"UTF-8\"?>\n      <urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n        ${urls\n      .map(\n        (u) => `\n            <url>\n              <loc>${u.loc}</loc>\n              ${u.lastmod ? `<lastmod>${u.lastmod}</lastmod>` : ''}\n              ${u.changefreq ? `<changefreq>${u.changefreq}</changefreq>` : ''}\n              ${u.priority ? `<priority>${u.priority}</priority>` : ''}\n            </url>`,\n      )\n      .join('')}\n      </urlset>\n    `.trim();\n  response.header('Content-Type', 'application/xml');\n  response.status(200).send(xml);\n});\n```",
         "tags": [
@@ -68,8 +360,81 @@
         "id": "hide-scrollbar-but-keep-scrolling-behavior-in-css",
         "title": "Hide Scrollbar but keep Scrolling behavior in CSS",
         "description": "Learn how to hide a scrollbar without removing the scrolling behavior in CSS.",
-        "cover": "./images/hide-scrollbar-cover.png",
-        "coverAlt": "A crossed out horizontal scroll bar on white background",
+        "image": {
+            "images": {
+                "image/avif": [
+                    {
+                        "src": "./images/tutorial-covers/hide-scrollbar_1640.avif",
+                        "width": 1640,
+                        "height": 856
+                    },
+                    {
+                        "src": "./images/tutorial-covers/hide-scrollbar_1024.avif",
+                        "width": 1024,
+                        "height": 534
+                    },
+                    {
+                        "src": "./images/tutorial-covers/hide-scrollbar_768.avif",
+                        "width": 768,
+                        "height": 401
+                    },
+                    {
+                        "src": "./images/tutorial-covers/hide-scrollbar_480.avif",
+                        "width": 480,
+                        "height": 251
+                    }
+                ],
+                "image/webp": [
+                    {
+                        "src": "./images/tutorial-covers/hide-scrollbar_1640.webp",
+                        "width": 1640,
+                        "height": 856
+                    },
+                    {
+                        "src": "./images/tutorial-covers/hide-scrollbar_1024.webp",
+                        "width": 1024,
+                        "height": 534
+                    },
+                    {
+                        "src": "./images/tutorial-covers/hide-scrollbar_768.webp",
+                        "width": 768,
+                        "height": 401
+                    },
+                    {
+                        "src": "./images/tutorial-covers/hide-scrollbar_480.webp",
+                        "width": 480,
+                        "height": 251
+                    }
+                ],
+                "image/png": [
+                    {
+                        "src": "./images/tutorial-covers/hide-scrollbar_1640.png",
+                        "width": 1640,
+                        "height": 856
+                    },
+                    {
+                        "src": "./images/tutorial-covers/hide-scrollbar_1024.png",
+                        "width": 1024,
+                        "height": 534
+                    },
+                    {
+                        "src": "./images/tutorial-covers/hide-scrollbar_768.png",
+                        "width": 768,
+                        "height": 401
+                    },
+                    {
+                        "src": "./images/tutorial-covers/hide-scrollbar_480.png",
+                        "width": 480,
+                        "height": 251
+                    }
+                ]
+            },
+            "ratio": {
+                "width": 205,
+                "height": 107
+            },
+            "alt": "A crossed out horizontal scroll bar on white background"
+        },
         "content": "## Introduction\nIn modern web design, it’s common to create layouts where content scrolls but the scrollbar itself is hidden. This gives a cleaner, more polished look and works especially well for minimalistic designs, image galleries, and card carousels. Using CSS, you can easily **hide the scrollbar but keep scrolling behavior in CSS**, ensuring that users can still navigate content naturally.\n### When to Avoid\nWhile hiding scrollbars can improve the look of your design, there are situations where it can actually harm usability. For example:\n-  **Horizontal Scrolling Without Buttons**\n\tHorizontal scrolling can be unintuitive if no scrollbar or navigation buttons are visible. Many users don’t realize they can scroll sideways using the `Shift` key + mouse wheel. This can lead to important content being overlooked\n- **Long Content Sections**\n\t If a section contains a lot of content and users can’t see a scrollbar, they might assume the content ends where it visually appears. Hiding the scrollbar may make users miss content in long text blocks or lists.\n***\nIn general, hiding scrollbars works best for small, decorative scrollable areas like image galleries, sliders, or cards where scrolling is intuitive and expected. For critical content or horizontal scrolling areas, consider keeping a subtle scrollbar or adding clear navigation cues to maintain usability.\n## Solution\n### HTML Example\nTo start, create a scrollable container in your HTML and give it a class like `no-scrollbar`:\n```html\n<div class=\"no-scrollbar\">\n\t<img src=./image.png/>\n</div>\n```\nInitially, this container will show a scrollbar if the content overflows:\n![Overflow with a scrollbar](./images/overflow-with-scrollbar.png 'Overflow with a scrollbar')\n### CSS styling\nNext, apply the following CSS to hide the scrollbar but retain the scrolling functionality:\n```css\n.no-scrollbar {\n\toverflow: auto;           /* allow overflow */\n\t-ms-overflow-style: none; /* hides in Internet Explorer and old Edge */\n\tscrollbar-width: none;    /* hides in Firefox */\n}\n\n/* hides in Chrome, Safari, new Edge, and Opera */\n.no-scrollbar::-webkit-scrollbar {\n\tdisplay: none;\n}\n```\nWith this CSS applied, the scrollbar disappears, but the content is still scrollable:\n![Overflow without a scrollbar](./images/overflow-without-scrollbar.gif 'Overflow without a scrollbar')\n## Compatibility\n| Browser | Compatible |\n|:--- |:---:|\n| Chrome | ✅ |\n| Edge | ✅ |\n| Firefox | ✅ |\n| Safari | ✅ |\n| Internet Explorer | ✅ |\n| Opera | ✅ |\n\nMost modern browsers fully support this technique. Internet Explorer and older Edge versions use `-ms-overflow-style`. Firefox uses `scrollbar-width`, while Chrome, Safari, new Edge and Opera rely on the `::-webkit-scrollbar` pseudo-element. This ensures that your content scrolls smoothly without showing a scrollbar in almost every browser.",
         "solution": "Add `.no-scrollbar` to your container. Then, add the next code to your CSS:\n```css\n.no-scrollbar {\n\t-ms-overflow-style: none;\n\tscrollbar-width: none;\n}\n\n\n.no-scrollbar::-webkit-scrollbar {\n\tdisplay: none;\n}\n```",
         "tags": [
