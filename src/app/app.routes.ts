@@ -3,21 +3,13 @@ import { Route } from '@angular/router';
 import { tutorialResolver } from './shared/tutorial-resolver';
 import { StaticRouteMeta } from './services/meta';
 
-import { HomePageComponent } from './pages/home-page/home-page';
-import { AboutUsPageComponent } from './pages/about-us-page/about-us-page';
-import { ContactPageComponent } from './pages/contact-page/contact-page';
-import { PrivacyPolicyPageComponent } from './pages/privacy-policy-page/privacy-policy-page';
-import { CookiesPolicyPageComponent } from './pages/cookies-policy-page/cookies-policy-page';
-import { NotFoundPageComponent } from './pages/not-found-page/not-found-page';
-import { ToolsListPageComponent } from './pages/tools-list-page/tools-list-page';
-import { ImageUpscalePageComponent } from './pages/image-upscale-page/image-upscale-page';
-import { TutorialPageComponent } from './pages/tutorial-page/tutorial-page';
-import { TutorialListPageComponent } from './pages/tutorial-list-page/tutorial-list-page';
-
 export const routes: (Route & { data: StaticRouteMeta })[] = [
   {
     path: '',
-    component: HomePageComponent,
+    loadComponent: async () => {
+      const module = await import('./pages/home-page/home-page');
+      return module.HomePageComponent;
+    },
     data: {
       title: 'Solo Developer Blog | ReturnsNull;',
       description:
@@ -39,7 +31,10 @@ export const routes: (Route & { data: StaticRouteMeta })[] = [
   },
   {
     path: 'about',
-    component: AboutUsPageComponent,
+    loadComponent: async () => {
+      const module = await import('./pages/about-us-page/about-us-page');
+      return module.AboutUsPageComponent;
+    },
     data: {
       title: 'About | ReturnsNull;',
       description: 'Learn about the development team of returnsnull.dev.',
@@ -52,7 +47,10 @@ export const routes: (Route & { data: StaticRouteMeta })[] = [
   },
   {
     path: 'contact',
-    component: ContactPageComponent,
+    loadComponent: async () => {
+      const module = await import('./pages/contact-page/contact-page');
+      return module.ContactPageComponent;
+    },
     data: {
       title: 'Contact | ReturnsNull;',
       description: 'Get in touch with us.',
@@ -65,7 +63,10 @@ export const routes: (Route & { data: StaticRouteMeta })[] = [
   },
   {
     path: 'privacy',
-    component: PrivacyPolicyPageComponent,
+    loadComponent: async () => {
+      const module = await import('./pages/privacy-policy-page/privacy-policy-page');
+      return module.PrivacyPolicyPageComponent;
+    },
     data: {
       title: 'Privacy | ReturnsNull;',
       description: 'Read the privacy policy.',
@@ -79,7 +80,10 @@ export const routes: (Route & { data: StaticRouteMeta })[] = [
   },
   {
     path: 'cookies',
-    component: CookiesPolicyPageComponent,
+    loadComponent: async () => {
+      const module = await import('./pages/cookies-policy-page/cookies-policy-page');
+      return module.CookiesPolicyPageComponent;
+    },
     data: {
       title: 'Cookies | ReturnsNull;',
       description: 'Learn how we use cookies.',
@@ -93,7 +97,10 @@ export const routes: (Route & { data: StaticRouteMeta })[] = [
   },
   {
     path: 'tools',
-    component: ToolsListPageComponent,
+    loadComponent: async () => {
+      const module = await import('./pages/tools-list-page/tools-list-page');
+      return module.ToolsListPageComponent;
+    },
     data: {
       title: 'Tools | ReturnsNull;',
       description: 'Discover handy in-browser free tools without any limits and intrusive ads.',
@@ -108,7 +115,10 @@ export const routes: (Route & { data: StaticRouteMeta })[] = [
   },
   {
     path: 'tools/image-upscale',
-    component: ImageUpscalePageComponent,
+    loadComponent: async () => {
+      const module = await import('./pages/image-upscale-page/image-upscale-page');
+      return module.ImageUpscalePageComponent;
+    },
     data: {
       title: 'AI Image Upscale In-Browser Free | ReturnsNull;',
       description: 'Upscale your images for free without sign up, right in your browser.',
@@ -122,7 +132,10 @@ export const routes: (Route & { data: StaticRouteMeta })[] = [
   },
   {
     path: 'tutorials',
-    component: TutorialListPageComponent,
+    loadComponent: async () => {
+      const module = await import('./pages/tutorial-list-page/tutorial-list-page');
+      return module.TutorialListPageComponent;
+    },
     data: {
       title: 'Tutorials | ReturnsNull;',
       description:
@@ -134,13 +147,19 @@ export const routes: (Route & { data: StaticRouteMeta })[] = [
   },
   {
     path: 'tutorials/:id',
-    component: TutorialPageComponent,
+    loadComponent: async () => {
+      const module = await import('./pages/tutorial-page/tutorial-page');
+      return module.TutorialPageComponent;
+    },
     resolve: { tutorial: tutorialResolver },
     data: { type: 'article' },
   },
   {
     path: '**',
-    component: NotFoundPageComponent,
+    loadComponent: async () => {
+      const module = await import('./pages/not-found-page/not-found-page');
+      return module.NotFoundPageComponent;
+    },
     data: {
       title: 'Not Found | ReturnsNull;',
       description: "Page not found - the URL you're looking for doesn't exist.",

@@ -18,7 +18,6 @@ export class App {
   private metaService = inject(MetaService);
   private router = inject(Router);
   private activatedRoute = inject(ActivatedRoute);
-  private datePipe = inject(DatePipe);
 
   constructor() {
     this.router.events.pipe(filter((e) => e instanceof NavigationEnd)).subscribe(() => {
