@@ -1,16 +1,16 @@
 @if (screenSize() === 'sm') {
   <div class="w-full">
-    <div class="w-full min-w-0 max-w-4xl content-block">
+    <div class="w-full min-w-0 content-block" [style.max-width]="contentMaxSize()">
       <ng-content select="[id=phonePage]" />
     </div>
   </div>
 } @else {
   <div class="flex flex-row justify-center w-full">
-    <div class="basis-3/5 min-w-0 w-full max-w-4xl content-block">
+    <div class="basis-3/5 min-w-0 w-full content-block" [style.max-width]="contentMaxSize()">
       <ng-content select="[id=desktopContent]" />
     </div>
 
-    <div class="basis-2/5 min-w-2xs w-full max-w-xl sidebar">
+    <div class="basis-2/5 min-w-2xs w-full sidebar" [style.max-width]="sidebarMaxSize()">
       <ng-content select="[id=desktopSidebar]" />
     </div>
   </div>

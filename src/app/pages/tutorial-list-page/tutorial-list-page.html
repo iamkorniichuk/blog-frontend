@@ -23,7 +23,7 @@
   <app-page-navigation [total]="totalPages" (pageChange)="loadPage($event)" />
 </ng-template>
 
-<app-content-page>
+<app-content-page contentMaxSize="596px">
   <ng-container id="phonePage">
     <ng-container *ngTemplateOutlet="tutorialsList" />
   </ng-container>
