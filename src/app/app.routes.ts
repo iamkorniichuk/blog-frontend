@@ -26,7 +26,6 @@ export const routes: (Route & { data: StaticRouteMeta })[] = [
         'coding',
         'programming',
       ],
-      canonicalUrl: 'https://www.returnsnull.dev',
     },
   },
   {

@@ -1,5 +1,5 @@
-import { DatePipe, isPlatformBrowser } from '@angular/common';
-import { DOCUMENT, inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { DOCUMENT, inject, Injectable } from '@angular/core';
 import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
 
 export interface RouteMeta {
@@ -11,7 +11,6 @@ export interface RouteMeta {
   createdAt: Date;
   modifiedAt?: Date;
   tags: string[];
-  canonicalUrl?: string;
 }
 export type StaticRouteMeta = Partial<RouteMeta>;
 
@@ -25,7 +24,6 @@ export class MetaService {
   private titleService = inject(Title);
   private metaService = inject(Meta);
   private documentService = inject(DOCUMENT);
-  private platformId = inject(PLATFORM_ID);
   private datePipe = new DatePipe('en-US');
 
   private definitiveKeys: DefinitiveKey[] = ['name', 'rel'];
@@ -54,9 +52,6 @@ export class MetaService {
       const modifiedAtDate = this.datePipe.transform(meta.createdAt, dateScheme) as string;
       this.setTag({ name: 'revised', content: modifiedAtDate, scheme: dateScheme });
     }
-
-    if (meta.canonicalUrl) this.setCanonical(meta.canonicalUrl);
-    else this.deleteCanonical();
 
     if (meta.type === 'article') {
       const createdAtIso = meta.createdAt?.toISOString();
@@ -109,20 +104,12 @@ export class MetaService {
   }
 
   setCanonical(url: string) {
-    if (!isPlatformBrowser(this.platformId)) return;
-
-    this.deleteCanonical();
+    const oldLink = this.documentService.querySelector('link[rel=canonical]');
+    if (oldLink) oldLink.remove();
 
     const link = this.documentService.createElement('link');
     link.setAttribute('rel', 'canonical');
     link.setAttribute('href', url);
     this.documentService.head.appendChild(link);
-  }
-
-  deleteCanonical() {
-    if (!isPlatformBrowser(this.platformId)) return;
-
-    const oldLink = this.documentService.querySelector('link[rel=canonical]');
-    if (oldLink) oldLink.remove();
   }
 }

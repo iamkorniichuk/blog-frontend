@@ -20,12 +20,28 @@ export class App {
   private activatedRoute = inject(ActivatedRoute);
 
   constructor() {
-    this.router.events.pipe(filter((e) => e instanceof NavigationEnd)).subscribe(() => {
-      const route = this.findDeepestRoute(this.activatedRoute);
-      const metaData = route.snapshot.data as RouteMeta;
+    this.router.events
+      .pipe(filter((e) => e instanceof NavigationEnd))
+      .subscribe((e: NavigationEnd) => {
+        const route = this.findDeepestRoute(this.activatedRoute);
+        const metaData = route.snapshot.data as RouteMeta;
+        this.metaService.setRouteMeta(metaData);
 
-      this.metaService.setRouteMeta(metaData);
-    });
+        const rawUrl = e.urlAfterRedirects || e.url;
+        const cleanUrl = rawUrl.split('?')[0].split('#')[0];
+        const path = this.normalizePath(cleanUrl);
+        const canonical = `https://www.returnsnull.dev${path}`;
+        this.metaService.setCanonical(canonical);
+      });
+  }
+
+  private normalizePath(path: string): string {
+    if (!path.startsWith('/')) path = '/' + path;
+
+    path.replaceAll('\\', '/');
+
+    if (path.endsWith('/')) path = path.slice(0, -1);
+    return path;
   }
 
   private findDeepestRoute(route: ActivatedRoute): ActivatedRoute {
