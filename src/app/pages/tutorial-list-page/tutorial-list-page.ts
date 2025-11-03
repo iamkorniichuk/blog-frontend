@@ -37,14 +37,13 @@ export class TutorialListPageComponent implements OnInit {
     this.allTutorialsLength = await this.tutorialApiService.readLength();
     this.totalPages = Math.ceil(this.allTutorialsLength / this.pageSize);
 
-    const lastTutorial = this.tutorials()[0];
-
+    const lastTutorial = (await this.tutorialApiService.readAll({ start: 0, end: 1 }))[0];
     const jpegImage = lastTutorial.image.images['image/jpeg']?.[0].src;
     const pngImage = lastTutorial.image.images['image/png']?.[0].src;
     const imageUrl = jpegImage !== undefined ? jpegImage : pngImage;
-
     const imageAlt = lastTutorial.image.alt;
     const modifiedAt = lastTutorial.createdAt;
+
     this.metaService.setRouteMeta({ imageUrl, imageAlt, modifiedAt });
   }
 

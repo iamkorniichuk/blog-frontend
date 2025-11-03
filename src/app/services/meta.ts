@@ -26,7 +26,7 @@ export class MetaService {
   private documentService = inject(DOCUMENT);
   private datePipe = new DatePipe('en-US');
 
-  private definitiveKeys: DefinitiveKey[] = ['name', 'rel'];
+  private definitiveKeys: DefinitiveKey[] = ['name', 'rel', 'property'];
 
   setRouteMeta(meta: StaticRouteMeta) {
     if (meta.title) {
