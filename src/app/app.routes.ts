@@ -2,6 +2,7 @@ import { Route } from '@angular/router';
 
 import { tutorialResolver } from './shared/tutorial-resolver';
 import { StaticRouteMeta } from './services/meta';
+import { toolResolverFactory } from './shared/tool-resolver';
 
 export const routes: (Route & { data: StaticRouteMeta })[] = [
   {
@@ -103,12 +104,8 @@ export const routes: (Route & { data: StaticRouteMeta })[] = [
     data: {
       title: 'Tools | ReturnsNull;',
       description: 'Discover handy in-browser free tools without any limits and intrusive ads.',
-      imageUrl: 'https://www.returnsnull.dev/images/image-upscale-cover.png',
-      imageAlt:
-        'An image of a lake, forest, mountains and blue sky splitted out in half into low quality (before) and high quality (after) parts',
       type: 'website',
       createdAt: new Date(2025, 9, 4),
-      modifiedAt: new Date(2025, 9, 16),
       tags: ['tools', 'free', 'no sign up', 'in-browser', 'no limits'],
     },
   },
@@ -118,17 +115,10 @@ export const routes: (Route & { data: StaticRouteMeta })[] = [
       const module = await import('./pages/image-upscale-page/image-upscale-page');
       return module.ImageUpscalePageComponent;
     },
-    data: {
-      title: 'AI Image Upscale In-Browser Free | ReturnsNull;',
-      description: 'Upscale your images for free without sign up, right in your browser.',
-      imageUrl: 'https://www.returnsnull.dev/images/image-upscale-cover.png',
-      imageAlt:
-        'An image of a lake, forest, mountains and blue sky splitted out in half into low quality (before) and high quality (after) parts',
-      type: 'website',
-      createdAt: new Date(2025, 9, 4),
-      tags: ['upscale image', 'no sign up', 'free', 'no intrusive ads', 'bigger resolution'],
-    },
+    data: { type: 'website' },
+    resolve: { tool: toolResolverFactory('image-upscale') },
   },
+
   {
     path: 'tutorials',
     loadComponent: async () => {

@@ -9,10 +9,14 @@
 
 <ng-template #toolsList>
   <h2 class="mb-2">Explore our tools</h2>
-  <div>
-    <h3><a [routerLink]="['/tools/image-upscale']" class="link">Image Upscale</a></h3>
-    <p class="hint">Make your images bigger without a loss of quality</p>
-  </div>
+  @for (obj of tools(); track $index) {
+    <div class="my-2">
+      <h3>
+        <a [routerLink]="[obj.url]" class="link">{{ obj.name }}</a>
+      </h3>
+      <p class="hint">{{ obj.description }}</p>
+    </div>
+  }
 </ng-template>
 
 <ng-template #tutorialsList>

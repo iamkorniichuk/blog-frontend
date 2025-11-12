@@ -3,7 +3,7 @@
 </ng-template>
 
 <ng-template #heading>
-  <h1 class="mt-2">Free Image Upscaler</h1>
+  <h1 class="mt-2">{{ tool().title }}</h1>
 </ng-template>
 
 <ng-template #ticker>
@@ -27,14 +27,6 @@
       <span>|</span>
     </div>
   </app-news-ticker>
-</ng-template>
-
-<ng-template #description>
-  <div class="mt-2">
-    Upscale your images with <app-code-block [isMultiline]="false" code="GANS" />
-    AI model right in your browser. No limits applied: no subscription, no sign up, no credits, no
-    images number limit.
-  </div>
 </ng-template>
 
 <ng-template #uploadForm>
@@ -202,62 +194,11 @@
         "
       />
     </div>
-    <h2 class="my-4">Explanation</h2>
-    <p>
-      This upscaler runs entirely in your browser — no uploads, no servers, no hidden processing
-      elsewhere. When you choose an image, everything happens locally on your device using modern
-      web technologies.
-    </p>
-    <br />
-    <p>
-      Behind the scenes, the tool uses
-      <a
-        class="link"
-        target="_blank"
-        rel="noopener norefferer nofollow"
-        href="https://upscalerjs.com/"
-        >UpscalerJS</a
-      >
-      , an open-source library built on
-      <a
-        class="link"
-        target="_blank"
-        rel="noopener norefferer nofollow"
-        href="https://www.tensorflow.org/js"
-        >TensorFlow.js</a
-      >, to perform real AI upscaling. It runs a model called
-      <a
-        class="link"
-        target="_blank"
-        rel="noopener norefferer nofollow"
-        href="https://upscalerjs.com/models/available/upscaling/esrgan-legacy/"
-        >GANS</a
-      >, a performative neural network trained to restore lost detail and enhance textures. This is
-      one of the model of ESRGAN family, that stands for Enhanced Super-Resolution Generative
-      Adversarial Network — the same family of models used in many professional image enhancement
-      tools.
-    </p>
-    <br />
 
-    <p>
-      To keep your browser smooth while the AI works, the heavy processing is done inside a Web
-      Worker. That means the upscaling happens in a separate background thread, so the main page
-      stays responsive and interactive.
-    </p>
-    <br />
-
-    <p>
-      Because the entire process runs locally, your images never leave your computer. The AI model
-      is downloaded once and runs right inside your browser’s GPU or CPU using
-      <a
-        class="link"
-        target="_blank"
-        rel="noopener norefferer nofollow"
-        href="https://en.wikipedia.org/wiki/WebGL"
-        >WebGL</a
-      >
-      acceleration, depending on your device.
-    </p>
+    @let contentAst = tool().content | markdownAst;
+    @if (contentAst) {
+      <app-markdown [ast]="contentAst" />
+    }
   }
 </ng-template>
 
@@ -274,7 +215,6 @@
     <ng-container *ngTemplateOutlet="breadcrumbs" />
     <ng-container *ngTemplateOutlet="heading" />
     <ng-container *ngTemplateOutlet="ticker" />
-    <ng-container *ngTemplateOutlet="description" />
     <div class="card primary">
       <ng-container *ngTemplateOutlet="uploadForm" />
     </div>
@@ -293,7 +233,6 @@
     <ng-container *ngTemplateOutlet="breadcrumbs" />
     <ng-container *ngTemplateOutlet="heading" />
     <ng-container *ngTemplateOutlet="ticker" />
-    <ng-container *ngTemplateOutlet="description" />
     <ng-container *ngTemplateOutlet="content" />
   </ng-container>
 

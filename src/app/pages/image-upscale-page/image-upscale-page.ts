@@ -1,4 +1,4 @@
-import { Component, inject, PLATFORM_ID, signal } from '@angular/core';
+import { Component, inject, input, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { isPlatformBrowser, NgTemplateOutlet } from '@angular/common';
 
 import { WorkerMessage } from '../../workers/image-upscale.worker';
@@ -11,9 +11,12 @@ import {
   State,
   ProcessProgressComponent,
 } from '../../components/process-progress/process-progress';
-import { CodeBlockComponent } from '../../components/code-block/code-block';
 import { BreadcrumbsComponent } from '../../components/breadcrumbs/breadcrumbs';
 import { ImageCastService, ImageMatrix } from '../../services/image-cast';
+import { MarkdownComponent } from '../../components/markdown/markdown';
+import { MarkdownAstPipe } from '../../pipes/markdown-ast-pipe';
+import { Tool } from '../../services/tool-api';
+import { MetaService } from '../../services/meta';
 
 export interface UpscaledData {
   state: State;
@@ -32,20 +35,36 @@ export type UpscalingState = 'idle' | 'inprogress' | 'done';
     InputFileComponent,
     SliderCompareComponent,
     ProcessProgressComponent,
-    CodeBlockComponent,
     BreadcrumbsComponent,
+    MarkdownComponent,
+    MarkdownAstPipe,
   ],
   templateUrl: './image-upscale-page.html',
 })
-export class ImageUpscalePageComponent {
+export class ImageUpscalePageComponent implements OnInit {
   private platformId = inject(PLATFORM_ID);
   private imageCast = inject(ImageCastService);
+  private metaService = inject(MetaService);
+  tool = input.required<Tool>();
 
   uploadedImages = signal<HTMLImageElement[]>([]);
   upscaledData = signal<UpscaledData[]>([]);
   upscaleState = signal<UpscalingState>('idle');
 
   worker: Worker | null = null;
+
+  ngOnInit() {
+    const title = `${this.tool().title} | ReturnsNull;`;
+    const description = this.tool().description;
+
+    const jpegImage = this.tool().image.images['image/jpeg']?.[0].src;
+    const pngImage = this.tool().image.images['image/png']?.[0].src;
+    const imageUrl = jpegImage !== undefined ? jpegImage : pngImage;
+
+    const imageAlt = this.tool().image.alt;
+    const createdAt = this.tool().createdAt;
+    this.metaService.setRouteMeta({ title, description, imageUrl, imageAlt, createdAt });
+  }
 
   async onFilesSelected(files: FileList) {
     this.resetState();

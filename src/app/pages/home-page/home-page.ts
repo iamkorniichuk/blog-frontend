@@ -4,7 +4,7 @@ import { RouterLink } from '@angular/router';
 
 import { ContentPageComponent } from '../../components/content-page/content-page';
 import { Tutorial, TutorialApiService } from '../../services/tutorial-api';
-import { MetaService } from '../../services/meta';
+import { Tool, ToolApiService } from '../../services/tool-api';
 
 @Component({
   selector: 'app-home-page',
@@ -13,22 +13,14 @@ import { MetaService } from '../../services/meta';
 })
 export class HomePageComponent implements OnInit {
   private tutorialApiService = inject(TutorialApiService);
-  private metaService = inject(MetaService);
-
+  private toolApiService = inject(ToolApiService);
   tutorials = signal<Tutorial[]>([]);
+  tools = signal<Tool[]>([]);
 
   async ngOnInit() {
     const tutorials = await this.tutorialApiService.readAll({ start: 0, end: 10 });
     this.tutorials.set(tutorials);
-
-    const lastTutorial = tutorials[0];
-
-    const jpegImage = lastTutorial.image.images['image/jpeg']?.[0].src;
-    const pngImage = lastTutorial.image.images['image/png']?.[0].src;
-    const imageUrl = jpegImage !== undefined ? jpegImage : pngImage;
-
-    const imageAlt = lastTutorial.image.alt;
-    const modifiedAt = lastTutorial.createdAt;
-    this.metaService.setRouteMeta({ imageUrl, imageAlt, modifiedAt });
+    const tools = await this.toolApiService.readAll();
+    this.tools.set(tools);
   }
 }

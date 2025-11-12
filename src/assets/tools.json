@@ -1,0 +1,86 @@
+{
+    "image-upscale": {
+        "id": "image-upscale",
+        "name": "Image Upscale",
+        "title": "Free In-browser Image Upscaler",
+        "image": {
+            "images": {
+                "image/avif": [
+                    {
+                        "src": "./images/tool-covers/image-upscale_1640.avif",
+                        "width": 1640,
+                        "height": 856
+                    },
+                    {
+                        "src": "./images/tool-covers/image-upscale_1024.avif",
+                        "width": 1024,
+                        "height": 534
+                    },
+                    {
+                        "src": "./images/tool-covers/image-upscale_768.avif",
+                        "width": 768,
+                        "height": 401
+                    },
+                    {
+                        "src": "./images/tool-covers/image-upscale_480.avif",
+                        "width": 480,
+                        "height": 251
+                    }
+                ],
+                "image/webp": [
+                    {
+                        "src": "./images/tool-covers/image-upscale_1640.webp",
+                        "width": 1640,
+                        "height": 856
+                    },
+                    {
+                        "src": "./images/tool-covers/image-upscale_1024.webp",
+                        "width": 1024,
+                        "height": 534
+                    },
+                    {
+                        "src": "./images/tool-covers/image-upscale_768.webp",
+                        "width": 768,
+                        "height": 401
+                    },
+                    {
+                        "src": "./images/tool-covers/image-upscale_480.webp",
+                        "width": 480,
+                        "height": 251
+                    }
+                ],
+                "image/png": [
+                    {
+                        "src": "./images/tool-covers/image-upscale_1640.png",
+                        "width": 1640,
+                        "height": 856
+                    },
+                    {
+                        "src": "./images/tool-covers/image-upscale_1024.png",
+                        "width": 1024,
+                        "height": 534
+                    },
+                    {
+                        "src": "./images/tool-covers/image-upscale_768.png",
+                        "width": 768,
+                        "height": 401
+                    },
+                    {
+                        "src": "./images/tool-covers/image-upscale_480.png",
+                        "width": 480,
+                        "height": 251
+                    }
+                ]
+            },
+            "ratio": {
+                "width": 205,
+                "height": 107
+            },
+            "alt": "An image of a lake, forest, mountains and blue sky splitted out in half into low quality (before) and high quality (after) parts"
+        },
+        "url": "/tools/image-upscale",
+        "description": "Make your images bigger without a loss of quality.",
+        "content": "## Explanation\nThis upscaler runs entirely in your browser — no uploads, no servers, no hidden processing elsewhere. When you choose an image, everything happens locally on your device using modern web technologies.\n\nBehind the scenes, the tool uses [UpscalerJS](https://upscalerjs.com/) , an open-source library built on [TensorFlow.js](https://www.tensorflow.org/js), to perform real AI upscaling. It runs a model called [GANS](https://upscalerjs.com/models/available/upscaling/esrgan-legacy/), a performative neural network trained to restore lost detail and enhance textures. This is one of the model of ESRGAN family, that stands for Enhanced Super-Resolution Generative Adversarial Network — the same family of models used in many professional image enhancement tools.\n\nTo keep your browser smooth while the AI works, the heavy processing is done inside a Web Worker. That means the upscaling happens in a separate background thread, so the main page stays responsive and interactive.\n\nBecause the entire process runs locally, your images never leave your computer. The AI model is downloaded once and runs right inside your browser’s GPU or CPU using [WebGL](https://en.wikipedia.org/wiki/WebGL) acceleration, depending on your device.",
+        "createdAt": "2025-09-04T14:20:00+02:00"
+    }
+}

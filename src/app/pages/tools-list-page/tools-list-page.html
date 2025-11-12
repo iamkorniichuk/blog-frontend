@@ -3,43 +3,18 @@
 </ng-template>
 
 <ng-template #toolsList>
-  <div class="card w-full mt-2">
-    <div class="cover flex flex-row">
-      <app-slider-compare class="flex-1">
-        <img
-          id="before"
-          src="./images/upscale-examples/forest-image.jpg"
-          alt="Forest photo before upscale'"
-          class="size-full object-contain"
-        />
-        <img
-          id="after"
-          src="./images/upscale-examples/upscaled-forest-image.png"
-          alt="Forest photo after upscale'"
-          class="size-full object-contain"
-        />
-      </app-slider-compare>
-      <app-slider-compare class="flex-1">
-        <img
-          id="before"
-          src="./images/upscale-examples/apple-image.jpg"
-          alt="Apple image before upscale'"
-          class="size-full object-contain"
-        />
-        <img
-          id="after"
-          src="./images/upscale-examples/upscaled-apple-image.png"
-          alt="Apple image after upscale'"
-          class="size-full object-contain"
-        />
-      </app-slider-compare>
-      <app-gradient-overlay class="z-20" [sizePercentage]="5" side="b" color="surface-accent" />
-    </div>
-    <a [routerLink]="['image-upscale']">
-      <h2>Upscale Images</h2>
-      <div class="mt-2">Improve your images quality</div>
+  @for (obj of tools(); track obj.id) {
+    <a [routerLink]="obj.url">
+      <div class="card w-full mt-2">
+        <div class="cover">
+          <app-image [image]="obj.image" loading="lazy" decoding="async" />
+          <app-gradient-overlay [sizePercentage]="10" color="surface-accent" side="b" />
+        </div>
+        <h2>{{ obj.name }}</h2>
+        <div class="mt-2">{{ obj.description }}</div>
+      </div>
     </a>
-  </div>
+  }
 </ng-template>
 
 <app-content-page contentMaxSize="596px">
