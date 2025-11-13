@@ -118,7 +118,15 @@ export const routes: (Route & { data: StaticRouteMeta })[] = [
     data: { type: 'website' },
     resolve: { tool: toolResolverFactory('image-upscale') },
   },
-
+  {
+    path: 'tools/text-replace',
+    loadComponent: async () => {
+      const module = await import('./pages/text-replace-page/text-replace-page');
+      return module.TextReplacePageComponent;
+    },
+    data: { type: 'website' },
+    resolve: { tool: toolResolverFactory('text-replace') },
+  },
   {
     path: 'tutorials',
     loadComponent: async () => {

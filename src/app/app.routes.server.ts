@@ -38,7 +38,10 @@ export const serverRoutes: ServerRoute[] = [
     path: 'tools/image-upscale',
     renderMode: RenderMode.Prerender,
   },
-
+  {
+    path: 'tools/text-replace',
+    renderMode: RenderMode.Prerender,
+  },
   {
     path: 'tutorials',
     renderMode: RenderMode.Server,

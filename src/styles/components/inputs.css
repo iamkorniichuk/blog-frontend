@@ -1,17 +1,23 @@
 @layer components {
+  input,
+  textarea,
   select {
-    @apply overflow-hidden px-3;
-    @apply hover:cursor-pointer;
+    @apply overflow-hidden px-2;
 
     @apply border-b-2;
     @apply text-[color:var(--color-text,var(--color-content))];
     @apply border-[color:var(--color-bg-extra-accent,var(--color-surface-extra-accent))];
     @apply bg-[color:var(--color-bg,var(--color-surface))];
+    @apply placeholder:text-[color:var(--color-text-extra-muted,var(--color-content-extra-muted))];
 
     &:disabled,
     &[aria-disabled='true'] {
       @apply border-[color:var(--color-bg-extra-muted,var(--color-surface-extra-muted))];
       @apply text-[color:var(--color-text-muted,var(--color-content-muted))];
     }
+  }
+
+  select {
+    @apply hover:cursor-pointer;
   }
 }

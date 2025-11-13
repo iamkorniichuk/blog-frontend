@@ -1,0 +1,119 @@
+<ng-template #breadcrumbs>
+  <app-breadcrumbs />
+</ng-template>
+
+<ng-template #heading>
+  <h1 class="mt-2">{{ tool().title }}</h1>
+</ng-template>
+
+<ng-template #ticker>
+  <app-news-ticker>
+    <div class="inline-flex flex-row gap-4 mr-4">
+      <span>NO SIGN UP</span>
+      <span>|</span>
+      <span>NO NEWSLETTER</span>
+      <span>|</span>
+      <span>NO QUEUE</span>
+      <span>|</span>
+      <span>NO SUBSCRIPTION</span>
+      <span>|</span>
+      <span>NO CREDITS</span>
+      <span>|</span>
+      <span>NO FREEMIUM</span>
+      <span>|</span>
+      <span>NO LIMITED OPTIONS</span>
+      <span>|</span>
+      <span>NO INTRUSIVE ADS</span>
+      <span>|</span>
+    </div>
+  </app-news-ticker>
+</ng-template>
+
+<ng-template #form>
+  <form class="card primary max-h-max">
+    <div class="surface">
+      <label for="textInput" class="hint">Input:</label>
+      <textarea
+        [(ngModel)]="textInput"
+        name="textInput"
+        class="w-full mt-0.5"
+        placeholder="Enter text"
+      ></textarea>
+    </div>
+    <div class="flex flex-row gap-2 justify-between surface">
+      <div class="flex flex-col">
+        <label for="findInput" class="hint">Find:</label>
+        <div class="flex flex-row gap-1 mt-0.5">
+          <input
+            [(ngModel)]="findInput"
+            name="findInput"
+            #find
+            type="text"
+            class="w-full"
+            placeholder="Search symbols"
+          />
+          <select class="w-4 cursor-pointer" (change)="addSymbolToFind($event)">
+            <option value=""></option>
+            <option value="\n">New line</option>
+            <option value="\t">Tab</option>
+            <option value=" ">Space</option>
+            <option value="\r">Return</option>
+          </select>
+        </div>
+      </div>
+      <div class="flex flex-col">
+        <label for="replaceInput" class="hint">Replace with:</label>
+        <input
+          [(ngModel)]="replaceInput"
+          name="replaceInput"
+          type="text"
+          class="w-full mt-0.5"
+          placeholder="Replacement"
+        />
+      </div>
+    </div>
+    <div class="surface mt-4">
+      <label for="resultInput" class="hint">Result:</label>
+      <textarea
+        disabled
+        name="resultInput"
+        class="w-full mt-0.5"
+        placeholder="Changed text will be here"
+        >{{ results() }}</textarea
+      >
+    </div>
+    <div class="flex flex-row gap-2 mt-4">
+      <button type="button" class="w-full btn btn-primary primary" (click)="processText()">
+        Replace
+      </button>
+      <button type="button" class="btn btn-icon btn-primary primary" (click)="copyResult()">
+        <app-icon icon="copy" title="Copy result" />
+      </button>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #content>
+  @let contentAst = tool().content | markdownAst;
+  @if (contentAst) {
+    <app-markdown [ast]="contentAst" />
+  }
+</ng-template>
+
+<app-content-page>
+  <ng-container id="phonePage">
+    <ng-container *ngTemplateOutlet="breadcrumbs" />
+    <ng-container *ngTemplateOutlet="heading" />
+    <ng-container *ngTemplateOutlet="ticker" />
+    <ng-container *ngTemplateOutlet="form" />
+    <ng-container *ngTemplateOutlet="content" />
+  </ng-container>
+
+  <ng-container id="desktopContent">
+    <ng-container *ngTemplateOutlet="breadcrumbs" />
+    <ng-container *ngTemplateOutlet="heading" />
+    <ng-container *ngTemplateOutlet="ticker" />
+    <ng-container *ngTemplateOutlet="form" />
+    <ng-container *ngTemplateOutlet="content" />
+  </ng-container>
+</app-content-page>
