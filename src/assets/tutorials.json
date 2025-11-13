@@ -1,4 +1,95 @@
 {
+    "how-to-create-404-page-in-angular-v20": {
+        "id": "how-to-create-404-page-in-angular-v20",
+        "title": "How to Create 404 Page in Angular V20",
+        "description": "Learn how to create a custom 404 page in Angular v20 with proper SSR support — including client-side routing and server-side 404 status handling for better SEO and user experience.",
+        "image": {
+            "images": {
+                "image/avif": [
+                    {
+                        "src": "./images/tutorial-covers/angular-404-page_1640.avif",
+                        "width": 1640,
+                        "height": 856
+                    },
+                    {
+                        "src": "./images/tutorial-covers/angular-404-page_1024.avif",
+                        "width": 1024,
+                        "height": 534
+                    },
+                    {
+                        "src": "./images/tutorial-covers/angular-404-page_768.avif",
+                        "width": 768,
+                        "height": 401
+                    },
+                    {
+                        "src": "./images/tutorial-covers/angular-404-page_480.avif",
+                        "width": 480,
+                        "height": 251
+                    }
+                ],
+                "image/webp": [
+                    {
+                        "src": "./images/tutorial-covers/angular-404-page_1640.webp",
+                        "width": 1640,
+                        "height": 856
+                    },
+                    {
+                        "src": "./images/tutorial-covers/angular-404-page_1024.webp",
+                        "width": 1024,
+                        "height": 534
+                    },
+                    {
+                        "src": "./images/tutorial-covers/angular-404-page_768.webp",
+                        "width": 768,
+                        "height": 401
+                    },
+                    {
+                        "src": "./images/tutorial-covers/angular-404-page_480.webp",
+                        "width": 480,
+                        "height": 251
+                    }
+                ],
+                "image/png": [
+                    {
+                        "src": "./images/tutorial-covers/angular-404-page_1640.png",
+                        "width": 1640,
+                        "height": 856
+                    },
+                    {
+                        "src": "./images/tutorial-covers/angular-404-page_1024.png",
+                        "width": 1024,
+                        "height": 534
+                    },
+                    {
+                        "src": "./images/tutorial-covers/angular-404-page_768.png",
+                        "width": 768,
+                        "height": 401
+                    },
+                    {
+                        "src": "./images/tutorial-covers/angular-404-page_480.png",
+                        "width": 480,
+                        "height": 251
+                    }
+                ]
+            },
+            "ratio": {
+                "width": 205,
+                "height": 107
+            },
+            "alt": "An Angular logo wrapped by a circle composed of two arrows that form a cycle on white background"
+        },
+        "content": "## Introduction\n\nEvery website needs a graceful way to say, *“Sorry, that page doesn’t exist.”*\nIn Angular v20, especially with SSR (`@angular/ssr`), you can make your **404 page both user-friendly and SEO-correct** — that means Angular renders it visually for users and your server responds with a proper HTTP 404 status for crawlers.\n\nLet’s build one from scratch.\n\n## Step 1: Create a 404 Page Component\n\nStart by generating a dedicated component for your not-found page:\n\n```bash\nng generate component pages/not-found\n```\n\nThis creates a folder `src/app/pages/not-found` with HTML, CSS, and TS files.\n\nOpen `not-found.component.html` and design your message:\n\n```html\n<section class=\"not-found\">\n  <h1>404</h1>\n  <p>Page not found</p>\n  <a routerLink=\"/\">Go back home</a>\n</section>\n```\n\n## Step 2: Add the Route\n\nThe `**` path acts as a *catch-all route* — it matches any URL Angular doesn’t recognize.\nAdd it at the very **end** of your routes list to avoid catching valid routes.\n\n```ts src/app/app.routes.ts\nimport { Routes } from '@angular/router';\nimport { NotFoundComponent } from './pages/not-found/not-found.component';\n\nexport const routes: Routes = [\n  // ... your existing routes\n\n  { path: '**', component: NotFoundComponent },\n];\n```\n\nThis ensures users navigating client-side see your 404 page.\n\n## Step 3: Handle 404s on the Server\n\nWhen using Angular’s built-in SSR via `@angular/ssr`, you’ll notice that the browser shows your 404 page, but the **HTTP status code** is still `200`.\nThat’s fine for users, but **bad for SEO** — crawlers think the page exists.\n\nTo fix that, define the same route in `app.routes.server.ts` with a `status: 404` flag:\n\n```ts src/app/app.routes.server.ts\nimport { Routes } from '@angular/router';\nimport { NotFoundComponent } from './pages/not-found/not-found.component';\n\nexport const serverRoutes: Routes = [\n  // any server-specific routes go here\n\n  { path: '**', renderMode: RenderMode.Client, status: 404 },\n];\n```\n\nThis tells the SSR server to respond with an actual 404 HTTP code when rendering that route.\n\n## Step 4: Verify It Works\n\n1. Run your app in SSR mode:\n\n   ```bash\n   npm run start\n   ```\n2. Visit a non-existent route, e.g. `/this-does-not-exist`.\n3. You should see your custom 404 page.\n4. Check the **Network tab** in DevTools — the response status should be `404`.",
+        "solution": "Define your route with a custom 404 page:\n```ts src/app/app.routes.ts\nimport { Routes } from '@angular/router';\nimport { NotFoundComponent } from './pages/not-found/not-found.component';\n\nexport const routes: Routes = [\n  // ... your existing routes\n  { path: '**', component: NotFoundComponent },\n];\n```\n\nSet status in server routes:\n```ts src/app/app.routes.server.ts\nimport { Routes } from '@angular/router';\nimport { NotFoundComponent } from './pages/not-found/not-found.component';\n\nexport const serverRoutes: Routes = [\n  // any server-specific routes go here\n  { path: '**', renderMode: RenderMode.Client, status: 404 },\n];\n```\n",
+        "tags": [
+            "Angular V20",
+            "HTML",
+            "Angular",
+            "SEO",
+            "Angular SSR",
+            "Frontend"
+        ],
+        "createdAt": "2025-10-13T19:24:00+02:00"
+    },
     "how-to-use-angular-v20-for-loop": {
         "id": "how-to-use-angular-v20-for-loop",
         "title": "How to Use Angular V20 For Loop",
