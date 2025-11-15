@@ -4,7 +4,7 @@
 
 <ng-template #toolsList>
   @for (obj of tools(); track obj.id) {
-    <a [routerLink]="obj.url">
+    <a [routerLink]="['/tools/', obj.id]">
       <div class="card w-full mt-2">
         <div class="cover">
           <app-image [image]="obj.image" loading="lazy" decoding="async" />

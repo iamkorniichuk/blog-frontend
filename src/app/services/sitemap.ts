@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Request } from 'express';
 
 import { TutorialApiService } from './tutorial-api';
+import { ToolApiService } from './tool-api';
 
 export interface SitemapUrl {
   loc: string;
@@ -15,6 +16,7 @@ export interface SitemapUrl {
 })
 export class SitemapService {
   private tutorialApi = new TutorialApiService();
+  private toolApi = new ToolApiService();
   private origin!: string;
 
   async generateXml(request: Request): Promise<string> {
@@ -46,13 +48,16 @@ export class SitemapService {
       { loc: this.absolute(''), changefreq: 'weekly', priority: 1 },
       { loc: this.absolute('about'), changefreq: 'yearly', priority: 0.9 },
       { loc: this.absolute('tools'), changefreq: 'monthly', priority: 0.8 },
-      { loc: this.absolute('tools/image-upscale'), changefreq: 'yearly', priority: 0.7 },
       { loc: this.absolute('tutorials'), changefreq: 'weekly', priority: 0.8 },
     ];
 
-    const ids = await this.tutorialApi.readAllIds();
-    for (const slug of ids) {
+    const tutorialIds = await this.tutorialApi.readAllIds();
+    for (const slug of tutorialIds) {
       urls.push({ loc: this.absolute(`tutorials/${slug}`), changefreq: 'monthly', priority: 0.7 });
+    }
+    const toolIds = await this.toolApi.readAllIds();
+    for (const slug of toolIds) {
+      urls.push({ loc: this.absolute(`tools/${slug}`), changefreq: 'monthly', priority: 0.7 });
     }
 
     return urls;

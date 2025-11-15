@@ -8,7 +8,6 @@ export interface Tool {
   name: string;
   title: string;
   image: ResponsiveImage;
-  url: string;
   description: string;
   content: string;
   createdAt: Date;
@@ -38,6 +37,10 @@ export class ToolApiService {
 
   async readAll(): Promise<Tool[]> {
     return Object.values(this.tools);
+  }
+
+  async readAllIds(): Promise<Tool['id'][]> {
+    return Object.keys(this.tools);
   }
 
   async readLength(): Promise<number> {

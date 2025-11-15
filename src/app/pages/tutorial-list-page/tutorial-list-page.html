@@ -6,7 +6,7 @@
     </span>
   </div>
   @for (obj of tutorials(); track obj.id) {
-    <a [routerLink]="obj.id">
+    <a [routerLink]="['/tutorials/', obj.id]">
       <div class="card w-full mt-0">
         <div class="cover">
           <app-image [image]="obj.image" loading="lazy" decoding="async" />
