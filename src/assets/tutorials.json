@@ -1,4 +1,92 @@
 {
+    "ng-new-options-explained-in-angular-v20": {
+        "id": "ng-new-options-explained-in-angular-v20",
+        "title": "ng new Options Explained in Angular V20",
+        "description": "Learn all the options when creating a new Angular v20 project — from stylesheets and SSR to zoneless apps and AI tool integrations.",
+        "image": {
+            "images": {
+                "image/avif": [
+                    {
+                        "src": "./images/tutorial-covers/ng-new-explained_1640.avif",
+                        "width": 1640,
+                        "height": 856
+                    },
+                    {
+                        "src": "./images/tutorial-covers/ng-new-explained_1024.avif",
+                        "width": 1024,
+                        "height": 534
+                    },
+                    {
+                        "src": "./images/tutorial-covers/ng-new-explained_768.avif",
+                        "width": 768,
+                        "height": 401
+                    },
+                    {
+                        "src": "./images/tutorial-covers/ng-new-explained_480.avif",
+                        "width": 480,
+                        "height": 251
+                    }
+                ],
+                "image/webp": [
+                    {
+                        "src": "./images/tutorial-covers/ng-new-explained_1640.webp",
+                        "width": 1640,
+                        "height": 856
+                    },
+                    {
+                        "src": "./images/tutorial-covers/ng-new-explained_1024.webp",
+                        "width": 1024,
+                        "height": 534
+                    },
+                    {
+                        "src": "./images/tutorial-covers/ng-new-explained_768.webp",
+                        "width": 768,
+                        "height": 401
+                    },
+                    {
+                        "src": "./images/tutorial-covers/ng-new-explained_480.webp",
+                        "width": 480,
+                        "height": 251
+                    }
+                ],
+                "image/png": [
+                    {
+                        "src": "./images/tutorial-covers/ng-new-explained_1640.png",
+                        "width": 1640,
+                        "height": 856
+                    },
+                    {
+                        "src": "./images/tutorial-covers/ng-new-explained_1024.png",
+                        "width": 1024,
+                        "height": 534
+                    },
+                    {
+                        "src": "./images/tutorial-covers/ng-new-explained_768.png",
+                        "width": 768,
+                        "height": 401
+                    },
+                    {
+                        "src": "./images/tutorial-covers/ng-new-explained_480.png",
+                        "width": 480,
+                        "height": 251
+                    }
+                ]
+            },
+            "ratio": {
+                "width": 205,
+                "height": 107
+            },
+            "alt": "An Angular logo wrapped by a circle composed of two arrows that form a cycle on white background"
+        },
+        "content": "## Introduction\n\nWhen you create a new Angular v20 project using:\n\n```bash\nng new my-app\n```\n\nthe CLI walks you through several configuration choices. Understanding these options will help you tailor your project for styling, rendering, performance, and AI-assisted development. Let’s go through each step.\n\n## 1. Stylesheet Format\n\nAngular v20 supports multiple styling options. You’ll see:\n`Which stylesheet format would you like to use?`\n\nOptions explained:\n- **CSS** – Standard Cascading Style Sheets. Simple, widely supported, and requires no compilation.\n- **Sass (SCSS)** – Popular preprocessor that extends CSS with variables, nesting, mixins, and functions. SCSS uses CSS-like syntax.\n- **Sass (Indented)** – Alternative Sass syntax using indentation instead of braces. Less common, mostly historical.\n- **Less** – Another CSS preprocessor, similar to SCSS, with variables, mixins, and nesting.\n\n**Use plain CSS if you are planning to use Tailwind. If no, then choose Sass.**\n\n## 2. Server-Side Rendering\n\nNext, you may see:\n\n`Do you want to enable Server-Side Rendering (SSR) and Static Site Generation (SSG/Prerendering)?`\n\nWhat this means:\n- **SSR** – Angular renders your app on the server before sending HTML to the browser. Improves SEO, reduces perceived load time, and helps with social media previews.\n- **SSG / Prerendering** – Generates static HTML at build time for specified routes. Useful for blogs, landing pages, and content-heavy sites.\n\n**Use it always (enter `y`) unless you are developing a product that shouldn't attract visitors through the internet search.**\n\n## 3. Zoneless Applications\n\nThe next question is:\n\n`Do you want to create a 'zoneless' application without zone.js?`\n\n**zone.js** is Angular’s mechanism for automatically detecting asynchronous changes (like HTTP requests, timers, or DOM events) and automatically updating the UI.\nWithout it, you manage change detection manually via signals/reactive APIs. \n\n**Nowadays, the standard is zoneless applications, so choose the second option.**\n\n## 4. AI Tools Integration\n\nThe last step is:\n\n`Which AI tools do you want to configure with Angular best practices?`\n\nThese integrations help with code suggestions, context-aware completions, or AI-assisted code generation.\n\n**You can always add AI integrations later, so skip them if you don't use them actively already**\n\n## Summary\n\nWhen running `ng new`, Angular v20 gives you control over:\n\n1. CSS preprocessor\n2. Rendering options\n3. Change Detection mechanism\n4. AI Tools\n\nBy understanding these options upfront, you can create a project scaffolded exactly to your needs — clean, performant, and ready for modern development practices.",
+        "solution": "1. `Which stylesheet format would you like to use?`\n\n\tChoose CSS if you are using Tailwind. If no, then your choice is Sass.\n\n2. `Do you want to enable Server-Side Rendering (SSR) and Static Site Generation (SSG/Prerendering)?`\n\n\tUse it, unless you are developing internal-only website.\n\n3. `Do you want to create a 'zoneless' application without zone.js?`\n\n\tAccept zoneless applications.\n\n4. `Which AI tools do you want to configure with Angular best practices?`\n\n\tChoose tools you actively use in IDE. If none, choose none.",
+        "tags": [
+            "Angular V20",
+            "Angular",
+            "DevOps"
+        ],
+        "createdAt": "2025-10-15T19:03:00+02:00"
+    },
     "how-to-create-404-page-in-angular-v20": {
         "id": "how-to-create-404-page-in-angular-v20",
         "title": "How to Create 404 Page in Angular V20",
