@@ -30,6 +30,16 @@
 </ng-template>
 
 <ng-template #form>
+  <ng-template #symbolSelect>
+    <select class="w-4 cursor-pointer" (change)="setFindToSymbol($event)">
+      <option value=""></option>
+      <option value="\n">New line</option>
+      <option value="\t">Tab</option>
+      <option value=" ">Space</option>
+      <option value="\r">Return</option>
+    </select>
+  </ng-template>
+
   <form class="card primary max-h-max">
     <div class="surface">
       <label for="textInput" class="hint">Input:</label>
@@ -47,29 +57,25 @@
           <input
             [(ngModel)]="findInput"
             name="findInput"
-            #find
             type="text"
             class="w-full"
             placeholder="Search symbols"
           />
-          <select class="w-4 cursor-pointer" (change)="addSymbolToFind($event)">
-            <option value=""></option>
-            <option value="\n">New line</option>
-            <option value="\t">Tab</option>
-            <option value=" ">Space</option>
-            <option value="\r">Return</option>
-          </select>
+          <ng-container *ngTemplateOutlet="symbolSelect" />
         </div>
       </div>
       <div class="flex flex-col">
         <label for="replaceInput" class="hint">Replace with:</label>
-        <input
-          [(ngModel)]="replaceInput"
-          name="replaceInput"
-          type="text"
-          class="w-full mt-0.5"
-          placeholder="Replacement"
-        />
+        <div class="flex flex-row gap-1 mt-0.5">
+          <input
+            [(ngModel)]="replaceInput"
+            name="replaceInput"
+            type="text"
+            class="w-full"
+            placeholder="Replacement"
+          />
+          <ng-container *ngTemplateOutlet="symbolSelect" />
+        </div>
       </div>
     </div>
     <div class="surface mt-4">

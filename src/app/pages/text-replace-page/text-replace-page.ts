@@ -1,14 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  inject,
-  input,
-  model,
-  OnInit,
-  PLATFORM_ID,
-  signal,
-  viewChild,
-} from '@angular/core';
+import { Component, inject, input, model, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { isPlatformBrowser, NgTemplateOutlet } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -43,7 +33,6 @@ export class TextReplacePageComponent implements OnInit {
 
   textInput = model('');
   findInput = model('');
-  findElement = viewChild<ElementRef<HTMLInputElement>>('find');
   replaceInput = model('');
 
   ngOnInit() {
@@ -59,13 +48,19 @@ export class TextReplacePageComponent implements OnInit {
     this.metaService.setRouteMeta({ title, description, imageUrl, imageAlt, createdAt });
   }
 
-  addSymbolToFind(event: Event) {
+  setFindToSymbol(event: Event) {
     if (!isPlatformBrowser(this.platformId)) return;
 
     const select = event.target as HTMLSelectElement;
     const value = select.value;
-    this.findInput.update((text) => (text ?? '') + value);
+    const input = select.previousElementSibling as HTMLInputElement | null;
+
+    if (input === null) return;
+
+    input.value = value;
     select.value = '';
+
+    input.dispatchEvent(new Event('input'));
   }
 
   processText() {
@@ -73,9 +68,15 @@ export class TextReplacePageComponent implements OnInit {
 
     const find = this.findInput();
     const replace = this.replaceInput();
+    const text = this.textInput();
 
-    const result = this.textInput().replace(new RegExp(find, 'g'), replace);
-    this.results.set(result);
+    console.log(find);
+    console.log(replace);
+    console.log(text);
+
+    const result = text.replace(new RegExp(find, 'g'), replace);
+    const unescapedResult = JSON.parse(`"${result}"`);
+    this.results.set(unescapedResult);
   }
 
   copyResult() {
