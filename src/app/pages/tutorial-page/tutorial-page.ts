@@ -46,8 +46,17 @@ export class TutorialPageComponent implements OnInit {
 
     const imageAlt = this.tutorial().image.alt;
     const createdAt = this.tutorial().createdAt;
+    const modifiedAt = this.tutorial().modifiedAt;
     const tags = this.tutorial().tags;
-    this.metaService.setRouteMeta({ title, description, imageUrl, imageAlt, createdAt, tags });
+    this.metaService.setRouteMeta({
+      title,
+      description,
+      imageUrl,
+      imageAlt,
+      createdAt,
+      modifiedAt,
+      tags,
+    });
   }
 
   togglePopupVisibility() {

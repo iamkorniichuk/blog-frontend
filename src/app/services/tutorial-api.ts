@@ -12,9 +12,13 @@ export interface Tutorial {
   solution: string;
   tags: string[];
   createdAt: Date;
+  modifiedAt: Date | undefined;
 }
-type CreateTutorialDto = Omit<Tutorial, 'id' | 'createdAt'>;
-type ReadTutorialDto = Omit<Tutorial, 'createdAt'> & { createdAt: string };
+type CreateTutorialDto = Omit<Tutorial, 'id' | 'createdAt' | 'modifiedAt'>;
+type ReadTutorialDto = Omit<Tutorial, 'createdAt' | 'modifiedAt'> & {
+  createdAt: string;
+  modifiedAt: string | null;
+};
 type UpdateTutorialDto = Partial<CreateTutorialDto>;
 
 export interface PageFilter {
@@ -35,6 +39,7 @@ export class TutorialApiService {
       this.tutorials[key] = {
         ...value,
         createdAt: new Date(value.createdAt),
+        modifiedAt: value.modifiedAt ? new Date(value.modifiedAt) : undefined,
       };
     }
   }
@@ -47,6 +52,7 @@ export class TutorialApiService {
       id: id,
       ...tutorial,
       createdAt: createdAt,
+      modifiedAt: undefined,
     };
 
     this.tutorials[createdTutorial['id']] = createdTutorial;
@@ -83,8 +89,9 @@ export class TutorialApiService {
 
   async update(id: Tutorial['id'], tutorial: UpdateTutorialDto): Promise<Tutorial> {
     const oldTutorial = this.tutorials[id];
+    const modifiedAt: Tutorial['createdAt'] = new Date();
 
-    const updatedTutorial: Tutorial = { ...oldTutorial, ...tutorial };
+    const updatedTutorial: Tutorial = { ...oldTutorial, ...tutorial, modifiedAt };
 
     this.tutorials[id] = updatedTutorial;
     return updatedTutorial;

@@ -23,8 +23,9 @@
       </div>
     </app-arrow-scroll>
 
+    @let recentDate = tutorial().modifiedAt || tutorial().createdAt;
     <span class="meta flex-shrink-0 ml-2">
-      {{ tutorial().createdAt | date: 'dd/MM/yy HH:mm' }}
+      {{ recentDate | date: 'dd/MM/yy HH:mm' }}
     </span>
   </div>
 </ng-template>

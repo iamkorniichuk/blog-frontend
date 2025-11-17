@@ -85,7 +85,8 @@
             "Angular",
             "DevOps"
         ],
-        "createdAt": "2025-10-15T19:03:00+02:00"
+        "createdAt": "2025-10-15T19:03:00+02:00",
+        "modifiedAt": null
     },
     "how-to-create-404-page-in-angular-v20": {
         "id": "how-to-create-404-page-in-angular-v20",
@@ -176,7 +177,8 @@
             "Angular SSR",
             "Frontend"
         ],
-        "createdAt": "2025-10-13T19:24:00+02:00"
+        "createdAt": "2025-10-13T19:24:00+02:00",
+        "modifiedAt": null
     },
     "how-to-use-angular-v20-for-loop": {
         "id": "how-to-use-angular-v20-for-loop",
@@ -264,7 +266,8 @@
             "HTML",
             "Angular"
         ],
-        "createdAt": "2025-09-17T12:55:00+02:00"
+        "createdAt": "2025-09-17T12:55:00+02:00",
+        "modifiedAt": null
     },
     "how-to-configure-angular-v20-project-for-vercel": {
         "id": "how-to-configure-angular-v20-project-for-vercel",
@@ -355,7 +358,8 @@
             "Node.js",
             "DevOps"
         ],
-        "createdAt": "2025-09-14T22:46:00+02:00"
+        "createdAt": "2025-09-14T22:46:00+02:00",
+        "modifiedAt": null
     },
     "how-to-upscale-images-for-free-online": {
         "id": "how-to-upscale-images-for-free-online",
@@ -444,7 +448,7 @@
             "Recommendations"
         ],
         "createdAt": "2025-09-11T18:17:00+02:00",
-        "modifiedAt": "2025-09-24T11:09:00+02:00"
+        "modifiedAt": null
     },
     "dynamic-sitemap-in-angular-v20": {
         "id": "dynamic-sitemap-in-angular-v20",
@@ -533,7 +537,8 @@
             "Node.js",
             "SEO"
         ],
-        "createdAt": "2025-09-07T21:24:00+02:00"
+        "createdAt": "2025-09-07T21:24:00+02:00",
+        "modifiedAt": "2025-10-17T20:18:00+02:00"
     },
     "hide-scrollbar-but-keep-scrolling-behavior-in-css": {
         "id": "hide-scrollbar-but-keep-scrolling-behavior-in-css",
@@ -621,6 +626,7 @@
             "HTML",
             "Frontend"
         ],
-        "createdAt": "2025-09-04T16:40:00+02:00"
+        "createdAt": "2025-09-04T16:40:00+02:00",
+        "modifiedAt": null
     }
 }
