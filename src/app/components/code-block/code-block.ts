@@ -47,6 +47,9 @@ export class CodeBlockComponent {
   constructor() {
     afterEveryRender({
       mixedReadWrite: () => {
+        const codeBlock = this.codeBlock;
+        if (!codeBlock) return;
+
         Prism.highlightElement(this.codeBlock.nativeElement);
       },
     });
