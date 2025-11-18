@@ -33,25 +33,15 @@
 </ng-template>
 
 <app-content-page>
-  <ng-container id="phonePage">
+  <ng-container id="header">
     <ng-container *ngTemplateOutlet="heading" />
     <ng-container *ngTemplateOutlet="description" />
-    <div class="card">
-      <ng-container *ngTemplateOutlet="toolsList" />
-    </div>
+  </ng-container>
+  <ng-container id="content">
     <ng-container *ngTemplateOutlet="tutorialsList" />
   </ng-container>
-
-  <ng-container id="desktopContent">
-    <ng-container *ngTemplateOutlet="heading" />
-    <ng-container *ngTemplateOutlet="description" />
-    <div class="mt-4">
-      <ng-container *ngTemplateOutlet="tutorialsList" />
-    </div>
-  </ng-container>
-
-  <ng-container id="desktopSidebar">
-    <div class="content-card">
+  <ng-container id="sidebar">
+    <div class="sidebar-card">
       <ng-container *ngTemplateOutlet="toolsList" />
     </div>
   </ng-container>

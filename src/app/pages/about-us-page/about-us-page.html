@@ -1,6 +1,9 @@
-<ng-template #content>
+<ng-template #header>
   <app-breadcrumbs />
   <h1 class="mt-2">About</h1>
+</ng-template>
+
+<ng-template #content>
   <p>
     This project is a one-person effort — just me, a developer who enjoys turning everyday
     programming problems into clear, practical tutorials. Everything I publish here comes from real
@@ -29,19 +32,14 @@
 </ng-template>
 
 <app-content-page>
-  <ng-container id="phonePage">
-    <ng-container *ngTemplateOutlet="content" />
-    <div class="card">
-      <ng-container *ngTemplateOutlet="support" />
-    </div>
+  <ng-container id="header">
+    <ng-container *ngTemplateOutlet="header" />
   </ng-container>
-
-  <ng-container id="desktopContent">
+  <ng-container id="content">
     <ng-container *ngTemplateOutlet="content" />
   </ng-container>
-
-  <ng-container id="desktopSidebar">
-    <div class="content-card">
+  <ng-container id="sidebar">
+    <div class="sidebar-card">
       <ng-container *ngTemplateOutlet="support" />
     </div>
   </ng-container>

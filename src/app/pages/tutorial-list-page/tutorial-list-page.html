@@ -1,10 +1,12 @@
-<ng-template #tutorialsList>
+<ng-template #header>
   <div class="flex flex-row justify-between">
     <app-breadcrumbs />
     <span class="hint mb-1 w-full text-end">
       Showing {{ tutorials().length }} results of {{ allTutorialsLength }} total
     </span>
   </div>
+</ng-template>
+<ng-template #content>
   @for (obj of tutorials(); track obj.id) {
     <a [routerLink]="['/tutorials/', obj.id]">
       <div class="card w-full mt-0">
@@ -23,12 +25,9 @@
   <app-page-navigation [total]="totalPages" (pageChange)="loadPage($event)" />
 </ng-template>
 
-<app-content-page contentMaxSize="596px">
-  <ng-container id="phonePage">
-    <ng-container *ngTemplateOutlet="tutorialsList" />
-  </ng-container>
-
-  <ng-container id="desktopContent">
-    <ng-container *ngTemplateOutlet="tutorialsList" />
-  </ng-container>
-</app-content-page>
+<app-list-page>
+  <div class="max-w-xl">
+    <ng-container *ngTemplateOutlet="header" />
+    <ng-container *ngTemplateOutlet="content" />
+  </div>
+</app-list-page>

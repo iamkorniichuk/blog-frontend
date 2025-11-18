@@ -7,8 +7,10 @@
   }
 
   .content-card {
+    @apply max-h-max overflow-hidden;
+
     @apply text-[color:var(--color-text,var(--color-content))];
-    @apply bg-surface rounded-xl h-fit p-4 m-4;
+    @apply bg-surface rounded-xl h-fit w-full p-4 m-4;
     @apply shadow-[color:var(--color-bg-extra-muted,var(--color-surface-extra-muted))] shadow-lg;
     @apply border-1 border-[color:var(--color-bg-accent,var(--color-surface-accent))];
 
@@ -21,7 +23,7 @@
   }
 
   .card {
-    @apply max-h-[80vh] size-full overflow-y-auto;
+    @apply max-h-[80vh] overflow-y-auto;
 
     @apply text-[color:var(--color-text,var(--color-content))];
     @apply bg-surface-accent rounded-xl h-fit w-full p-4 my-6;
@@ -36,31 +38,43 @@
     }
   }
 
+  .sidebar-card {
+    @apply max-h-[80vh] overflow-y-auto;
+    @apply lg:max-h-max lg:overflow-hidden;
+
+    @apply text-[color:var(--color-text,var(--color-content))];
+    @apply lg:bg-surface bg-surface-accent rounded-xl h-fit w-full p-4 lg:mt-4 lg:mb-0 my-6;
+    @apply shadow-[color:var(--color-bg-extra-muted,var(--color-surface-extra-muted))] shadow-lg;
+    @apply border-1 lg:border-[color:var(--color-bg-accent,var(--color-surface-accent))];
+    @apply border-[color:var(--color-bg-extra-accent,var(--color-surface-extra-accent))];
+
+    > .cover {
+      @apply -mx-4 -mt-4 rounded-t-xl;
+      > img {
+        @apply rounded-t-xl;
+      }
+    }
+  }
+
   .content-block {
     @apply text-[color:var(--color-text,var(--color-content))];
-    @apply bg-surface py-8 px-10 size-max;
-    @apply shadow-[color:var(--color-bg-extra-muted,var(--color-surface-extra-muted))] shadow-lg;
-    @apply border-1 border-[color:var(--color-bg-accent,var(--color-surface-accent))];
+    @apply bg-surface shadow-lg border border-[color:var(--color-bg-accent,var(--color-surface-accent))];
+    @apply py-8 px-10 relative;
 
     > .cover {
       @apply -mt-8 -mx-10;
     }
-  }
 
-  .sidebar:empty {
-    display: none;
-  }
+    &.merge-top {
+      @apply border-b-0 pb-0 mb-0;
+    }
 
-  .popup {
-    @apply size-fit max-w-[60vw] max-h-[60vh];
-    @apply text-[color:var(--color-text,var(--color-content))];
-    @apply bg-surface rounded-xl py-8 px-10;
-    @apply shadow-[color:var(--color-bg-extra-muted,var(--color-surface-extra-muted))] shadow-lg;
-    @apply border-1 border-[color:var(--color-bg-accent,var(--color-surface-accent))];
-    @apply fixed inset-0 place-self-center;
-  }
+    &.merge-middle {
+      @apply border-t-0 border-b-0 py-0 my-0;
+    }
 
-  .popup-overlay {
-    @apply fixed inset-0 bg-surface-extra-muted/50;
+    &.merge-bottom {
+      @apply border-t-0 pt-0 mt-0;
+    }
   }
 }

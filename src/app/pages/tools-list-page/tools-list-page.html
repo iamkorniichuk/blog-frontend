@@ -1,8 +1,8 @@
-<ng-template #breadcrumbs>
+<ng-template #header>
   <app-breadcrumbs />
 </ng-template>
 
-<ng-template #toolsList>
+<ng-template #content>
   @for (obj of tools(); track obj.id) {
     <a [routerLink]="['/tools/', obj.id]">
       <div class="card w-full mt-2">
@@ -17,14 +17,9 @@
   }
 </ng-template>
 
-<app-content-page contentMaxSize="596px">
-  <ng-container id="phonePage">
-    <ng-container *ngTemplateOutlet="breadcrumbs" />
-    <ng-container *ngTemplateOutlet="toolsList" />
-  </ng-container>
-
-  <ng-container id="desktopContent">
-    <ng-container *ngTemplateOutlet="breadcrumbs" />
-    <ng-container *ngTemplateOutlet="toolsList" />
-  </ng-container>
-</app-content-page>
+<app-list-page>
+  <div class="max-w-xl">
+    <ng-container *ngTemplateOutlet="header" />
+    <ng-container *ngTemplateOutlet="content" />
+  </div>
+</app-list-page>

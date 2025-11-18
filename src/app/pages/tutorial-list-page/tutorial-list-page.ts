@@ -3,17 +3,17 @@ import { DatePipe, NgTemplateOutlet } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 import { Tutorial, TutorialApiService } from '../../services/tutorial-api';
-import { ContentPageComponent } from '../../components/content-page/content-page';
 import { GradientOverlayComponent } from '../../components/gradient-overlay/gradient-overlay';
 import { PageNavigationComponent } from '../../components/page-navigation/page-navigation';
 import { BreadcrumbsComponent } from '../../components/breadcrumbs/breadcrumbs';
 import { MetaService } from '../../services/meta';
 import { ImageComponent } from '../../components/elements/image/image';
+import { ListPageComponent } from '../../components/list-page/list-page';
 
 @Component({
   selector: 'app-tutorial-list-page',
   imports: [
-    ContentPageComponent,
+    ListPageComponent,
     NgTemplateOutlet,
     DatePipe,
     RouterLink,

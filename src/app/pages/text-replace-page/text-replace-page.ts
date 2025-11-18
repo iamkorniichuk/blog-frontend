@@ -2,7 +2,6 @@ import { Component, inject, input, model, OnInit, PLATFORM_ID, signal } from '@a
 import { isPlatformBrowser, NgTemplateOutlet } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { ContentPageComponent } from '../../components/content-page/content-page';
 import { BreadcrumbsComponent } from '../../components/breadcrumbs/breadcrumbs';
 import { NewsTickerComponent } from '../../components/news-ticker/news-ticker';
 import { Tool } from '../../services/tool-api';
@@ -10,12 +9,13 @@ import { MetaService } from '../../services/meta';
 import { MarkdownAstPipe } from '../../pipes/markdown-ast-pipe';
 import { MarkdownComponent } from '../../components/markdown/markdown';
 import { IconComponent } from '../../components/icon/icon';
+import { ListPageComponent } from '../../components/list-page/list-page';
 
 @Component({
   selector: 'app-text-replace-page',
   imports: [
     FormsModule,
-    ContentPageComponent,
+    ListPageComponent,
     BreadcrumbsComponent,
     NewsTickerComponent,
     NgTemplateOutlet,

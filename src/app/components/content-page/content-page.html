@@ -1,17 +1,19 @@
-@if (screenSize() === 'sm') {
-  <div class="w-full">
-    <div class="w-full min-w-0 content-block" [style.max-width]="contentMaxSize()">
-      <ng-content select="[id=phonePage]" />
-    </div>
+<div
+  class="grid place-self-center grid-cols-1 grid-rows-[auto_auto_auto] lg:grid-cols-[3fr_2fr] lg:grid-rows-[auto_auto]"
+>
+  <div class="row-start-1 max-w-4xl lg:row-start-1 lg:col-start-1 min-w-0 content-block merge-top">
+    <ng-content select="[id=header]"></ng-content>
   </div>
-} @else {
-  <div class="flex flex-row justify-center w-full">
-    <div class="basis-3/5 min-w-0 w-full content-block" [style.max-width]="contentMaxSize()">
-      <ng-content select="[id=desktopContent]" />
-    </div>
 
-    <div class="basis-2/5 min-w-2xs w-full sidebar" [style.max-width]="sidebarMaxSize()">
-      <ng-content select="[id=desktopSidebar]" />
-    </div>
+  <div
+    class="row-start-2 max-w-4xl lg:max-w-lg lg:row-start-1 lg:row-span-2 lg:col-start-2 content-block merge-middle lg:px-4 lg:border-0 lg:bg-transparent"
+  >
+    <ng-content select="[id=sidebar]"></ng-content>
   </div>
-}
+
+  <div
+    class="row-start-3 max-w-4xl lg:row-start-2 lg:col-start-1 min-w-0 content-block merge-bottom"
+  >
+    <ng-content select="[id=content]"></ng-content>
+  </div>
+</div>

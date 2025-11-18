@@ -106,20 +106,12 @@
   }
 </ng-template>
 
-<app-content-page>
-  <ng-container id="phonePage">
+<app-list-page>
+  <div class="w-full max-w-4xl">
     <ng-container *ngTemplateOutlet="breadcrumbs" />
     <ng-container *ngTemplateOutlet="heading" />
     <ng-container *ngTemplateOutlet="ticker" />
     <ng-container *ngTemplateOutlet="form" />
     <ng-container *ngTemplateOutlet="content" />
-  </ng-container>
-
-  <ng-container id="desktopContent">
-    <ng-container *ngTemplateOutlet="breadcrumbs" />
-    <ng-container *ngTemplateOutlet="heading" />
-    <ng-container *ngTemplateOutlet="ticker" />
-    <ng-container *ngTemplateOutlet="form" />
-    <ng-container *ngTemplateOutlet="content" />
-  </ng-container>
-</app-content-page>
+  </div>
+</app-list-page>

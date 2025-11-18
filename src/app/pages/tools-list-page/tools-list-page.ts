@@ -2,17 +2,17 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgTemplateOutlet } from '@angular/common';
 
-import { ContentPageComponent } from '../../components/content-page/content-page';
 import { GradientOverlayComponent } from '../../components/gradient-overlay/gradient-overlay';
 import { BreadcrumbsComponent } from '../../components/breadcrumbs/breadcrumbs';
 import { Tool, ToolApiService } from '../../services/tool-api';
 import { MetaService } from '../../services/meta';
 import { ImageComponent } from '../../components/elements/image/image';
+import { ListPageComponent } from '../../components/list-page/list-page';
 
 @Component({
   selector: 'app-tools-list-page',
   imports: [
-    ContentPageComponent,
+    ListPageComponent,
     NgTemplateOutlet,
     RouterLink,
     GradientOverlayComponent,

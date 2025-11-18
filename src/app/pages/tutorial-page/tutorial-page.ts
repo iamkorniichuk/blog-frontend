@@ -1,4 +1,4 @@
-import { Component, inject, input, OnInit, signal } from '@angular/core';
+import { Component, inject, input, OnInit } from '@angular/core';
 import { DatePipe, NgTemplateOutlet } from '@angular/common';
 
 import { Tutorial } from '../../services/tutorial-api';
@@ -8,7 +8,6 @@ import { ContentPageComponent } from '../../components/content-page/content-page
 import { GradientOverlayComponent } from '../../components/gradient-overlay/gradient-overlay';
 import { MarkdownAstPipe } from '../../pipes/markdown-ast-pipe';
 import { TocMarkdownComponent } from '../../components/toc-markdown/toc-markdown';
-import { IconComponent } from '../../components/icon/icon';
 import { BreadcrumbsComponent } from '../../components/breadcrumbs/breadcrumbs';
 import { MetaService } from '../../services/meta';
 import { ImageComponent } from '../../components/elements/image/image';
@@ -24,7 +23,6 @@ import { ImageComponent } from '../../components/elements/image/image';
     ContentPageComponent,
     GradientOverlayComponent,
     TocMarkdownComponent,
-    IconComponent,
     BreadcrumbsComponent,
     ImageComponent,
   ],
@@ -34,7 +32,6 @@ export class TutorialPageComponent implements OnInit {
   private metaService = inject(MetaService);
 
   tutorial = input.required<Tutorial>();
-  isPopupVisible = signal<boolean>(false);
 
   ngOnInit() {
     const title = this.tutorial().title;
@@ -57,9 +54,5 @@ export class TutorialPageComponent implements OnInit {
       modifiedAt,
       tags,
     });
-  }
-
-  togglePopupVisibility() {
-    this.isPopupVisible.update((current) => !current);
   }
 }

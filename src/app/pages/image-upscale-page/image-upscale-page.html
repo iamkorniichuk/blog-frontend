@@ -211,44 +211,25 @@
 </ng-template>
 
 <app-content-page>
-  <ng-container id="phonePage">
+  <ng-container id="header">
     <ng-container *ngTemplateOutlet="breadcrumbs" />
     <ng-container *ngTemplateOutlet="heading" />
     <ng-container *ngTemplateOutlet="ticker" />
-    <div class="card primary">
-      <ng-container *ngTemplateOutlet="uploadForm" />
-    </div>
-    <div class="mb-4">
-      @if (upscaleState() === 'inprogress') {
-        <ng-container *ngTemplateOutlet="abortButton" />
-      }
-      @if (upscaleState() === 'done') {
-        <ng-container *ngTemplateOutlet="downloadAllButton" />
-      }
-    </div>
+  </ng-container>
+  <ng-container id="content">
     <ng-container *ngTemplateOutlet="content" />
   </ng-container>
-
-  <ng-container id="desktopContent">
-    <ng-container *ngTemplateOutlet="breadcrumbs" />
-    <ng-container *ngTemplateOutlet="heading" />
-    <ng-container *ngTemplateOutlet="ticker" />
-    <ng-container *ngTemplateOutlet="content" />
-  </ng-container>
-
-  <ng-container id="desktopSidebar">
-    <div class="content-card primary">
+  <ng-container id="sidebar">
+    <div class="sidebar-card primary">
       <ng-container *ngTemplateOutlet="uploadForm" />
     </div>
-
     @if (upscaleState() === 'inprogress') {
-      <div class="content-card">
+      <div class="sidebar-card">
         <ng-container *ngTemplateOutlet="abortButton" />
       </div>
     }
-
     @if (upscaleState() === 'done') {
-      <div class="content-card">
+      <div class="sidebar-card">
         <ng-container *ngTemplateOutlet="downloadAllButton" />
       </div>
     }
