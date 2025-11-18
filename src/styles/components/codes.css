@@ -16,7 +16,7 @@
 
   .code-inline {
     @apply border border-surface-extra-accent rounded-xl overflow-hidden;
-    @apply items-center bg-surface-muted px-2 py-0.5;
+    @apply items-center bg-surface-muted px-2 py-0.5 leading-7;
   }
 
   pre,

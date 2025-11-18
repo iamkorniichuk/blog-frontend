@@ -62,12 +62,7 @@
 </ng-template>
 
 <ng-template #inlineCode let-node>
-  <app-code-block
-    [code]="node.value"
-    [fileType]="node.lang"
-    [fileName]="node.meta"
-    [isMultiline]="false"
-  />
+  <app-code-block [code]="node.value" [isMultiline]="false" />
 </ng-template>
 
 <ng-template #italic let-node>

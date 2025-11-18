@@ -1,4 +1,4 @@
-import { isPlatformBrowser, NgTemplateOutlet } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import {
   Component,
   ElementRef,
@@ -30,7 +30,7 @@ export type FileType =
 
 @Component({
   selector: 'app-code-block',
-  imports: [IconComponent, NgTemplateOutlet],
+  imports: [IconComponent],
   templateUrl: './code-block.html',
   host: { ngSkipHydration: 'true' },
 })

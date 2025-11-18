@@ -6,7 +6,9 @@
       </div>
     }
     <div class="relative">
-      <pre class="code-pre"><ng-container *ngTemplateOutlet="codeWrap"/></pre>
+      <pre
+        class="code-pre"
+      ><code #codeBlock [attr.class]="'language-' + fileType()">{{ code() }}</code></pre>
       <button class="btn btn-primary btn-icon surface absolute top-1 right-5" (click)="copyCode()">
         <app-icon icon="copy" title="Copy code" />
       </button>
@@ -14,10 +16,6 @@
   </div>
 } @else {
   <span [class]="class()" class="code-inline">
-    <ng-container *ngTemplateOutlet="codeWrap" />
+    {{ code() }}
   </span>
 }
-
-<ng-template #codeWrap>
-  <code #codeBlock [attr.class]="'language-' + fileType()">{{ code() }}</code>
-</ng-template>
