@@ -70,13 +70,30 @@ export class TextReplacePageComponent implements OnInit {
     const replace = this.replaceInput();
     const text = this.textInput();
 
-    console.log(find);
-    console.log(replace);
-    console.log(text);
-
     const result = text.replace(new RegExp(find, 'g'), replace);
-    const unescapedResult = JSON.parse(`"${result}"`);
-    this.results.set(unescapedResult);
+    const parsedResult = this.unescapeString(result);
+    this.results.set(parsedResult);
+  }
+
+  unescapeString(value: string): string {
+    return value.replace(/\\(\\|n|r|t|b|f)/g, (match, sequence) => {
+      switch (sequence) {
+        case 'n':
+          return '\n';
+        case 'r':
+          return '\r';
+        case 't':
+          return '\t';
+        case 'b':
+          return '\b';
+        case 'f':
+          return '\f';
+        case '\\':
+          return '\\';
+        default:
+          return sequence;
+      }
+    });
   }
 
   copyResult() {
