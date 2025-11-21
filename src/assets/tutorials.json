@@ -1,4 +1,92 @@
 {
+    "how-to-create-github-template-repository": {
+        "id": "how-to-create-github-template-repository",
+        "title": "How to Create GitHub Template Repository",
+        "description": "Learn how to convert any GitHub repository into a reusable template.",
+        "image": {
+            "images": {
+                "image/avif": [
+                    {
+                        "src": "./images/tutorial-covers/github-template_1640.avif",
+                        "width": 1640,
+                        "height": 856
+                    },
+                    {
+                        "src": "./images/tutorial-covers/github-template_1024.avif",
+                        "width": 1024,
+                        "height": 534
+                    },
+                    {
+                        "src": "./images/tutorial-covers/github-template_768.avif",
+                        "width": 768,
+                        "height": 401
+                    },
+                    {
+                        "src": "./images/tutorial-covers/github-template_480.avif",
+                        "width": 480,
+                        "height": 251
+                    }
+                ],
+                "image/webp": [
+                    {
+                        "src": "./images/tutorial-covers/github-template_1640.webp",
+                        "width": 1640,
+                        "height": 856
+                    },
+                    {
+                        "src": "./images/tutorial-covers/github-template_1024.webp",
+                        "width": 1024,
+                        "height": 534
+                    },
+                    {
+                        "src": "./images/tutorial-covers/github-template_768.webp",
+                        "width": 768,
+                        "height": 401
+                    },
+                    {
+                        "src": "./images/tutorial-covers/github-template_480.webp",
+                        "width": 480,
+                        "height": 251
+                    }
+                ],
+                "image/png": [
+                    {
+                        "src": "./images/tutorial-covers/github-template_1640.png",
+                        "width": 1640,
+                        "height": 856
+                    },
+                    {
+                        "src": "./images/tutorial-covers/github-template_1024.png",
+                        "width": 1024,
+                        "height": 534
+                    },
+                    {
+                        "src": "./images/tutorial-covers/github-template_768.png",
+                        "width": 768,
+                        "height": 401
+                    },
+                    {
+                        "src": "./images/tutorial-covers/github-template_480.png",
+                        "width": 480,
+                        "height": 251
+                    }
+                ]
+            },
+            "ratio": {
+                "width": 205,
+                "height": 107
+            },
+            "alt": "A screenshot from GitHub on a white background where \"Use this template\" button and a dropdown consisting of \"Create a new repository\" and \"Open in a codespace\" placed"
+        },
+        "content": "## Introduction\n\nA template repository on GitHub is like a starter kit: people can generate new projects from it without copying commits, branches, or your entire git history. It’s a neat way to share boilerplates, starter kits, or example projects without forcing anyone to fork or clone manually.\n\n## Solution\n\nThere is a straightforward walkthrough showing how to enable the template feature in any GitHub repository. The screenshots show what this looks like in practice.\n\n![Repository header with \"Template\" badge and \"Use as template\" button](./images/template-repo.png)\n\n### 1. Go to the Repository Settings\n\nInside the repo, open the **Settings** tab.\nThis is where GitHub hides all the switches that can change how a repo behaves.\n\n### 2. Enable “Template Repository”\n\nScroll down to the **General** section.\nNear the top you’ll find a checkbox labeled **Template repository**.\n\nTurn it on.\n\n![Template checkbox inside settings](./images/template-settings.png)\n\nOnce checked, the repository immediately becomes a template; there’s no save button needed.\n\n## What Happens After You Enable It\n\nEnabling this option adds a green **\"Use this template\"** button on the repo’s main page. Anyone who clicks it can generate a brand-new repository with the same directory structure and files. No git history is carried over, so the new repo starts clean.\n\nThis is perfect for:\n\n• Boilerplate project setups\n• Reproducible course materials\n• Starter kits for company projects\n• Internal standards for new repos\n\n## Limitations and Gotchas\n\nTemplates are useful, but they aren’t magic.\n\nA few practical notes:\n\n* A template is *copied*, not *linked*. Updating the template later won’t update repositories created from it.\n* GitHub Actions inside templates remain active in new repos, which is usually helpful — but worth remembering if you’re including CI/CD workflows.\n* Large binary files or submodules carry over as-is, which may not be desirable.\n* Templates aren’t a replacement for dependency management or package scaffolding tools (like Angular schematics, Poetry, Cargo, npm create-app scripts). They’re best for file-based structure, not dynamic project setup.\n",
+        "solution": "1. Open your GitHub repository\n2. Head to **\"Settings\"**\n3. Under **\"General\"** tab toggle on **\"Template repository\"** option",
+        "tags": [
+            "GitHub",
+            "DevOps"
+        ],
+        "createdAt": "2025-10-21T17:54:00+02:00",
+        "modifiedAt": null
+    },
     "ng-new-options-explained-in-angular-v20": {
         "id": "ng-new-options-explained-in-angular-v20",
         "title": "ng new Options Explained in Angular V20",
